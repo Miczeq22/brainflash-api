@@ -1,0 +1,24 @@
+{
+  "extends": ["airbnb-typescript"],
+  "parserOptions": {
+    "project": "./tsconfig.json"
+  },
+  "overrides": [
+    {
+      "files": ["*.ts"],
+      "rules": {
+        "import/prefer-default-export": "off",
+        "import/order": "off",
+        "implicit-arrow-linebreak": "off",
+        "function-paren-newline": "off",
+        "consistent-return": "off",
+        "object-curly-newline": "off",
+        "operator-linebreak": "off",
+        "no-restricted-syntax": "off",
+        "class-methods-use-this": "off",
+        "import/no-cycle": "off",
+        "@typescript-eslint/indent": "off"
+      }
+    }
+  ]
+}

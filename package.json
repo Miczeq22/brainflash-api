@@ -1,0 +1,37 @@
+{
+  "scripts": {
+    "start": "NODE_ENV=production node dist",
+    "build": "tsc -p tsconfig.build.json",
+    "docker-build-prod": "docker build -t brainflash-api:latest -f ./docker/prod/Dockerfile .",
+    "dev": "NODE_ENV=development nodemon --watch \"src/**/*.ts\" --exec \"ts-node -r tsconfig-paths/register\" ./src/index.ts",
+    "test": "NODE_ENV=test jest --config ./jest.config.js",
+    "test:watch": "NODE_ENV=test jest --config ./jest.config.js --watch",
+    "test:ci": "NODE_ENV=test jest --config ./jest.config.js --ci --coverage --forceExit",
+    "lint": "eslint --ext .ts \"src/**/*\"",
+    "format": "prettier --write \"src/**/*\"",
+    "typecheck": "tsc --noEmit",
+    "version": "conventional-changelog -p emojis -i CHANGELOG.md -s -r 0 && git add CHANGELOG.md"
+  },
+  "devDependencies": {
+    "@types/jest": "^26.0.10",
+    "@typescript-eslint/eslint-plugin": "^3.10.1",
+    "conventional-changelog-cli": "^2.1.0",
+    "conventional-changelog-core": "^4.2.0",
+    "conventional-changelog-emojis": "^3.1.0",
+    "eslint": "^7.7.0",
+    "eslint-config-airbnb-typescript": "^9.0.0",
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-jsx-a11y": "^6.3.1",
+    "eslint-plugin-react": "^7.20.6",
+    "husky": "^4.2.5",
+    "jest": "^26.4.2",
+    "nodemon": "^2.0.4",
+    "prettier": "^2.1.0",
+    "pretty-quick": "^3.0.0",
+    "supertest": "^4.0.2",
+    "ts-jest": "^26.2.0",
+    "ts-node": "^9.0.0",
+    "tsconfig-paths": "^3.9.0",
+    "typescript": "^4.0.2"
+  }
+}
