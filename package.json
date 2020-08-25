@@ -12,8 +12,19 @@
     "typecheck": "tsc --noEmit",
     "version": "conventional-changelog -p emojis -i CHANGELOG.md -s -r 0 && git add CHANGELOG.md"
   },
+  "_moduleAliases": {
+    "@root": ".",
+    "@api": "dist/api",
+    "@app": "dist/app",
+    "@infrastructure": "dist/infrastructure",
+    "@tools": "dist/tools",
+    "@errors": "dist/errors",
+    "@core": "dist/core"
+  },
   "devDependencies": {
+    "@types/express": "^4.17.7",
     "@types/jest": "^26.0.10",
+    "@types/winston": "^2.4.4",
     "@typescript-eslint/eslint-plugin": "^3.10.1",
     "conventional-changelog-cli": "^2.1.0",
     "conventional-changelog-core": "^4.2.0",
@@ -33,5 +44,12 @@
     "ts-node": "^9.0.0",
     "tsconfig-paths": "^3.9.0",
     "typescript": "^4.0.2"
+  },
+  "dependencies": {
+    "awilix": "^4.2.6",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "module-alias": "^2.2.2",
+    "winston": "^3.3.3"
   }
 }
