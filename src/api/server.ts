@@ -1,6 +1,7 @@
 import express, { Application } from 'express';
 import corsMiddleware from './middlewares/cors/cors.middleware';
 import compression from 'compression';
+import { applySecurityMiddleware } from './middlewares/security/security.middleware';
 
 export class Server {
   private readonly app: Application;
@@ -13,6 +14,7 @@ export class Server {
 
   private init() {
     this.app.use(express.json());
+    applySecurityMiddleware(this.app);
     this.app.use(compression());
     this.app.use(corsMiddleware);
 
