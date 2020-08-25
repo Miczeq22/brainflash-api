@@ -4,7 +4,8 @@
 ### Features
 
 - CORS middleware ([8372ca3](https://github.com/Miczeq22/brainflash-api/commit/8372ca37caebd56533d39955684fd793e5582dbf))
-- Security Middleware ([1beb295](https://github.com/Miczeq22/brainflash-api/commit/1beb29568cb7434d62bcf9dda11b7a6452f1b125))
+- Error handler middleware ([cb0f74d](https://github.com/Miczeq22/brainflash-api/commit/cb0f74d0644c06c66fa0bb04c7e95303e89e88aa))
+- Security Middleware ([08ea082](https://github.com/Miczeq22/brainflash-api/commit/08ea0826dfcd30484a390e23665a6e443a624dd0))
 - Server bootstrap ([9a1e2f2](https://github.com/Miczeq22/brainflash-api/commit/9a1e2f21d6db5e1b62a5df019e4a8bfb975fb921))
 
 
