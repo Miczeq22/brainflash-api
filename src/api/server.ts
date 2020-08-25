@@ -2,11 +2,18 @@ import express, { Application } from 'express';
 import corsMiddleware from './middlewares/cors/cors.middleware';
 import compression from 'compression';
 import { applySecurityMiddleware } from './middlewares/security/security.middleware';
+import { NotFoundError } from '@errors/not-found.error';
+import { errorHandlerMiddleware } from './middlewares/error-handler/error-handler.middleware';
+import { Logger } from '@infrastructure/logger/logger';
+
+interface Dependencies {
+  logger: Logger;
+}
 
 export class Server {
   private readonly app: Application;
 
-  constructor() {
+  constructor(private readonly dependencies: Dependencies) {
     this.app = express();
 
     this.init();
@@ -23,6 +30,10 @@ export class Server {
         message: 'Hello, World!',
       });
     });
+
+    this.app.use('*', (_, __, next) => next(new NotFoundError('Route does not exist.')));
+
+    this.app.use(errorHandlerMiddleware(this.dependencies.logger));
   }
 
   public getApp() {
