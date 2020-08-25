@@ -1,5 +1,9 @@
 # Brainflash API
 
+![Production Build](https://github.com/Miczeq22/brainflash-api/workflows/Production%20Build/badge.svg)
+![Lint Check](https://github.com/Miczeq22/brainflash-api/workflows/Lint%20Check/badge.svg)
+![Test](https://github.com/Miczeq22/brainflash-api/workflows/Test/badge.svg)
+
 ---
 
 Server for Brainflash application, which is a flashcard portal.
