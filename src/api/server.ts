@@ -1,4 +1,6 @@
 import express, { Application } from 'express';
+import corsMiddleware from './middlewares/cors/cors.middleware';
+import compression from 'compression';
 
 export class Server {
   private readonly app: Application;
@@ -11,6 +13,8 @@ export class Server {
 
   private init() {
     this.app.use(express.json());
+    this.app.use(compression());
+    this.app.use(corsMiddleware);
 
     this.app.get('/', (req, res) => {
       res.status(200).json({
