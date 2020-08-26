@@ -5,7 +5,7 @@ import { BusinessRuleValidationError } from '@errors/business-rule-validation.er
 
 export abstract class Entity<T> {
   constructor(
-    public readonly props: T,
+    protected readonly props: T,
     protected readonly id: UniqueEntityID = new UniqueEntityID(),
   ) {}
 
