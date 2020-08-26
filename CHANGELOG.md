@@ -13,7 +13,8 @@
 
 ### Tooling
 
-- Added postgres database layer ([e7e2fc6](https://github.com/Miczeq22/brainflash-api/commit/e7e2fc641f88e5ffe5b2ff1a35ea26fcb0de6ebe))
+- Added postgres database layer ([164a310](https://github.com/Miczeq22/brainflash-api/commit/164a31087b591c996669ca37681223cd52067272))
+- Processing tools ([fcd01ac](https://github.com/Miczeq22/brainflash-api/commit/fcd01acb72fb3b6d5d5f2a214ce88490af740703))
 
 
 ### Documentation
