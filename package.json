@@ -2,11 +2,12 @@
   "scripts": {
     "start": "NODE_ENV=production node dist",
     "build": "tsc -p tsconfig.build.json",
+    "migration": "knex migrate:latest",
     "docker-build-prod": "docker build -t brainflash-api:latest -f ./docker/prod/Dockerfile .",
     "dev": "NODE_ENV=development nodemon --watch \"src/**/*.ts\" --exec \"ts-node -r tsconfig-paths/register\" ./src/index.ts",
     "test": "NODE_ENV=test jest --config ./jest.config.js",
     "test:watch": "NODE_ENV=test jest --config ./jest.config.js --watch",
-    "test:ci": "NODE_ENV=test jest --config ./jest.config.js --ci --coverage --forceExit",
+    "test:ci": "NODE_ENV=test docker-compose up -d database && jest --config ./jest.config.js --ci --coverage --forceExit",
     "lint": "eslint --ext .ts \"src/**/*\"",
     "format": "prettier --write \"src/**/*\"",
     "typecheck": "tsc --noEmit",
@@ -62,7 +63,9 @@
     "express-enforces-ssl": "^1.1.0",
     "helmet": "^4.1.0",
     "hpp": "^0.2.3",
+    "knex": "^0.21.5",
     "module-alias": "^2.2.2",
+    "pg": "^8.3.2",
     "uuid": "^8.3.0",
     "winston": "^3.3.3"
   }

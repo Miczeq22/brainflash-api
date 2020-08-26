@@ -1,0 +1,27 @@
+version: '3.5'
+
+services:
+  database:
+    container_name: postgres-db
+    image: postgres:10.5-alpine
+    ports:
+      - $POSTGRES_PORT:5432
+    environment:
+      - POSTGRES_USER=$POSTGRES_USER
+      - POSTGRES_PASSWORD=$POSTGRES_PASSWORD
+      - POSTGRES_DB=$POSTGRES_DB
+    networks:
+      - data
+
+  adminer:
+    container_name: adminer
+    image: adminer
+    ports:
+      - $ADMINER_PORT:8080
+    networks:
+      - data
+    depends_on:
+      - database
+
+networks:
+  data:

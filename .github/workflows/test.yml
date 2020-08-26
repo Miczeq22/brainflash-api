@@ -21,3 +21,10 @@ jobs:
         run: |
           npm install
           npm run test:ci
+        env:
+          POSTGRES_PORT: 5432
+          POSTGRES_USER: miczeq
+          POSTGRES_PASSWORD: root
+          POSTGRES_DB: data
+          POSTGRES_HOST: localhost
+          ADMINER_PORT: 8080
