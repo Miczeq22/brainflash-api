@@ -4,6 +4,8 @@ services:
   database:
     container_name: postgres-db
     image: postgres:10.5-alpine
+    volumes:
+      - ./$POSTGRES_MIGRATION_PATH:/docker-entrypoint-initdb.d
     ports:
       - $POSTGRES_PORT:5432
     environment:

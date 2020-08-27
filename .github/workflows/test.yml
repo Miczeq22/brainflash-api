@@ -28,3 +28,4 @@ jobs:
           POSTGRES_DB: data
           POSTGRES_HOST: localhost
           ADMINER_PORT: 8080
+          POSTGRES_MIGRATION_PATH: src/infrastructure/database/sql

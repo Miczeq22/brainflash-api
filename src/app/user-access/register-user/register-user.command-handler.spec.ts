@@ -17,8 +17,8 @@ describe('[App] Register user command', () => {
     emailChecker.isUnique.mockResolvedValue(true);
 
     const handler = new RegisterUserCommandHandler({
-      emailChecker,
       userRegistrationRepository,
+      uniqueEmailChecker: emailChecker,
     });
 
     await handler.handle(

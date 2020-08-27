@@ -3,6 +3,8 @@ import { Logger } from '@infrastructure/logger/logger';
 import { ErrorRequestHandler } from 'express';
 import { AppError } from '@errors/app.error';
 import { NotFoundError } from '@errors/not-found.error';
+import { isCelebrate, CelebrateInternalError } from 'celebrate';
+import { BusinessRuleValidationError } from '@errors/business-rule-validation.error';
 
 export const errorHandlerMiddleware = (logger: Logger): ErrorRequestHandler => (
   error,
@@ -12,11 +14,26 @@ export const errorHandlerMiddleware = (logger: Logger): ErrorRequestHandler => (
 ) => {
   logger.error('[API Error]', error);
 
+  if (isCelebrate(error)) {
+    return res.status(422).json({
+      error: 'Input Validation Error',
+      details: (error as CelebrateInternalError).joi.details.map((detail) => ({
+        key: detail.context.key,
+        message: detail.message,
+      })),
+    });
+  }
+
   switch ((error as AppError).name) {
     case AppError.name:
     default:
       return res.status(500).json({
         error: (error as AppError).message,
+      });
+
+    case BusinessRuleValidationError.name:
+      return res.status(400).json({
+        error: (error as BusinessRuleValidationError).message,
       });
 
     case NotFoundError.name:
