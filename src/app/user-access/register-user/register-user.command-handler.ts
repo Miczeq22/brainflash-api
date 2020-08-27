@@ -7,7 +7,7 @@ import { DomainEvents } from '@core/shared/domain-events';
 
 interface Dependencies {
   userRegistrationRepository: UserRegistrationRepository;
-  emailChecker: UniqueEmailChecker;
+  uniqueEmailChecker: UniqueEmailChecker;
 }
 
 export class RegisterUserCommandHandler extends CommandHandler<RegisterUserCommand> {
@@ -16,9 +16,9 @@ export class RegisterUserCommandHandler extends CommandHandler<RegisterUserComma
   }
 
   public async handle({ payload }: RegisterUserCommand) {
-    const { userRegistrationRepository, emailChecker } = this.dependencies;
+    const { userRegistrationRepository, uniqueEmailChecker } = this.dependencies;
 
-    const userRegistration = await UserRegistration.registerNew(payload, emailChecker);
+    const userRegistration = await UserRegistration.registerNew(payload, uniqueEmailChecker);
 
     await userRegistrationRepository.insert(userRegistration);
 

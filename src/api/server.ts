@@ -5,9 +5,13 @@ import { applySecurityMiddleware } from './middlewares/security/security.middlew
 import { NotFoundError } from '@errors/not-found.error';
 import { errorHandlerMiddleware } from './middlewares/error-handler/error-handler.middleware';
 import { Logger } from '@infrastructure/logger/logger';
+import { Controller } from './controller';
+import * as swaggerUi from 'swagger-ui-express';
+import { swaggerDocs } from '@infrastructure/swagger';
 
 interface Dependencies {
   logger: Logger;
+  controllers: Controller[];
 }
 
 export class Server {
@@ -26,9 +30,13 @@ export class Server {
     this.app.use(corsMiddleware);
 
     this.app.get('/', (req, res) => {
-      res.status(200).json({
-        message: 'Hello, World!',
-      });
+      res.redirect(308, `${req.baseUrl}/api-docs`);
+    });
+
+    this.app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+
+    this.dependencies.controllers.forEach((controller) => {
+      this.app.use(controller.route, controller.getRouter());
     });
 
     this.app.use('*', (_, __, next) => next(new NotFoundError('Route does not exist.')));
