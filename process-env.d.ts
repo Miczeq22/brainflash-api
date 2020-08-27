@@ -15,5 +15,13 @@ declare namespace NodeJS {
     POSTGRES_PASSWORD: string;
     POSTGRES_DB: string;
     POSTRGRES_HOSTNAME: string;
+
+    // Mailer envs
+    MAILHOG_CLIENT_PORT: number;
+    SMTP_PORT: number;
+    MAILHOG_HOST: string;
+    SERVICE_MAIL: string;
+    VERIFICATION_TOKEN_SECRET: string;
+    ADMIN_EMAIL: string;
   }
 }

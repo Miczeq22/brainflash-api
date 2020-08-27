@@ -9,6 +9,7 @@ import { UserRegistrationController } from '@api/domain/user-access/user-registr
 import { CommandHandler } from '@app/processing/command-handler';
 import { RegisterUserCommandHandler } from '@app/user-access/register-user/register-user.command-handler';
 import { CommandBus } from '@app/processing/command-bus';
+import { MailerService } from '@infrastructure/mailer/mailer.service';
 
 const registerAsArray = <T>(resolvers: Awilix.Resolver<T>[]): Awilix.Resolver<T[]> => ({
   resolve: (container: Awilix.AwilixContainer) => resolvers.map((r) => container.build(r)),
@@ -35,6 +36,7 @@ export const createAppContainer = async (): Promise<Awilix.AwilixContainer> => {
     server: Awilix.asClass(Server).singleton(),
     queryBuilder: Awilix.asValue(postgresQueryBuilder),
     uniqueEmailChecker: Awilix.asClass(UniqueEmailCheckerService).singleton(),
+    mailer: Awilix.asClass(MailerService).singleton(),
   });
 
   container.register({

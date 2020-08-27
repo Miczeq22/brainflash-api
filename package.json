@@ -70,6 +70,8 @@
     "hpp": "^0.2.3",
     "knex": "^0.21.5",
     "module-alias": "^2.2.2",
+    "nodemailer": "^6.4.11",
+    "nodemailer-express-handlebars": "^4.0.0",
     "pg": "^8.3.2",
     "swagger-jsdoc": "^4.0.0",
     "swagger-ui-express": "^4.1.4",
