@@ -7,5 +7,5 @@ export interface SendMailPayload {
 }
 
 export interface Mailer {
-  sendMail(payload: SendMainPayload): Promise<void>;
+  sendMail(payload: SendMailPayload): Promise<void>;
 }

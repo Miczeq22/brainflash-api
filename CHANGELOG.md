@@ -1,4 +1,4 @@
-#  (2020-08-27)
+#  (2020-08-28)
 
 
 ### Features
@@ -10,12 +10,13 @@
 - Security Middleware ([08ea082](https://github.com/Miczeq22/brainflash-api/commit/08ea0826dfcd30484a390e23665a6e443a624dd0))
 - Server bootstrap ([9a1e2f2](https://github.com/Miczeq22/brainflash-api/commit/9a1e2f21d6db5e1b62a5df019e4a8bfb975fb921))
 - User Registration Domain ([afd329a](https://github.com/Miczeq22/brainflash-api/commit/afd329aa493813c5f85492ec6582898a363b2ac4))
-- User registration endpoint ([4f08623](https://github.com/Miczeq22/brainflash-api/commit/4f086234f4aad26f6b1b3fd6f84b16f2a5ef2278))
+- User registration endpoint ([f6dd65b](https://github.com/Miczeq22/brainflash-api/commit/f6dd65bcb088abcb1faf699ecd0355da182f25b6))
 
 
 ### Tooling
 
 - Added postgres database layer ([164a310](https://github.com/Miczeq22/brainflash-api/commit/164a31087b591c996669ca37681223cd52067272))
+- Mailer service ([f7ba499](https://github.com/Miczeq22/brainflash-api/commit/f7ba499511a4ef24ea49846e268d2ac9d298d326))
 - Processing tools ([4b91c8d](https://github.com/Miczeq22/brainflash-api/commit/4b91c8d4fbd237d3d4303fddc17155a8b262119f))
 
 
@@ -26,5 +27,6 @@
 
 ### Miscellaneous
 
+-  ✨ Sending register validation email ([25baf35](https://github.com/Miczeq22/brainflash-api/commit/25baf350b4d0c0348e555568a275fe4fff81849f))
 - Project init ([810b859](https://github.com/Miczeq22/brainflash-api/commit/810b859114ba5792eb727801a3231b1f3f2c2fe8))
 

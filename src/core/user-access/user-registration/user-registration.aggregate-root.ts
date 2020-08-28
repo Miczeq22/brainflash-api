@@ -45,7 +45,9 @@ export class UserRegistration extends AggregateRoot<UserRegistrationProps> {
 
     await userRegistration.hashPassword();
 
-    userRegistration.addDomainEvent(new UserRegisteredDomainEvent(email, username));
+    userRegistration.addDomainEvent(
+      new UserRegisteredDomainEvent(email, username, userRegistration.getId().getValue()),
+    );
 
     return userRegistration;
   }
