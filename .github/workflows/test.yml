@@ -29,3 +29,9 @@ jobs:
           POSTGRES_HOST: localhost
           ADMINER_PORT: 8080
           POSTGRES_MIGRATION_PATH: src/infrastructure/database/sql
+          MAILHOG_CLIENT_PORT: 8025
+          SMTP_PORT: 1025
+          MAILHOG_HOST: localhost
+          SERVICE_MAIL: team@brainflash.com
+          VERIFICATION_TOKEN_SECRET: wqoek_oqwkeowko210323qwoqkdo
+          ADMIN_EMAIL: admin@brainflash.com
