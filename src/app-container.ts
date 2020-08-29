@@ -13,6 +13,9 @@ import { MailerService } from '@infrastructure/mailer/mailer.service';
 import { DomainSubscriber } from '@core/shared/domain-subscriber';
 import { UserRegisteredSubscriber } from '@app/user-access/register-user/user-registered.subscriber';
 import { ConfirmAccountCommandHandler } from '@app/user-access/confirm-account/confirm-account.command-handler';
+import { UserRepositoryImpl } from '@infrastructure/domain/user-access/user/user.repository';
+import { UserAccessController } from '@api/domain/user-access/user/user-access.controller';
+import { LoginCommandHandler } from '@app/user-access/login/login.command-handler';
 
 const registerAsArray = <T>(resolvers: Awilix.Resolver<T>[]): Awilix.Resolver<T[]> => ({
   resolve: (container: Awilix.AwilixContainer) => resolvers.map((r) => container.build(r)),
@@ -45,19 +48,22 @@ export const createAppContainer = async (): Promise<Awilix.AwilixContainer> => {
   container.register({
     controllers: registerAsArray<Controller>([
       Awilix.asClass(UserRegistrationController).singleton(),
+      Awilix.asClass(UserAccessController).singleton(),
     ]),
   });
 
   container.register({
     commandBus: Awilix.asClass(CommandBus).singleton(),
     commandHandlers: registerAsArray<CommandHandler<any>>([
-      Awilix.asClass(RegisterUserCommandHandler),
-      Awilix.asClass(ConfirmAccountCommandHandler),
+      Awilix.asClass(RegisterUserCommandHandler).singleton(),
+      Awilix.asClass(ConfirmAccountCommandHandler).singleton(),
+      Awilix.asClass(LoginCommandHandler).singleton(),
     ]),
   });
 
   container.register({
     userRegistrationRepository: Awilix.asClass(UserRegistrationRepositoryImpl).singleton(),
+    userRepository: Awilix.asClass(UserRepositoryImpl).singleton(),
   });
 
   container.register({

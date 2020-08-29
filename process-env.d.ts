@@ -7,6 +7,7 @@ declare namespace NodeJS {
     PORT: number;
     LOGGING_LEVEL: 'error' | 'warn' | 'info' | 'verbose' | 'debug';
     CORS_WHITE_LIST: string;
+    JWT_TOKEN: string;
 
     // Postgres Database envs
     POSTGRES_MIGRATION_PATH: string;
