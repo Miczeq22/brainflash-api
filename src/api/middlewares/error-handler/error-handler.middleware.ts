@@ -5,6 +5,7 @@ import { AppError } from '@errors/app.error';
 import { NotFoundError } from '@errors/not-found.error';
 import { isCelebrate, CelebrateInternalError } from 'celebrate';
 import { BusinessRuleValidationError } from '@errors/business-rule-validation.error';
+import { UnauthorizedError } from '@errors/unauthorized.error';
 
 export const errorHandlerMiddleware = (logger: Logger): ErrorRequestHandler => (
   error,
@@ -34,6 +35,11 @@ export const errorHandlerMiddleware = (logger: Logger): ErrorRequestHandler => (
     case BusinessRuleValidationError.name:
       return res.status(400).json({
         error: (error as BusinessRuleValidationError).message,
+      });
+
+    case UnauthorizedError.name:
+      return res.status(401).json({
+        error: (error as UnauthorizedError).message,
       });
 
     case NotFoundError.name:
