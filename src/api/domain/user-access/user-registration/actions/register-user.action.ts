@@ -26,7 +26,7 @@ export const RegisterUserValidation = celebrate(
  * /register:
  *   post:
  *     tags:
- *       - User registration
+ *       - User Registration
  *     security: []
  *     summary: Register new user account
  *     requestBody:

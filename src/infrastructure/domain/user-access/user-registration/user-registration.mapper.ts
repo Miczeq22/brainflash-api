@@ -1,4 +1,5 @@
 import { UserRegistration } from '@core/user-access/user-registration/user-registration.aggregate-root';
+import { UniqueEntityID } from '@core/shared/unique-entity-id';
 
 export interface UserRegistrationRecord {
   id: string;
@@ -25,5 +26,23 @@ export class UserRegistrationMapper {
         ? userRegistration.getConfirmationDate().toISOString()
         : null,
     };
+  }
+
+  public static toEntity({
+    id,
+    account_status,
+    registration_date,
+    confirmation_date,
+    ...rest
+  }: UserRegistrationRecord): UserRegistration {
+    return UserRegistration.instanceExisting(
+      {
+        ...rest,
+        accountStatus: account_status,
+        confirmationDate: confirmation_date ? new Date(confirmation_date) : null,
+        registrationDate: new Date(registration_date),
+      },
+      new UniqueEntityID(id),
+    );
   }
 }

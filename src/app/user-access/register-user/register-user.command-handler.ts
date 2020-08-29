@@ -22,6 +22,6 @@ export class RegisterUserCommandHandler extends CommandHandler<RegisterUserComma
 
     await userRegistrationRepository.insert(userRegistration);
 
-    await DomainEvents.dispatchDomainEventsForAggregate(userRegistration.getId());
+    DomainEvents.dispatchDomainEventsForAggregate(userRegistration.getId());
   }
 }

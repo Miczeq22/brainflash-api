@@ -12,6 +12,7 @@ import { CommandBus } from '@app/processing/command-bus';
 import { MailerService } from '@infrastructure/mailer/mailer.service';
 import { DomainSubscriber } from '@core/shared/domain-subscriber';
 import { UserRegisteredSubscriber } from '@app/user-access/register-user/user-registered.subscriber';
+import { ConfirmAccountCommandHandler } from '@app/user-access/confirm-account/confirm-account.command-handler';
 
 const registerAsArray = <T>(resolvers: Awilix.Resolver<T>[]): Awilix.Resolver<T[]> => ({
   resolve: (container: Awilix.AwilixContainer) => resolvers.map((r) => container.build(r)),
@@ -51,6 +52,7 @@ export const createAppContainer = async (): Promise<Awilix.AwilixContainer> => {
     commandBus: Awilix.asClass(CommandBus).singleton(),
     commandHandlers: registerAsArray<CommandHandler<any>>([
       Awilix.asClass(RegisterUserCommandHandler),
+      Awilix.asClass(ConfirmAccountCommandHandler),
     ]),
   });
 
