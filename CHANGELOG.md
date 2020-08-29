@@ -1,8 +1,9 @@
-#  (2020-08-28)
+#  (2020-08-29)
 
 
 ### Features
 
+- Confirm user account feature ([cdb4508](https://github.com/Miczeq22/brainflash-api/commit/cdb45085547ee0baefac05c3726a57a706ca3d84))
 - CORS middleware ([8372ca3](https://github.com/Miczeq22/brainflash-api/commit/8372ca37caebd56533d39955684fd793e5582dbf))
 - Domain tools ([1ed8e4c](https://github.com/Miczeq22/brainflash-api/commit/1ed8e4cb026d418a42e511f144e77165af732d08))
 - Error handler middleware ([d62e86f](https://github.com/Miczeq22/brainflash-api/commit/d62e86f46c1b8422a5b32d85680b8e12d2383a98))
@@ -11,6 +12,11 @@
 - Server bootstrap ([9a1e2f2](https://github.com/Miczeq22/brainflash-api/commit/9a1e2f21d6db5e1b62a5df019e4a8bfb975fb921))
 - User Registration Domain ([afd329a](https://github.com/Miczeq22/brainflash-api/commit/afd329aa493813c5f85492ec6582898a363b2ac4))
 - User registration endpoint ([f6dd65b](https://github.com/Miczeq22/brainflash-api/commit/f6dd65bcb088abcb1faf699ecd0355da182f25b6))
+
+
+### Refactoring & Improvements
+
+- Refactored domain events to use map instead object ([92e27be](https://github.com/Miczeq22/brainflash-api/commit/92e27be8b9e7a6b7e390a4ed7ac394ba86f4ceac))
 
 
 ### Tooling
@@ -27,6 +33,6 @@
 
 ### Miscellaneous
 
--  ✨ Sending register validation email ([25baf35](https://github.com/Miczeq22/brainflash-api/commit/25baf350b4d0c0348e555568a275fe4fff81849f))
+-  ✨ Sending register validation email ([2213f59](https://github.com/Miczeq22/brainflash-api/commit/2213f59417149af361e5c0dbf62792f11dfb3df1))
 - Project init ([810b859](https://github.com/Miczeq22/brainflash-api/commit/810b859114ba5792eb727801a3231b1f3f2c2fe8))
 
