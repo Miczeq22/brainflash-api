@@ -3,7 +3,7 @@ import { UniqueEntityID } from './unique-entity-id';
 import { DomainEvent } from './domain-event';
 
 export class DomainEvents {
-  private static handlersMap = {};
+  private static handlersMap = new Map<string, Function[]>();
 
   private static markedAggregates: AggregateRoot<unknown>[] = [];
 
@@ -34,15 +34,15 @@ export class DomainEvents {
   }
 
   public static register(callback: (event: DomainEvent) => void, eventName: string) {
-    if (!(eventName in this.handlersMap)) {
-      this.handlersMap[eventName] = [];
+    if (!this.handlersMap.has(eventName)) {
+      this.handlersMap.set(eventName, []);
     }
 
-    this.handlersMap[eventName].push(callback);
+    this.handlersMap.set(eventName, [...this.handlersMap.get(eventName), callback]);
   }
 
   public static clearHandlers() {
-    this.handlersMap = {};
+    this.handlersMap.clear();
   }
 
   public static clearMarkedAggregates() {
@@ -50,8 +50,8 @@ export class DomainEvents {
   }
 
   private static async dispatch(event: DomainEvent) {
-    if (event.name in this.handlersMap) {
-      const handlers = this.handlersMap[event.name];
+    if (this.handlersMap.has(event.name)) {
+      const handlers = this.handlersMap.get(event.name);
 
       for (const handler of handlers) {
         handler(event);
