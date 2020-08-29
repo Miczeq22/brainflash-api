@@ -39,7 +39,7 @@ export class UserRegisteredSubscriber extends DomainSubscriber<UserRegisteredDom
       to: event.email,
       payload: {
         username: event.username,
-        link: `${process.env.PROTOCOL}://${process.env.HOST}:${process.env.PORT}/register/activate?token=${token}`,
+        link: `${process.env.PROTOCOL}://${process.env.HOST}:${process.env.PORT}/register/confirm?token=${token}`,
       },
       subject: 'Brainflash - Account registration',
       template: 'activate-account',

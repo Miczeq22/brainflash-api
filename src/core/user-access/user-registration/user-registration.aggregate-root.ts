@@ -7,6 +7,8 @@ import {
   UniqueEmailChecker,
 } from './rules/user-should-have-unique-email.rule';
 import { UserRegisteredDomainEvent } from './events/user-registered.domain-event';
+import { AccountCannotBeExpiredRule } from './rules/account-cannot-be-expired.rule';
+import { AccountCannotBeActivatedMoreThanOnceRule } from './rules/account-cannot-be-activated-more-than-once.rule';
 
 interface UserRegistrationProps {
   username: string;
@@ -50,6 +52,20 @@ export class UserRegistration extends AggregateRoot<UserRegistrationProps> {
     );
 
     return userRegistration;
+  }
+
+  public static instanceExisting(props: UserRegistrationProps, id: UniqueEntityID) {
+    return new UserRegistration(props, id);
+  }
+
+  public confirmAccount() {
+    UserRegistration.checkRule(new AccountCannotBeExpiredRule(this.props.accountStatus));
+    UserRegistration.checkRule(
+      new AccountCannotBeActivatedMoreThanOnceRule(this.props.accountStatus),
+    );
+
+    this.props.accountStatus = AccountStatus.Confirmed.getValue();
+    this.props.confirmationDate = new Date();
   }
 
   private async hashPassword() {
