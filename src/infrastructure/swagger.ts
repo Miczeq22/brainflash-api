@@ -10,9 +10,9 @@ export const swaggerDocs = jsdoc({
     components: {
       securitySchemes: {
         bearerAuth: {
-          type: 'apiKey',
+          type: 'http',
           in: 'header',
-          name: 'X-Auth-Token',
+          name: 'Authorization',
           scheme: 'bearer',
           bearerFormat: 'JWT',
         },

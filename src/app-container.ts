@@ -16,6 +16,7 @@ import { ConfirmAccountCommandHandler } from '@app/user-access/confirm-account/c
 import { UserRepositoryImpl } from '@infrastructure/domain/user-access/user/user.repository';
 import { UserAccessController } from '@api/domain/user-access/user/user-access.controller';
 import { LoginCommandHandler } from '@app/user-access/login/login.command-handler';
+import { UpdateUserPasswordCommandHandler } from '@app/user-access/update-user-password/update-user-password.command-handler';
 
 const registerAsArray = <T>(resolvers: Awilix.Resolver<T>[]): Awilix.Resolver<T[]> => ({
   resolve: (container: Awilix.AwilixContainer) => resolvers.map((r) => container.build(r)),
@@ -58,6 +59,7 @@ export const createAppContainer = async (): Promise<Awilix.AwilixContainer> => {
       Awilix.asClass(RegisterUserCommandHandler).singleton(),
       Awilix.asClass(ConfirmAccountCommandHandler).singleton(),
       Awilix.asClass(LoginCommandHandler).singleton(),
+      Awilix.asClass(UpdateUserPasswordCommandHandler).singleton(),
     ]),
   });
 
