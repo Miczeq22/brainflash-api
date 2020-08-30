@@ -22,7 +22,7 @@ export const loginActionValidation = celebrate(
 /**
  * @swagger
  *
- * /login:
+ * /user-access/login:
  *   post:
  *     tags:
  *       - User Access
