@@ -24,6 +24,7 @@ import { DeckController } from '@api/domain/decks/deck.controller';
 import { DeckCreatedSubscriber } from '@app/decks/create-new-deck/deck-created.subscriber';
 import { TagRepositoryImpl } from '@infrastructure/domain/decks/tag/tag.repository';
 import { DeckTagRepositoryImpl } from '@infrastructure/domain/decks/deck-tag/deck-tag.repository';
+import { UpdateDeckNameCommandHandler } from '@app/decks/update-deck-name/update-deck-name.command-handler';
 
 const registerAsArray = <T>(resolvers: Awilix.Resolver<T>[]): Awilix.Resolver<T[]> => ({
   resolve: (container: Awilix.AwilixContainer) => resolvers.map((r) => container.build(r)),
@@ -70,6 +71,7 @@ export const createAppContainer = async (): Promise<Awilix.AwilixContainer> => {
       Awilix.asClass(LoginCommandHandler).singleton(),
       Awilix.asClass(UpdateUserPasswordCommandHandler).singleton(),
       Awilix.asClass(CreateNewDeckCommandHandler).singleton(),
+      Awilix.asClass(UpdateDeckNameCommandHandler).singleton(),
     ]),
   });
 

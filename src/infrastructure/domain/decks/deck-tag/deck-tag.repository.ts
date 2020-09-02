@@ -15,4 +15,12 @@ export class DeckTagRepositoryImpl implements DeckTagRepository {
 
     await this.dependencies.queryBuilder.insert(record).into(DECK_TAG_TABLE);
   }
+
+  public async findAllByDeck(deckId: string) {
+    const result = await this.dependencies.queryBuilder
+      .where('deck_id', deckId)
+      .from(DECK_TAG_TABLE);
+
+    return result.map(DeckTagMapper.toEntity);
+  }
 }

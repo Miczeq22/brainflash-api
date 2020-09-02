@@ -58,4 +58,44 @@ describe('[Domain] Deck', () => {
 
     expect(deck.getDomainEvents()[0] instanceof DeckCreatedDomainEvent).toBeTruthy();
   });
+
+  test('should throw an error if deck is not unique', async () => {
+    uniqueDeckChecker.isUnique.mockResolvedValue(false);
+
+    const deck = Deck.instanceExisting(
+      {
+        cardIDs: [],
+        createdAt: new Date(),
+        description: '#description',
+        name: '#name',
+        ownerId: new UniqueEntityID(),
+        tags: ['#tag-1'],
+      },
+      new UniqueEntityID(),
+    );
+
+    await expect(() => deck.updateName('#new-name', uniqueDeckChecker)).rejects.toThrowError(
+      'You\'ve already created deck with name: "#new-name".',
+    );
+  });
+
+  test('should update deck name', async () => {
+    uniqueDeckChecker.isUnique.mockResolvedValue(true);
+
+    const deck = Deck.instanceExisting(
+      {
+        cardIDs: [],
+        createdAt: new Date(),
+        description: '#description',
+        name: '#name',
+        ownerId: new UniqueEntityID(),
+        tags: ['#tag-1'],
+      },
+      new UniqueEntityID(),
+    );
+
+    await deck.updateName('#new-name', uniqueDeckChecker);
+
+    expect(deck.getName()).toEqual('#new-name');
+  });
 });
