@@ -1,11 +1,11 @@
-#  (2020-09-01)
+#  (2020-09-02)
 
 
 ### Features
 
 - Confirm user account feature ([cdb4508](https://github.com/Miczeq22/brainflash-api/commit/cdb45085547ee0baefac05c3726a57a706ca3d84))
 - CORS middleware ([8372ca3](https://github.com/Miczeq22/brainflash-api/commit/8372ca37caebd56533d39955684fd793e5582dbf))
-- Create new deck feature ([8a817cc](https://github.com/Miczeq22/brainflash-api/commit/8a817cc5533b08593d94c357b7ae7f09c3145782))
+- Create new deck feature ([568d4b0](https://github.com/Miczeq22/brainflash-api/commit/568d4b09410d82eedfc4b2333290ce6173c13e29))
 - Domain tools ([1ed8e4c](https://github.com/Miczeq22/brainflash-api/commit/1ed8e4cb026d418a42e511f144e77165af732d08))
 - Error handler middleware ([d62e86f](https://github.com/Miczeq22/brainflash-api/commit/d62e86f46c1b8422a5b32d85680b8e12d2383a98))
 - Login feature ([0861cb1](https://github.com/Miczeq22/brainflash-api/commit/0861cb15d61f71a415772c962383713928251bf2))
@@ -13,6 +13,7 @@
 - Security Middleware ([08ea082](https://github.com/Miczeq22/brainflash-api/commit/08ea0826dfcd30484a390e23665a6e443a624dd0))
 - Server bootstrap ([9a1e2f2](https://github.com/Miczeq22/brainflash-api/commit/9a1e2f21d6db5e1b62a5df019e4a8bfb975fb921))
 - Update user password feature ([3e9ff21](https://github.com/Miczeq22/brainflash-api/commit/3e9ff216832e081b43e6809d278cbabd94428357))
+- Upload deck image with local storage config ([ae55b14](https://github.com/Miczeq22/brainflash-api/commit/ae55b141136d24d2332ea05cb23a1a0f96b45dbf))
 - User Registration Domain ([afd329a](https://github.com/Miczeq22/brainflash-api/commit/afd329aa493813c5f85492ec6582898a363b2ac4))
 - User registration endpoint ([f6dd65b](https://github.com/Miczeq22/brainflash-api/commit/f6dd65bcb088abcb1faf699ecd0355da182f25b6))
 
