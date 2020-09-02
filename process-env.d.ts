@@ -24,5 +24,11 @@ declare namespace NodeJS {
     SERVICE_MAIL: string;
     VERIFICATION_TOKEN_SECRET: string;
     ADMIN_EMAIL: string;
+
+    // Storage
+    S3_ACCESS_KEY: string;
+    S3_SECRET_KEY: string;
+    S3_ENDPOINT: string;
+    S3_BUCKET: string;
   }
 }

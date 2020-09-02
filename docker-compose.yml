@@ -32,5 +32,18 @@ services:
       - $SMTP_PORT:1025
       - $MAILHOG_CLIENT_PORT:8025
 
+  minio:
+    container_name: minio
+    build:
+      context: ./src/infrastructure/storage/local/
+      dockerfile: Dockerfile
+    ports:
+      - $STORAGE_PORT:9000
+    environment:
+      - MINIO_ACCESS_KEY=$MINIO_ACCESS_KEY
+      - MINIO_SECRET_KEY=$MINIO_SECRET_KEY
+    entrypoint: sh
+    command: -c 'mkdir -p /export/bucket && /usr/bin/minio server --address :9000 /export'
+
 networks:
   data:

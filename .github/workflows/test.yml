@@ -35,3 +35,7 @@ jobs:
           SERVICE_MAIL: team@brainflash.com
           VERIFICATION_TOKEN_SECRET: wqoek_oqwkeowko210323qwoqkdo
           ADMIN_EMAIL: admin@brainflash.com
+          STORAGE_PORT: 9000
+          MINIO_ACCESS_KEY: accesskey
+          MINIO_SECRET_KEY: secretkey
+          S3_BUCKET: bucket
