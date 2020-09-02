@@ -21,6 +21,10 @@ export class DeckTag extends Entity<DeckTagProps> {
     );
   }
 
+  public static instanceExisting(props: DeckTagProps, id: UniqueEntityID) {
+    return new DeckTag(props, id);
+  }
+
   public getDeckId() {
     return this.props.deckId;
   }

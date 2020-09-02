@@ -12,8 +12,9 @@
 - Register User Command ([cf520a7](https://github.com/Miczeq22/brainflash-api/commit/cf520a7001d89b3595bc08abad3e4ecb6b392353))
 - Security Middleware ([08ea082](https://github.com/Miczeq22/brainflash-api/commit/08ea0826dfcd30484a390e23665a6e443a624dd0))
 - Server bootstrap ([9a1e2f2](https://github.com/Miczeq22/brainflash-api/commit/9a1e2f21d6db5e1b62a5df019e4a8bfb975fb921))
+- Update deck name ([fa0e31b](https://github.com/Miczeq22/brainflash-api/commit/fa0e31bbbf762c2fceb672445aa5e80c292f84ad))
 - Update user password feature ([3e9ff21](https://github.com/Miczeq22/brainflash-api/commit/3e9ff216832e081b43e6809d278cbabd94428357))
-- Upload deck image with local storage config ([ae55b14](https://github.com/Miczeq22/brainflash-api/commit/ae55b141136d24d2332ea05cb23a1a0f96b45dbf))
+- Upload deck image with local storage config ([0e4b793](https://github.com/Miczeq22/brainflash-api/commit/0e4b79359a7b5bff670584ec5fc4db769ad975e4))
 - User Registration Domain ([afd329a](https://github.com/Miczeq22/brainflash-api/commit/afd329aa493813c5f85492ec6582898a363b2ac4))
 - User registration endpoint ([f6dd65b](https://github.com/Miczeq22/brainflash-api/commit/f6dd65bcb088abcb1faf699ecd0355da182f25b6))
 

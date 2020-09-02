@@ -3,10 +3,12 @@ import { Router, RequestHandler } from 'express';
 import { createDeckActionValidation } from './actions/create-deck.action';
 import { authorizationMiddleware } from '@api/middlewares/auth/auth.middleware';
 import { multerUpload } from './actions/upload-deck-image.action';
+import { updateDeckNameActionValidation } from './actions/update-deck-name.action';
 
 interface Dependencies {
   createDeckAction: RequestHandler;
   uploadDeckImageAction: RequestHandler;
+  updateDeckNameAction: RequestHandler;
 }
 
 export class DeckController extends Controller {
@@ -25,8 +27,14 @@ export class DeckController extends Controller {
 
     router.post(
       '/upload-image',
-      [multerUpload.single('file')],
+      [authorizationMiddleware, multerUpload.single('file')],
       this.dependencies.uploadDeckImageAction,
+    );
+
+    router.put(
+      '/update-name',
+      [authorizationMiddleware, updateDeckNameActionValidation],
+      this.dependencies.updateDeckNameAction,
     );
 
     return router;

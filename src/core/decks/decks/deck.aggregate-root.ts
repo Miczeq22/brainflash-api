@@ -55,6 +55,14 @@ export class Deck extends AggregateRoot<DeckProps> {
     return deck;
   }
 
+  public async updateName(name: string, uniqueDeckChecker: UniqueDeckChecker) {
+    await Deck.checkRule(
+      new UserDeckShouldHaveUniqueNameRule(uniqueDeckChecker, name, this.props.ownerId.getValue()),
+    );
+
+    this.props.name = name;
+  }
+
   public static instanceExisting(props: DeckProps, id: UniqueEntityID) {
     return new Deck(props, id);
   }
