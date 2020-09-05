@@ -3,6 +3,7 @@ import { UniqueDeckChecker } from './rules/user-deck-should-have-unique-name.rul
 import { Deck } from './deck.aggregate-root';
 import { UniqueEntityID } from '@core/shared/unique-entity-id';
 import { DeckCreatedDomainEvent } from './events/deck-created.domain-event';
+import { DeckTagsUpdatedDomainEvent } from './events/deck-tags-updated.domain-event';
 
 describe('[Domain] Deck', () => {
   const uniqueDeckChecker = createMockProxy<UniqueDeckChecker>();
@@ -97,5 +98,40 @@ describe('[Domain] Deck', () => {
     await deck.updateName('#new-name', uniqueDeckChecker);
 
     expect(deck.getName()).toEqual('#new-name');
+  });
+
+  test('should throw an error if tags are empty on update', async () => {
+    const deck = Deck.instanceExisting(
+      {
+        cardIDs: [],
+        createdAt: new Date(),
+        description: '#description',
+        name: '#name',
+        ownerId: new UniqueEntityID(),
+        tags: ['#tag-1'],
+      },
+      new UniqueEntityID(),
+    );
+
+    expect(() => deck.updateTags([])).toThrowError('Tags for deck cannot be empty.');
+  });
+
+  test('should update deck tags and add proper domain event', async () => {
+    const deck = Deck.instanceExisting(
+      {
+        cardIDs: [],
+        createdAt: new Date(),
+        description: '#description',
+        name: '#name',
+        ownerId: new UniqueEntityID(),
+        tags: ['#tag-1'],
+      },
+      new UniqueEntityID(),
+    );
+
+    deck.updateTags(['#new-tag']);
+
+    expect(deck.getTags()).toEqual(['#new-tag']);
+    expect(deck.getDomainEvents()[0] instanceof DeckTagsUpdatedDomainEvent).toBeTruthy();
   });
 });

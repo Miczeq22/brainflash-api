@@ -27,4 +27,8 @@ export class TagRepositoryImpl implements TagRepository {
 
     return result.length ? TagMapper.toEntity(result[0]) : null;
   }
+
+  public async remove(id: string) {
+    await this.dependencies.queryBuilder.where('id', id).delete().from(TAG_TABLE);
+  }
 }

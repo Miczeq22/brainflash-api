@@ -4,11 +4,13 @@ import { createDeckActionValidation } from './actions/create-deck.action';
 import { authorizationMiddleware } from '@api/middlewares/auth/auth.middleware';
 import { multerUpload } from './actions/upload-deck-image.action';
 import { updateDeckNameActionValidation } from './actions/update-deck-name.action';
+import { updateDeckMetadataActionValidation } from './actions/update-deck-metadata.action';
 
 interface Dependencies {
   createDeckAction: RequestHandler;
   uploadDeckImageAction: RequestHandler;
   updateDeckNameAction: RequestHandler;
+  updateDeckMetadataAction: RequestHandler;
 }
 
 export class DeckController extends Controller {
@@ -35,6 +37,12 @@ export class DeckController extends Controller {
       '/update-name',
       [authorizationMiddleware, updateDeckNameActionValidation],
       this.dependencies.updateDeckNameAction,
+    );
+
+    router.put(
+      '/update-metadata',
+      [authorizationMiddleware, updateDeckMetadataActionValidation],
+      this.dependencies.updateDeckMetadataAction,
     );
 
     return router;

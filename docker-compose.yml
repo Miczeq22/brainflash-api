@@ -40,8 +40,8 @@ services:
     ports:
       - $STORAGE_PORT:9000
     environment:
-      - MINIO_ACCESS_KEY=$MINIO_ACCESS_KEY
-      - MINIO_SECRET_KEY=$MINIO_SECRET_KEY
+      - MINIO_ACCESS_KEY=$S3_ACCESS_KEY
+      - MINIO_SECRET_KEY=$S3_SECRET_KEY
     entrypoint: sh
     command: -c 'mkdir -p /export/bucket && /usr/bin/minio server --address :9000 /export'
 

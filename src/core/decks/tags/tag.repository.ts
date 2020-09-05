@@ -6,4 +6,6 @@ export interface TagRepository {
   findByName(name: string): Promise<Tag | null>;
 
   findById(id: string): Promise<Tag | null>;
+
+  remove(id: string): Promise<void>;
 }
