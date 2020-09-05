@@ -1,11 +1,12 @@
 import { UniqueEntityID } from '@core/shared/unique-entity-id';
 import { AggregateRoot } from '@core/shared/aggregate-root';
-import { DeckCreatedDomainEvent } from './events/deck-created.domain-event';
 import {
   UserDeckShouldHaveUniqueNameRule,
   UniqueDeckChecker,
 } from './rules/user-deck-should-have-unique-name.rule';
 import { DeckTagsCannotBeEmptyRule } from './rules/deck-tags-cannot-be-empty.rule';
+import { DeckCreatedDomainEvent } from './events/deck-created.domain-event';
+import { DeckTagsUpdatedDomainEvent } from './events/deck-tags-updated.domain-event';
 
 interface DeckProps {
   name: string;
@@ -63,6 +64,17 @@ export class Deck extends AggregateRoot<DeckProps> {
     this.props.name = name;
   }
 
+  public updateDescription(description: string) {
+    this.props.description = description;
+  }
+
+  public updateTags(tags: string[]) {
+    Deck.checkRule(new DeckTagsCannotBeEmptyRule(tags));
+    this.props.tags = tags;
+
+    this.addDomainEvent(new DeckTagsUpdatedDomainEvent(this.id, tags));
+  }
+
   public static instanceExisting(props: DeckProps, id: UniqueEntityID) {
     return new Deck(props, id);
   }
@@ -85,5 +97,9 @@ export class Deck extends AggregateRoot<DeckProps> {
 
   public getCreatedAt() {
     return this.props.createdAt;
+  }
+
+  public getTags() {
+    return this.props.tags;
   }
 }
