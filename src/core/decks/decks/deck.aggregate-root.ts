@@ -10,6 +10,8 @@ import { DeckTagsUpdatedDomainEvent } from './events/deck-tags-updated.domain-ev
 import { Card } from '../card/card.entity';
 import { CardWithSameQuestionCannotBeAddedTwiceRule } from './rules/card-with-same-question-cannot-be-added-twice.rule';
 import { NewCardAddedDomainEvent } from './events/new-card-added.domain-event';
+import { CardShouldExistInDeckRule } from './rules/card-should-exist-in-deck.rule';
+import { CardRemovedFromDeckDomainEvent } from './events/card-removed-from-deck.domain-event';
 
 interface DeckProps {
   name: string;
@@ -65,6 +67,14 @@ export class Deck extends AggregateRoot<DeckProps> {
     this.props.cards = [...this.props.cards, card];
 
     this.addDomainEvent(new NewCardAddedDomainEvent(this.id, card));
+  }
+
+  public removeCard(cardId: UniqueEntityID) {
+    Deck.checkRule(new CardShouldExistInDeckRule(this.props.cards, cardId));
+
+    this.props.cards = this.props.cards.filter((card) => !card.getId().equals(cardId));
+
+    this.addDomainEvent(new CardRemovedFromDeckDomainEvent(cardId));
   }
 
   public async updateName(name: string, uniqueDeckChecker: UniqueDeckChecker) {

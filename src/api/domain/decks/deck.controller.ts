@@ -6,6 +6,7 @@ import { multerUpload } from './actions/upload-deck-image.action';
 import { updateDeckNameActionValidation } from './actions/update-deck-name.action';
 import { updateDeckMetadataActionValidation } from './actions/update-deck-metadata.action';
 import { addNewCardActionValidation } from './actions/add-new-card.action';
+import { removeCardActionValidation } from './actions/remove-card.action';
 
 interface Dependencies {
   createDeckAction: RequestHandler;
@@ -13,6 +14,7 @@ interface Dependencies {
   updateDeckNameAction: RequestHandler;
   updateDeckMetadataAction: RequestHandler;
   addNewCardAction: RequestHandler;
+  removeCardAction: RequestHandler;
 }
 
 export class DeckController extends Controller {
@@ -51,6 +53,12 @@ export class DeckController extends Controller {
       '/add-card',
       [authorizationMiddleware, addNewCardActionValidation],
       this.dependencies.addNewCardAction,
+    );
+
+    router.delete(
+      '/remove-card',
+      [authorizationMiddleware, removeCardActionValidation],
+      this.dependencies.removeCardAction,
     );
 
     return router;

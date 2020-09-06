@@ -30,6 +30,8 @@ import { UpdateDeckMetadataCommandHandler } from '@app/decks/update-deck-metadat
 import { CardRepositoryImpl } from '@infrastructure/domain/cards/card/card.repository';
 import { NewCardAddedSubscriber } from '@app/decks/add-new-card/new-card-added.subscriber';
 import { AddNewCardCommandHandler } from '@app/decks/add-new-card/add-new-card.command-handler';
+import { RemoveCardCommandHandler } from '@app/decks/remove-card/remove-card.command-handler';
+import { CardRemovedFromDeckSubscriber } from '@app/decks/remove-card/card-removed-from-deck.subscriber';
 
 const registerAsArray = <T>(resolvers: Awilix.Resolver<T>[]): Awilix.Resolver<T[]> => ({
   resolve: (container: Awilix.AwilixContainer) => resolvers.map((r) => container.build(r)),
@@ -79,6 +81,7 @@ export const createAppContainer = async (): Promise<Awilix.AwilixContainer> => {
       Awilix.asClass(UpdateDeckNameCommandHandler).singleton(),
       Awilix.asClass(UpdateDeckMetadataCommandHandler).singleton(),
       Awilix.asClass(AddNewCardCommandHandler).singleton(),
+      Awilix.asClass(RemoveCardCommandHandler).singleton(),
     ]),
   });
 
@@ -97,6 +100,7 @@ export const createAppContainer = async (): Promise<Awilix.AwilixContainer> => {
       Awilix.asClass(DeckCreatedSubscriber).singleton(),
       Awilix.asClass(DeckTagsUpdatedSubscriber).singleton(),
       Awilix.asClass(NewCardAddedSubscriber).singleton(),
+      Awilix.asClass(CardRemovedFromDeckSubscriber).singleton(),
     ]),
   });
 
