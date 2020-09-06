@@ -38,7 +38,7 @@ describe('[App] Update deck name command handler', () => {
     deckRepository.findById.mockResolvedValue(
       Deck.instanceExisting(
         {
-          cardIDs: [],
+          cards: [],
           createdAt: new Date(),
           description: '#description',
           name: '#name',
@@ -73,7 +73,7 @@ describe('[App] Update deck name command handler', () => {
       Deck.instanceExisting(
         {
           ownerId,
-          cardIDs: [],
+          cards: [],
           createdAt: new Date(),
           description: '#description',
           name: '#name',

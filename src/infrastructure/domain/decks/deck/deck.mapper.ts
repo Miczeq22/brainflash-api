@@ -1,5 +1,6 @@
 import { Deck } from '@core/decks/decks/deck.aggregate-root';
 import { UniqueEntityID } from '@core/shared/unique-entity-id';
+import { Card } from '@core/decks/card/card.entity';
 
 interface DeckRecord {
   id: string;
@@ -26,13 +27,13 @@ export class DeckMapper {
 
   public static toEntity(
     { id, created_at, owner_id, image_url, ...record }: DeckRecord,
-    cardIDs: UniqueEntityID[] = [],
+    cards: Card[] = [],
     tags: string[] = [],
   ): Deck {
     return Deck.instanceExisting(
       {
         ...record,
-        cardIDs,
+        cards,
         createdAt: new Date(created_at),
         ownerId: new UniqueEntityID(owner_id),
         tags,

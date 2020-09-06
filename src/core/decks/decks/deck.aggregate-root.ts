@@ -7,6 +7,9 @@ import {
 import { DeckTagsCannotBeEmptyRule } from './rules/deck-tags-cannot-be-empty.rule';
 import { DeckCreatedDomainEvent } from './events/deck-created.domain-event';
 import { DeckTagsUpdatedDomainEvent } from './events/deck-tags-updated.domain-event';
+import { Card } from '../card/card.entity';
+import { CardWithSameQuestionCannotBeAddedTwiceRule } from './rules/card-with-same-question-cannot-be-added-twice.rule';
+import { NewCardAddedDomainEvent } from './events/new-card-added.domain-event';
 
 interface DeckProps {
   name: string;
@@ -15,7 +18,7 @@ interface DeckProps {
   tags: string[];
   ownerId: UniqueEntityID;
   createdAt: Date;
-  cardIDs: UniqueEntityID[];
+  cards: Card[];
 }
 
 interface NewDeckProps {
@@ -47,13 +50,21 @@ export class Deck extends AggregateRoot<DeckProps> {
       tags,
       imageUrl,
       ownerId,
-      cardIDs: [],
+      cards: [],
       createdAt: new Date(),
     });
 
     deck.addDomainEvent(new DeckCreatedDomainEvent(tags, deck.getId()));
 
     return deck;
+  }
+
+  public addCard(card: Card) {
+    Deck.checkRule(new CardWithSameQuestionCannotBeAddedTwiceRule(this.props.cards, card));
+
+    this.props.cards = [...this.props.cards, card];
+
+    this.addDomainEvent(new NewCardAddedDomainEvent(this.id, card));
   }
 
   public async updateName(name: string, uniqueDeckChecker: UniqueDeckChecker) {
