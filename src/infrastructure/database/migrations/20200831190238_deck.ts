@@ -7,6 +7,7 @@ export async function up(knex: Knex): Promise<void> {
         table.uuid('id').notNullable();
         table.string('name').notNullable();
         table.text('description').notNullable();
+        table.boolean('deleted').notNullable().defaultTo(false);
         table.text('image_url');
         table.uuid('owner_id').notNullable();
         table.timestamp('created_at').notNullable();

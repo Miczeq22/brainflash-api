@@ -12,6 +12,7 @@ import { CardWithSameQuestionCannotBeAddedTwiceRule } from './rules/card-with-sa
 import { NewCardAddedDomainEvent } from './events/new-card-added.domain-event';
 import { CardShouldExistInDeckRule } from './rules/card-should-exist-in-deck.rule';
 import { CardRemovedFromDeckDomainEvent } from './events/card-removed-from-deck.domain-event';
+import { DeckCannotBeDeletedRule } from './events/deck-cannot-be-deleted.rule';
 
 interface DeckProps {
   name: string;
@@ -21,6 +22,7 @@ interface DeckProps {
   ownerId: UniqueEntityID;
   createdAt: Date;
   cards: Card[];
+  deleted: boolean;
 }
 
 interface NewDeckProps {
@@ -54,6 +56,7 @@ export class Deck extends AggregateRoot<DeckProps> {
       ownerId,
       cards: [],
       createdAt: new Date(),
+      deleted: false,
     });
 
     deck.addDomainEvent(new DeckCreatedDomainEvent(tags, deck.getId()));
@@ -62,6 +65,7 @@ export class Deck extends AggregateRoot<DeckProps> {
   }
 
   public addCard(card: Card) {
+    Deck.checkRule(new DeckCannotBeDeletedRule(this.props.deleted));
     Deck.checkRule(new CardWithSameQuestionCannotBeAddedTwiceRule(this.props.cards, card));
 
     this.props.cards = [...this.props.cards, card];
@@ -70,11 +74,18 @@ export class Deck extends AggregateRoot<DeckProps> {
   }
 
   public removeCard(cardId: UniqueEntityID) {
+    Deck.checkRule(new DeckCannotBeDeletedRule(this.props.deleted));
     Deck.checkRule(new CardShouldExistInDeckRule(this.props.cards, cardId));
 
     this.props.cards = this.props.cards.filter((card) => !card.getId().equals(cardId));
 
     this.addDomainEvent(new CardRemovedFromDeckDomainEvent(cardId));
+  }
+
+  public delete() {
+    Deck.checkRule(new DeckCannotBeDeletedRule(this.props.deleted));
+
+    this.props.deleted = true;
   }
 
   public async updateName(name: string, uniqueDeckChecker: UniqueDeckChecker) {
@@ -86,11 +97,15 @@ export class Deck extends AggregateRoot<DeckProps> {
   }
 
   public updateDescription(description: string) {
+    Deck.checkRule(new DeckCannotBeDeletedRule(this.props.deleted));
+
     this.props.description = description;
   }
 
   public updateTags(tags: string[]) {
+    Deck.checkRule(new DeckCannotBeDeletedRule(this.props.deleted));
     Deck.checkRule(new DeckTagsCannotBeEmptyRule(tags));
+
     this.props.tags = tags;
 
     this.addDomainEvent(new DeckTagsUpdatedDomainEvent(this.id, tags));
@@ -122,5 +137,9 @@ export class Deck extends AggregateRoot<DeckProps> {
 
   public getTags() {
     return this.props.tags;
+  }
+
+  public isDeleted() {
+    return this.props.deleted;
   }
 }

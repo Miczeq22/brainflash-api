@@ -113,6 +113,7 @@ describe('[API] Deck controller', () => {
           description: '#description',
           ownerId: user.getId(),
           tags: ['#tag-1'],
+          deleted: false,
         },
         new UniqueEntityID(),
       ),
@@ -255,6 +256,7 @@ describe('[API] Deck controller', () => {
         description: '#description',
         ownerId: user.getId(),
         tags: ['#tag-1'],
+        deleted: false,
       },
       new UniqueEntityID(),
     );
@@ -311,6 +313,7 @@ describe('[API] Deck controller', () => {
         description: '#description',
         ownerId: user.getId(),
         tags: ['#tag-1'],
+        deleted: false,
       },
       new UniqueEntityID(),
     );
@@ -366,6 +369,7 @@ describe('[API] Deck controller', () => {
         description: '#description',
         ownerId: user.getId(),
         tags: ['#tag-1'],
+        deleted: false,
       },
       new UniqueEntityID(),
     );
@@ -409,6 +413,7 @@ describe('[API] Deck controller', () => {
         description: '#description',
         ownerId: user.getId(),
         tags: ['#tag-1'],
+        deleted: false,
       },
       new UniqueEntityID(),
     );
@@ -458,6 +463,7 @@ describe('[API] Deck controller', () => {
         description: '#description',
         ownerId: user.getId(),
         tags: ['#tag-1'],
+        deleted: false,
       },
       new UniqueEntityID(),
     );
@@ -565,6 +571,7 @@ describe('[API] Deck controller', () => {
         description: '#description',
         ownerId: user.getId(),
         tags: ['#tag-1'],
+        deleted: false,
       },
       new UniqueEntityID(),
     );
@@ -667,6 +674,7 @@ describe('[API] Deck controller', () => {
         description: '#description',
         ownerId: user.getId(),
         tags: ['#tag-1'],
+        deleted: false,
       },
       new UniqueEntityID(),
     );
@@ -694,6 +702,106 @@ describe('[API] Deck controller', () => {
       .send({
         deckId: deck.getId().getValue(),
         cardId: cardId.getValue(),
+      });
+
+    expect(res.statusCode).toEqual(204);
+  });
+
+  test('[DELETE] /decks - should return an error if data is invalid', async () => {
+    process.env.JWT_TOKEN = 'secret';
+
+    emailChecker.isUnique.mockResolvedValue(true);
+
+    const email = faker.internet.email();
+    const password = faker.internet.password();
+    const username = faker.name.findName();
+
+    const user = await UserRegistration.registerNew(
+      {
+        email,
+        password,
+        username,
+      },
+      emailChecker,
+    );
+
+    await userRegistrationRepository.insert(user);
+
+    const token = jwt.sign(
+      {
+        userId: user.getId().getValue(),
+      },
+      process.env.JWT_TOKEN,
+    );
+
+    const res = await request(app)
+      .delete('/decks')
+      .set('Accept', 'application/json')
+      .set('Authorization', `Bearer ${token}`);
+
+    expect(res.statusCode).toEqual(422);
+    expect(res.body.details.map((detail) => detail.key)).toEqual(['deckId']);
+  });
+
+  test('[DELETE] /decks - should return an error if user is not authorized', async () => {
+    process.env.JWT_TOKEN = 'secret';
+
+    const res = await request(app).delete('/decks').set('Accept', 'application/json');
+
+    expect(res.statusCode).toEqual(401);
+    expect(res.body.error).toEqual('Unauthorized.');
+  });
+
+  test('[DELETE] /decks - should remove card', async () => {
+    process.env.JWT_TOKEN = 'secret';
+
+    emailChecker.isUnique.mockResolvedValue(true);
+
+    const email = faker.internet.email();
+    const password = faker.internet.password();
+    const username = faker.name.findName();
+
+    const user = await UserRegistration.registerNew(
+      {
+        email,
+        password,
+        username,
+      },
+      emailChecker,
+    );
+
+    await userRegistrationRepository.insert(user);
+
+    const token = jwt.sign(
+      {
+        userId: user.getId().getValue(),
+      },
+      process.env.JWT_TOKEN,
+    );
+
+    const name = faker.name.findName();
+
+    const deck = Deck.instanceExisting(
+      {
+        name,
+        cards: [],
+        createdAt: new Date(),
+        description: '#description',
+        ownerId: user.getId(),
+        tags: ['#tag-1'],
+        deleted: false,
+      },
+      new UniqueEntityID(),
+    );
+
+    await deckRepository.insert(deck);
+
+    const res = await request(app)
+      .delete('/decks')
+      .set('Accept', 'application/json')
+      .set('Authorization', `Bearer ${token}`)
+      .send({
+        deckId: deck.getId().getValue(),
       });
 
     expect(res.statusCode).toEqual(204);

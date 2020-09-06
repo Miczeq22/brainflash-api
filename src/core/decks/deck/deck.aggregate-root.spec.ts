@@ -74,6 +74,7 @@ describe('[Domain] Deck', () => {
         name: '#name',
         ownerId: new UniqueEntityID(),
         tags: ['#tag-1'],
+        deleted: false,
       },
       new UniqueEntityID(),
     );
@@ -94,6 +95,7 @@ describe('[Domain] Deck', () => {
         name: '#name',
         ownerId: new UniqueEntityID(),
         tags: ['#tag-1'],
+        deleted: false,
       },
       new UniqueEntityID(),
     );
@@ -112,6 +114,7 @@ describe('[Domain] Deck', () => {
         name: '#name',
         ownerId: new UniqueEntityID(),
         tags: ['#tag-1'],
+        deleted: false,
       },
       new UniqueEntityID(),
     );
@@ -128,6 +131,7 @@ describe('[Domain] Deck', () => {
         name: '#name',
         ownerId: new UniqueEntityID(),
         tags: ['#tag-1'],
+        deleted: false,
       },
       new UniqueEntityID(),
     );
@@ -155,6 +159,7 @@ describe('[Domain] Deck', () => {
         name: '#name',
         ownerId: new UniqueEntityID(),
         tags: ['#tag-1'],
+        deleted: false,
       },
       new UniqueEntityID(),
     );
@@ -189,6 +194,7 @@ describe('[Domain] Deck', () => {
         name: '#name',
         ownerId: new UniqueEntityID(),
         tags: ['#tag-1'],
+        deleted: false,
       },
       new UniqueEntityID(),
     );
@@ -215,6 +221,7 @@ describe('[Domain] Deck', () => {
         name: '#name',
         ownerId: new UniqueEntityID(),
         tags: ['#tag-1'],
+        deleted: false,
       },
       new UniqueEntityID(),
     );
@@ -241,6 +248,7 @@ describe('[Domain] Deck', () => {
         name: '#name',
         ownerId: new UniqueEntityID(),
         tags: ['#tag-1'],
+        deleted: false,
       },
       new UniqueEntityID(),
     );
@@ -248,5 +256,41 @@ describe('[Domain] Deck', () => {
     deck.removeCard(card.getId());
 
     expect(deck.getDomainEvents()[0] instanceof CardRemovedFromDeckDomainEvent).toBeTruthy();
+  });
+
+  test('should throw an error if deck is already deleted', async () => {
+    const deck = Deck.instanceExisting(
+      {
+        cards: [],
+        createdAt: new Date(),
+        description: '#description',
+        name: '#name',
+        ownerId: new UniqueEntityID(),
+        tags: ['#tag-1'],
+        deleted: true,
+      },
+      new UniqueEntityID(),
+    );
+
+    expect(() => deck.delete()).toThrowError('Deck is already deleted.');
+  });
+
+  test('should delete deck', async () => {
+    const deck = Deck.instanceExisting(
+      {
+        cards: [],
+        createdAt: new Date(),
+        description: '#description',
+        name: '#name',
+        ownerId: new UniqueEntityID(),
+        tags: ['#tag-1'],
+        deleted: false,
+      },
+      new UniqueEntityID(),
+    );
+
+    deck.delete();
+
+    expect(deck.isDeleted()).toBeTruthy();
   });
 });
