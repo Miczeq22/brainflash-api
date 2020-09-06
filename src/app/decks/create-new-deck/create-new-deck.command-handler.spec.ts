@@ -1,6 +1,6 @@
 import { createMockProxy } from '@tools/mock-proxy';
-import { DeckRepository } from '@core/decks/decks/deck.repository';
-import { UniqueDeckChecker } from '@core/decks/decks/rules/user-deck-should-have-unique-name.rule';
+import { DeckRepository } from '@core/decks/deck/deck.repository';
+import { UniqueDeckChecker } from '@core/decks/deck/rules/user-deck-should-have-unique-name.rule';
 import { CreateNewDeckCommandHandler } from './create-new-deck.command-handler';
 import { CreateNewDeckCommand } from './create-new-deck.command';
 

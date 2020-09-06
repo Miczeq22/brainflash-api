@@ -1,6 +1,6 @@
 /* eslint-disable no-await-in-loop */
-import { DeckRepository } from '@core/decks/decks/deck.repository';
-import { Deck } from '@core/decks/decks/deck.aggregate-root';
+import { DeckRepository } from '@core/decks/deck/deck.repository';
+import { Deck } from '@core/decks/deck/deck.aggregate-root';
 import { QueryBuilder } from '@infrastructure/database/query-builder';
 import { DeckMapper, DECK_TABLE } from './deck.mapper';
 import { DeckTagRepository } from '@core/decks/deck-tag/deck-tag.repository';

@@ -2,7 +2,7 @@ import { DomainSubscriber } from '@core/shared/domain-subscriber';
 import {
   DeckCreatedDomainEvent,
   DECK_CREATED_DOMAIN_EVENT,
-} from '@core/decks/decks/events/deck-created.domain-event';
+} from '@core/decks/deck/events/deck-created.domain-event';
 import { TagRepository } from '@core/decks/tags/tag.repository';
 import { DomainEvents } from '@core/shared/domain-events';
 import { Logger } from '@infrastructure/logger/logger';

@@ -1,4 +1,4 @@
-import { UniqueDeckChecker } from '@core/decks/decks/rules/user-deck-should-have-unique-name.rule';
+import { UniqueDeckChecker } from '@core/decks/deck/rules/user-deck-should-have-unique-name.rule';
 import { QueryBuilder } from '@infrastructure/database/query-builder';
 import { DECK_TABLE } from './deck/deck.mapper';
 

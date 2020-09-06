@@ -1,8 +1,8 @@
 import { createMockProxy } from '@tools/mock-proxy';
-import { DeckRepository } from '@core/decks/decks/deck.repository';
+import { DeckRepository } from '@core/decks/deck/deck.repository';
 import { UpdateDeckMetadataCommandHandler } from './update-deck-metadata.command-handler';
 import { UpdateDeckMetadataCommand } from './update-deck-metadata.command';
-import { Deck } from '@core/decks/decks/deck.aggregate-root';
+import { Deck } from '@core/decks/deck/deck.aggregate-root';
 import { UniqueEntityID } from '@core/shared/unique-entity-id';
 
 describe('[App] Update deck metadata command handler', () => {

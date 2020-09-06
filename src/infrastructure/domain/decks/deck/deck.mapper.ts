@@ -1,4 +1,4 @@
-import { Deck } from '@core/decks/decks/deck.aggregate-root';
+import { Deck } from '@core/decks/deck/deck.aggregate-root';
 import { UniqueEntityID } from '@core/shared/unique-entity-id';
 import { Card } from '@core/decks/card/card.entity';
 

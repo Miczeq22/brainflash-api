@@ -2,12 +2,12 @@ import { DomainSubscriber } from '@core/shared/domain-subscriber';
 import {
   DeckTagsUpdatedDomainEvent,
   DECK_TAGS_UPDATED_DOMAIN_EVENT,
-} from '@core/decks/decks/events/deck-tags-updated.domain-event';
+} from '@core/decks/deck/events/deck-tags-updated.domain-event';
 import { DomainEvents } from '@core/shared/domain-events';
 import { DeckTagRepository } from '@core/decks/deck-tag/deck-tag.repository';
 import { TagRepository } from '@core/decks/tags/tag.repository';
 import { Logger } from '@infrastructure/logger/logger';
-import { DeckRepository } from '@core/decks/decks/deck.repository';
+import { DeckRepository } from '@core/decks/deck/deck.repository';
 
 interface Dependencies {
   deckTagRepository: DeckTagRepository;

@@ -2,7 +2,7 @@ import { DomainSubscriber } from '@core/shared/domain-subscriber';
 import {
   NewCardAddedDomainEvent,
   NEW_CARD_ADDED_DOMAIN_EVENT,
-} from '@core/decks/decks/events/new-card-added.domain-event';
+} from '@core/decks/deck/events/new-card-added.domain-event';
 import { CardRepository } from '@core/cards/card/card.repository';
 import { DomainEvents } from '@core/shared/domain-events';
 import { Card } from '@core/cards/card/card.aggregate-root';

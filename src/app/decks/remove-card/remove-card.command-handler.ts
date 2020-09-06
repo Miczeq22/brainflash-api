@@ -1,6 +1,6 @@
 import { CommandHandler } from '@app/processing/command-handler';
 import { RemoveCardCommand, REMOVE_CARD_COMMAND } from './remove-card.command';
-import { DeckRepository } from '@core/decks/decks/deck.repository';
+import { DeckRepository } from '@core/decks/deck/deck.repository';
 import { NotFoundError } from '@errors/not-found.error';
 import { UniqueEntityID } from '@core/shared/unique-entity-id';
 import { DomainEvents } from '@core/shared/domain-events';

@@ -1,8 +1,8 @@
 import { createMockProxy } from '@tools/mock-proxy';
-import { DeckRepository } from '@core/decks/decks/deck.repository';
+import { DeckRepository } from '@core/decks/deck/deck.repository';
 import { RemoveCardCommandHandler } from './remove-card.command-handler';
 import { RemoveCardCommand } from './remove-card.command';
-import { Deck } from '@core/decks/decks/deck.aggregate-root';
+import { Deck } from '@core/decks/deck/deck.aggregate-root';
 import { UniqueEntityID } from '@core/shared/unique-entity-id';
 import { Card } from '@core/decks/card/card.entity';
 

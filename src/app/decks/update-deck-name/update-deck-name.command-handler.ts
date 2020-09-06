@@ -1,10 +1,10 @@
 import { CommandHandler } from '@app/processing/command-handler';
 import { UpdateDeckNameCommand, UPDATE_DECK_NAME_COMMAND } from './update-deck-name.command';
-import { DeckRepository } from '@core/decks/decks/deck.repository';
+import { DeckRepository } from '@core/decks/deck/deck.repository';
 import { NotFoundError } from '@errors/not-found.error';
 import { UniqueEntityID } from '@core/shared/unique-entity-id';
 import { UnauthorizedError } from '@errors/unauthorized.error';
-import { UniqueDeckChecker } from '@core/decks/decks/rules/user-deck-should-have-unique-name.rule';
+import { UniqueDeckChecker } from '@core/decks/deck/rules/user-deck-should-have-unique-name.rule';
 
 interface Dependencies {
   deckRepository: DeckRepository;
