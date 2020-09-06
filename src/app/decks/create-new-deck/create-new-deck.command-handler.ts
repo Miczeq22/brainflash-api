@@ -1,8 +1,8 @@
 import { CommandHandler } from '@app/processing/command-handler';
 import { CreateNewDeckCommand, CREATE_NEW_DECK_COMMAND } from './create-new-deck.command';
-import { DeckRepository } from '@core/decks/decks/deck.repository';
-import { Deck } from '@core/decks/decks/deck.aggregate-root';
-import { UniqueDeckChecker } from '@core/decks/decks/rules/user-deck-should-have-unique-name.rule';
+import { DeckRepository } from '@core/decks/deck/deck.repository';
+import { Deck } from '@core/decks/deck/deck.aggregate-root';
+import { UniqueDeckChecker } from '@core/decks/deck/rules/user-deck-should-have-unique-name.rule';
 import { UniqueEntityID } from '@core/shared/unique-entity-id';
 import { DomainEvents } from '@core/shared/domain-events';
 

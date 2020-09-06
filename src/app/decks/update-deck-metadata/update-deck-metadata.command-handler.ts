@@ -3,7 +3,7 @@ import {
   UpdateDeckMetadataCommand,
   UPDATE_DECK_METADATA_COMMAND,
 } from './update-deck-metadata.command';
-import { DeckRepository } from '@core/decks/decks/deck.repository';
+import { DeckRepository } from '@core/decks/deck/deck.repository';
 import { NotFoundError } from '@errors/not-found.error';
 import { UniqueEntityID } from '@core/shared/unique-entity-id';
 import { UnauthorizedError } from '@errors/unauthorized.error';

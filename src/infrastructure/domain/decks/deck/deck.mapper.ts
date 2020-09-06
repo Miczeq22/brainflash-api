@@ -1,4 +1,4 @@
-import { Deck } from '@core/decks/decks/deck.aggregate-root';
+import { Deck } from '@core/decks/deck/deck.aggregate-root';
 import { UniqueEntityID } from '@core/shared/unique-entity-id';
 import { Card } from '@core/decks/card/card.entity';
 
@@ -6,6 +6,7 @@ interface DeckRecord {
   id: string;
   name: string;
   description: string;
+  deleted: boolean;
   image_url?: string | null;
   owner_id: string;
   created_at: string;
@@ -19,6 +20,7 @@ export class DeckMapper {
       id: deck.getId().getValue(),
       name: deck.getName(),
       description: deck.getDescription(),
+      deleted: deck.isDeleted(),
       image_url: deck.getImageUrl(),
       created_at: deck.getCreatedAt().toISOString(),
       owner_id: deck.getOwnerId().getValue(),

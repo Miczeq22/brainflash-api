@@ -2,7 +2,7 @@ import { createMockProxy } from '@tools/mock-proxy';
 import { CardRepository } from '@core/cards/card/card.repository';
 import { Logger } from '@infrastructure/logger/logger';
 import { NewCardAddedSubscriber } from './new-card-added.subscriber';
-import { NewCardAddedDomainEvent } from '@core/decks/decks/events/new-card-added.domain-event';
+import { NewCardAddedDomainEvent } from '@core/decks/deck/events/new-card-added.domain-event';
 import { UniqueEntityID } from '@core/shared/unique-entity-id';
 import { Card } from '@core/decks/card/card.entity';
 

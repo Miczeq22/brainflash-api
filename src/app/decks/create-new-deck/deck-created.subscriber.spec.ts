@@ -3,7 +3,7 @@ import { TagRepository } from '@core/decks/tags/tag.repository';
 import { DeckTagRepository } from '@core/decks/deck-tag/deck-tag.repository';
 import { Logger } from '@infrastructure/logger/logger';
 import { DeckCreatedSubscriber } from './deck-created.subscriber';
-import { DeckCreatedDomainEvent } from '@core/decks/decks/events/deck-created.domain-event';
+import { DeckCreatedDomainEvent } from '@core/decks/deck/events/deck-created.domain-event';
 import { UniqueEntityID } from '@core/shared/unique-entity-id';
 import { Tag } from '@core/decks/tags/tag.entity';
 

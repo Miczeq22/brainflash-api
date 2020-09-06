@@ -1,9 +1,9 @@
 import { createMockProxy } from '@tools/mock-proxy';
-import { DeckRepository } from '@core/decks/decks/deck.repository';
-import { UniqueDeckChecker } from '@core/decks/decks/rules/user-deck-should-have-unique-name.rule';
+import { DeckRepository } from '@core/decks/deck/deck.repository';
+import { UniqueDeckChecker } from '@core/decks/deck/rules/user-deck-should-have-unique-name.rule';
 import { UpdateDeckNameCommandHandler } from './update-deck-name.command-handler';
 import { UpdateDeckNameCommand } from './update-deck-name.command';
-import { Deck } from '@core/decks/decks/deck.aggregate-root';
+import { Deck } from '@core/decks/deck/deck.aggregate-root';
 import { UniqueEntityID } from '@core/shared/unique-entity-id';
 
 describe('[App] Update deck name command handler', () => {
@@ -44,6 +44,7 @@ describe('[App] Update deck name command handler', () => {
           name: '#name',
           ownerId: new UniqueEntityID(),
           tags: ['#tag'],
+          deleted: false,
         },
         new UniqueEntityID(),
       ),
@@ -78,6 +79,7 @@ describe('[App] Update deck name command handler', () => {
           description: '#description',
           name: '#name',
           tags: ['#tag'],
+          deleted: false,
         },
         new UniqueEntityID(),
       ),

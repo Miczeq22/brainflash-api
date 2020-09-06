@@ -1,8 +1,8 @@
 import { createMockProxy } from '@tools/mock-proxy';
-import { DeckRepository } from '@core/decks/decks/deck.repository';
+import { DeckRepository } from '@core/decks/deck/deck.repository';
 import { AddNewCardCommandHandler } from './add-new-card.command-handler';
 import { AddNewCardCommand } from './add-new-card.command';
-import { Deck } from '@core/decks/decks/deck.aggregate-root';
+import { Deck } from '@core/decks/deck/deck.aggregate-root';
 import { UniqueEntityID } from '@core/shared/unique-entity-id';
 
 describe('[App] Add new card command handler', () => {
@@ -41,6 +41,7 @@ describe('[App] Add new card command handler', () => {
           name: '#name',
           ownerId: new UniqueEntityID(),
           tags: ['#tag'],
+          deleted: false,
         },
         new UniqueEntityID(),
       ),
@@ -74,6 +75,7 @@ describe('[App] Add new card command handler', () => {
           description: '#description',
           name: '#name',
           tags: ['#tag'],
+          deleted: false,
         },
         new UniqueEntityID(),
       ),

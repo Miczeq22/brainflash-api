@@ -1,6 +1,6 @@
 import { AddNewCardCommand, ADD_NEW_CARD_COMMAND } from './add-new-card.command';
 import { CommandHandler } from '@app/processing/command-handler';
-import { DeckRepository } from '@core/decks/decks/deck.repository';
+import { DeckRepository } from '@core/decks/deck/deck.repository';
 import { NotFoundError } from '@errors/not-found.error';
 import { UniqueEntityID } from '@core/shared/unique-entity-id';
 import { UnauthorizedError } from '@errors/unauthorized.error';

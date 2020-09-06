@@ -1,21 +1,19 @@
 import { CommandHandler } from '@app/processing/command-handler';
-import { RemoveCardCommand, REMOVE_CARD_COMMAND } from './remove-card.command';
 import { DeckRepository } from '@core/decks/deck/deck.repository';
+import { DeleteDeckCommand, DELETE_DECK_COMMAND } from './delete-deck.command';
 import { NotFoundError } from '@errors/not-found.error';
 import { UniqueEntityID } from '@core/shared/unique-entity-id';
-import { DomainEvents } from '@core/shared/domain-events';
-import { UnauthorizedError } from '@errors/unauthorized.error';
 
 interface Dependencies {
   deckRepository: DeckRepository;
 }
 
-export class RemoveCardCommandHandler extends CommandHandler<RemoveCardCommand> {
+export class DeleteDeckCommandHandler extends CommandHandler<DeleteDeckCommand> {
   constructor(private readonly dependencies: Dependencies) {
-    super(REMOVE_CARD_COMMAND);
+    super(DELETE_DECK_COMMAND);
   }
 
-  public async handle({ payload: { cardId, userId, deckId } }: RemoveCardCommand) {
+  public async handle({ payload: { deckId, userId } }: DeleteDeckCommand) {
     const { deckRepository } = this.dependencies;
 
     const deck = await deckRepository.findById(deckId);
@@ -25,11 +23,11 @@ export class RemoveCardCommandHandler extends CommandHandler<RemoveCardCommand> 
     }
 
     if (!deck.getOwnerId().equals(new UniqueEntityID(userId))) {
-      throw new UnauthorizedError('Only deck owner can remove card.');
+      throw new NotFoundError('Only deck owner can delete deck.');
     }
 
-    deck.removeCard(new UniqueEntityID(cardId));
+    deck.delete();
 
-    await DomainEvents.dispatchDomainEventsForAggregate(deck.getId());
+    await deckRepository.update(deck);
   }
 }

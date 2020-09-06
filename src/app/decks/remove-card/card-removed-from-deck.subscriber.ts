@@ -2,7 +2,7 @@ import { DomainSubscriber } from '@core/shared/domain-subscriber';
 import {
   CardRemovedFromDeckDomainEvent,
   CARD_REMOVED_FROM_DECK_DOMAIN_EVENT,
-} from '@core/decks/decks/events/card-removed-from-deck.domain-event';
+} from '@core/decks/deck/events/card-removed-from-deck.domain-event';
 import { CardRepository } from '@core/cards/card/card.repository';
 import { Logger } from '@infrastructure/logger/logger';
 import { DomainEvents } from '@core/shared/domain-events';

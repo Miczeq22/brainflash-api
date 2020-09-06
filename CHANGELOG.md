@@ -12,7 +12,8 @@
 - Error handler middleware ([d62e86f](https://github.com/Miczeq22/brainflash-api/commit/d62e86f46c1b8422a5b32d85680b8e12d2383a98))
 - Login feature ([0861cb1](https://github.com/Miczeq22/brainflash-api/commit/0861cb15d61f71a415772c962383713928251bf2))
 - Register User Command ([cf520a7](https://github.com/Miczeq22/brainflash-api/commit/cf520a7001d89b3595bc08abad3e4ecb6b392353))
-- Remove card feature ([1d077d9](https://github.com/Miczeq22/brainflash-api/commit/1d077d99ce07594284f226e08f8149b06b430338))
+- Remove card feature ([96e5bb1](https://github.com/Miczeq22/brainflash-api/commit/96e5bb1b19e259297a1782f03f81a127a07b7b47))
+- Remove deck feature ([65d44d2](https://github.com/Miczeq22/brainflash-api/commit/65d44d2dc97a420899c6b32087d3f987044462b2))
 - Security Middleware ([08ea082](https://github.com/Miczeq22/brainflash-api/commit/08ea0826dfcd30484a390e23665a6e443a624dd0))
 - Server bootstrap ([9a1e2f2](https://github.com/Miczeq22/brainflash-api/commit/9a1e2f21d6db5e1b62a5df019e4a8bfb975fb921))
 - Update deck metadata feature ([bb931e6](https://github.com/Miczeq22/brainflash-api/commit/bb931e69bee1010d6a3373815591bf8a0961b24b))
@@ -25,6 +26,7 @@
 
 ### Refactoring & Improvements
 
+- Decks -> deck ([ca061b2](https://github.com/Miczeq22/brainflash-api/commit/ca061b23e828d6289acf77797c0b053d71a7b3e2))
 - Refactored domain events to use map instead object ([e4da6bf](https://github.com/Miczeq22/brainflash-api/commit/e4da6bf4d869aae81582bbe1a5dce3f94a7be88a))
 
 

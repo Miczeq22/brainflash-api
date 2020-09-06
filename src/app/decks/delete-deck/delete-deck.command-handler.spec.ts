@@ -1,11 +1,11 @@
 import { createMockProxy } from '@tools/mock-proxy';
 import { DeckRepository } from '@core/decks/deck/deck.repository';
-import { UpdateDeckMetadataCommandHandler } from './update-deck-metadata.command-handler';
-import { UpdateDeckMetadataCommand } from './update-deck-metadata.command';
+import { DeleteDeckCommandHandler } from './delete-deck.command-handler';
+import { DeleteDeckCommand } from './delete-deck.command';
 import { Deck } from '@core/decks/deck/deck.aggregate-root';
 import { UniqueEntityID } from '@core/shared/unique-entity-id';
 
-describe('[App] Update deck metadata command handler', () => {
+describe('[App] Delete deck command handler', () => {
   const deckRepository = createMockProxy<DeckRepository>();
 
   beforeEach(() => {
@@ -15,16 +15,15 @@ describe('[App] Update deck metadata command handler', () => {
   test('should throw an error if deck does not exist', async () => {
     deckRepository.findById.mockResolvedValue(null);
 
-    const handler = new UpdateDeckMetadataCommandHandler({
+    const handler = new DeleteDeckCommandHandler({
       deckRepository,
     });
 
     await expect(() =>
       handler.handle(
-        new UpdateDeckMetadataCommand({
+        new DeleteDeckCommand({
           deckId: '#deck-id',
           userId: '#user-id',
-          description: '#description',
         }),
       ),
     ).rejects.toThrowError('Deck does not exist.');
@@ -36,32 +35,31 @@ describe('[App] Update deck metadata command handler', () => {
         {
           cards: [],
           createdAt: new Date(),
+          deleted: false,
           description: '#description',
           name: '#name',
           ownerId: new UniqueEntityID(),
-          tags: ['#tag-1'],
-          deleted: false,
+          tags: ['#tag'],
         },
         new UniqueEntityID(),
       ),
     );
 
-    const handler = new UpdateDeckMetadataCommandHandler({
+    const handler = new DeleteDeckCommandHandler({
       deckRepository,
     });
 
     await expect(() =>
       handler.handle(
-        new UpdateDeckMetadataCommand({
+        new DeleteDeckCommand({
           deckId: '#deck-id',
           userId: new UniqueEntityID().getValue(),
-          description: '#description',
         }),
       ),
-    ).rejects.toThrowError('Only deck owner can update deck metadata.');
+    ).rejects.toThrowError('Only deck owner can delete deck.');
   });
 
-  test('should update deck metadata', async () => {
+  test('should delete deck', async () => {
     const ownerId = new UniqueEntityID();
 
     deckRepository.findById.mockResolvedValue(
@@ -70,32 +68,29 @@ describe('[App] Update deck metadata command handler', () => {
           ownerId,
           cards: [],
           createdAt: new Date(),
+          deleted: false,
           description: '#description',
           name: '#name',
-          tags: ['#tag-1'],
-          deleted: false,
+          tags: ['#tag'],
         },
         new UniqueEntityID(),
       ),
     );
 
-    const handler = new UpdateDeckMetadataCommandHandler({
+    const handler = new DeleteDeckCommandHandler({
       deckRepository,
     });
 
     await handler.handle(
-      new UpdateDeckMetadataCommand({
+      new DeleteDeckCommand({
         deckId: '#deck-id',
         userId: ownerId.getValue(),
-        description: '#new-description',
-        tags: ['#new-tag'],
       }),
     );
 
     const payload = deckRepository.update.mock.calls[0][0];
 
     expect(deckRepository.update).toHaveBeenCalledTimes(1);
-    expect(payload.getDescription()).toEqual('#new-description');
-    expect(payload.getTags()).toEqual(['#new-tag']);
+    expect(payload.isDeleted()).toBeTruthy();
   });
 });

@@ -2,7 +2,7 @@ import { createMockProxy } from '@tools/mock-proxy';
 import { CardRepository } from '@core/cards/card/card.repository';
 import { Logger } from '@infrastructure/logger/logger';
 import { CardRemovedFromDeckSubscriber } from './card-removed-from-deck.subscriber';
-import { CardRemovedFromDeckDomainEvent } from '@core/decks/decks/events/card-removed-from-deck.domain-event';
+import { CardRemovedFromDeckDomainEvent } from '@core/decks/deck/events/card-removed-from-deck.domain-event';
 import { UniqueEntityID } from '@core/shared/unique-entity-id';
 
 describe('[App] Card removed from deck subscriber', () => {
