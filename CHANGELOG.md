@@ -3,8 +3,8 @@
 
 ### Features
 
-- Add card feature ([454f936](https://github.com/Miczeq22/brainflash-api/commit/454f936ffc94385f7921ac7ebd4231763a5a9898))
-- Card persistence ([cf6fba0](https://github.com/Miczeq22/brainflash-api/commit/cf6fba0751fc81c2f08ec734ff6518129541f5ff))
+- Add card feature ([3e28960](https://github.com/Miczeq22/brainflash-api/commit/3e28960b6a1b206b5c7f98436954d6e39bad802f))
+- Card persistence ([dd19bd3](https://github.com/Miczeq22/brainflash-api/commit/dd19bd3680e5bd1c81948275c4b0a9ba07798e2f))
 - Confirm user account feature ([cdb4508](https://github.com/Miczeq22/brainflash-api/commit/cdb45085547ee0baefac05c3726a57a706ca3d84))
 - CORS middleware ([8372ca3](https://github.com/Miczeq22/brainflash-api/commit/8372ca37caebd56533d39955684fd793e5582dbf))
 - Create new deck feature ([568d4b0](https://github.com/Miczeq22/brainflash-api/commit/568d4b09410d82eedfc4b2333290ce6173c13e29))
@@ -12,6 +12,7 @@
 - Error handler middleware ([d62e86f](https://github.com/Miczeq22/brainflash-api/commit/d62e86f46c1b8422a5b32d85680b8e12d2383a98))
 - Login feature ([0861cb1](https://github.com/Miczeq22/brainflash-api/commit/0861cb15d61f71a415772c962383713928251bf2))
 - Register User Command ([cf520a7](https://github.com/Miczeq22/brainflash-api/commit/cf520a7001d89b3595bc08abad3e4ecb6b392353))
+- Remove card feature ([1d077d9](https://github.com/Miczeq22/brainflash-api/commit/1d077d99ce07594284f226e08f8149b06b430338))
 - Security Middleware ([08ea082](https://github.com/Miczeq22/brainflash-api/commit/08ea0826dfcd30484a390e23665a6e443a624dd0))
 - Server bootstrap ([9a1e2f2](https://github.com/Miczeq22/brainflash-api/commit/9a1e2f21d6db5e1b62a5df019e4a8bfb975fb921))
 - Update deck metadata feature ([bb931e6](https://github.com/Miczeq22/brainflash-api/commit/bb931e69bee1010d6a3373815591bf8a0961b24b))

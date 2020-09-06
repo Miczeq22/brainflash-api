@@ -6,6 +6,7 @@ import { DeckCreatedDomainEvent } from './events/deck-created.domain-event';
 import { DeckTagsUpdatedDomainEvent } from './events/deck-tags-updated.domain-event';
 import { Card } from '../card/card.entity';
 import { NewCardAddedDomainEvent } from './events/new-card-added.domain-event';
+import { CardRemovedFromDeckDomainEvent } from './events/card-removed-from-deck.domain-event';
 
 describe('[Domain] Deck', () => {
   const uniqueDeckChecker = createMockProxy<UniqueDeckChecker>();
@@ -203,5 +204,49 @@ describe('[Domain] Deck', () => {
     );
 
     expect(deck.getDomainEvents()[0] instanceof NewCardAddedDomainEvent).toBeTruthy();
+  });
+
+  test('should throw an error if card does not exist in deck', async () => {
+    const deck = Deck.instanceExisting(
+      {
+        cards: [],
+        createdAt: new Date(),
+        description: '#description',
+        name: '#name',
+        ownerId: new UniqueEntityID(),
+        tags: ['#tag-1'],
+      },
+      new UniqueEntityID(),
+    );
+
+    expect(() => deck.removeCard(new UniqueEntityID())).toThrowError(
+      'Card does not exist in deck.',
+    );
+  });
+
+  test('should remove card from deck and add proper domain event', async () => {
+    const card = Card.instanceExisting(
+      {
+        answer: '#answer',
+        question: '#question',
+      },
+      new UniqueEntityID(),
+    );
+
+    const deck = Deck.instanceExisting(
+      {
+        cards: [card],
+        createdAt: new Date(),
+        description: '#description',
+        name: '#name',
+        ownerId: new UniqueEntityID(),
+        tags: ['#tag-1'],
+      },
+      new UniqueEntityID(),
+    );
+
+    deck.removeCard(card.getId());
+
+    expect(deck.getDomainEvents()[0] instanceof CardRemovedFromDeckDomainEvent).toBeTruthy();
   });
 });

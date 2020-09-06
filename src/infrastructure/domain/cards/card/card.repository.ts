@@ -15,4 +15,8 @@ export class CardRepositoryImpl implements CardRepository {
 
     await this.dependencies.queryBuilder.insert(record).into(CARD_TABLE);
   }
+
+  public async remove(id: string) {
+    await this.dependencies.queryBuilder.where('id', id).delete().from(CARD_TABLE);
+  }
 }
