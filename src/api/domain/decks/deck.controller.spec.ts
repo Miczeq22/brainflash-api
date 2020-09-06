@@ -104,7 +104,7 @@ describe('[API] Deck controller', () => {
       Deck.instanceExisting(
         {
           name,
-          cardIDs: [],
+          cards: [],
           createdAt: new Date(),
           description: '#description',
           ownerId: user.getId(),
@@ -246,7 +246,7 @@ describe('[API] Deck controller', () => {
     const deck = Deck.instanceExisting(
       {
         name,
-        cardIDs: [],
+        cards: [],
         createdAt: new Date(),
         description: '#description',
         ownerId: user.getId(),
@@ -302,7 +302,7 @@ describe('[API] Deck controller', () => {
     const deck = Deck.instanceExisting(
       {
         name,
-        cardIDs: [],
+        cards: [],
         createdAt: new Date(),
         description: '#description',
         ownerId: user.getId(),
@@ -357,7 +357,7 @@ describe('[API] Deck controller', () => {
     const deck = Deck.instanceExisting(
       {
         name,
-        cardIDs: [],
+        cards: [],
         createdAt: new Date(),
         description: '#description',
         ownerId: user.getId(),
@@ -400,7 +400,7 @@ describe('[API] Deck controller', () => {
     const deck = Deck.instanceExisting(
       {
         name,
-        cardIDs: [],
+        cards: [],
         createdAt: new Date(),
         description: '#description',
         ownerId: user.getId(),
@@ -449,7 +449,7 @@ describe('[API] Deck controller', () => {
     const deck = Deck.instanceExisting(
       {
         name,
-        cardIDs: [],
+        cards: [],
         createdAt: new Date(),
         description: '#description',
         ownerId: user.getId(),
@@ -477,5 +477,107 @@ describe('[API] Deck controller', () => {
 
     expect(res.statusCode).toEqual(204);
     expect(updatedDeck.getDescription()).toEqual(newDescription);
+  });
+
+  test('[POST] /decks/add-card - should return an error if data is invalid', async () => {
+    process.env.JWT_TOKEN = 'secret';
+
+    emailChecker.isUnique.mockResolvedValue(true);
+
+    const email = faker.internet.email();
+    const password = faker.internet.password();
+    const username = faker.name.findName();
+
+    const user = await UserRegistration.registerNew(
+      {
+        email,
+        password,
+        username,
+      },
+      emailChecker,
+    );
+
+    await userRegistrationRepository.insert(user);
+
+    const token = jwt.sign(
+      {
+        userId: user.getId().getValue(),
+      },
+      process.env.JWT_TOKEN,
+    );
+
+    const res = await request(app)
+      .post('/decks/add-card')
+      .set('Accept', 'application/json')
+      .set('Authorization', `Bearer ${token}`);
+
+    expect(res.statusCode).toEqual(422);
+    expect(res.body.details.map((detail) => detail.key)).toEqual(['deckId', 'question', 'answer']);
+  });
+
+  test('[POST] /decks/add-card - should return an error if user is not authorized', async () => {
+    process.env.JWT_TOKEN = 'secret';
+
+    const res = await request(app).post('/decks/add-card').set('Accept', 'application/json');
+
+    expect(res.statusCode).toEqual(401);
+    expect(res.body.error).toEqual('Unauthorized.');
+  });
+
+  test('[POST] /decks/add-card - should add new card to deck', async () => {
+    process.env.JWT_TOKEN = 'secret';
+
+    emailChecker.isUnique.mockResolvedValue(true);
+
+    const email = faker.internet.email();
+    const password = faker.internet.password();
+    const username = faker.name.findName();
+
+    const user = await UserRegistration.registerNew(
+      {
+        email,
+        password,
+        username,
+      },
+      emailChecker,
+    );
+
+    await userRegistrationRepository.insert(user);
+
+    const token = jwt.sign(
+      {
+        userId: user.getId().getValue(),
+      },
+      process.env.JWT_TOKEN,
+    );
+
+    const name = faker.name.findName();
+
+    const deck = Deck.instanceExisting(
+      {
+        name,
+        cards: [],
+        createdAt: new Date(),
+        description: '#description',
+        ownerId: user.getId(),
+        tags: ['#tag-1'],
+      },
+      new UniqueEntityID(),
+    );
+
+    await deckRepository.insert(deck);
+
+    const res = await request(app)
+      .post('/decks/add-card')
+      .set('Accept', 'application/json')
+      .set('Authorization', `Bearer ${token}`)
+      .send({
+        deckId: deck.getId().getValue(),
+        question: faker.internet.domainName(),
+        answer: '#answer',
+      });
+
+    expect(res.statusCode).toEqual(201);
+    expect(res.body.cardId).toBeTruthy();
   });
 });

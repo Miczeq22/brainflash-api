@@ -11,6 +11,7 @@ import { Tag } from '@core/decks/tags/tag.entity';
 import { DeckTag } from '@core/decks/deck-tag/deck-tag.entity';
 import { UniqueEntityID } from '@core/shared/unique-entity-id';
 import { CARD_TABLE } from '@infrastructure/domain/cards/card/card.mapper';
+import { CardMapper } from '../card/card.mapper';
 
 interface Dependencies {
   queryBuilder: QueryBuilder;
@@ -49,13 +50,13 @@ export class DeckRepositoryImpl implements DeckRepository {
     const tags = await Promise.all(tagsPromise);
 
     const cards = await this.dependencies.queryBuilder
-      .select('id')
+      .select(['id', 'question', 'answer'])
       .where('deck_id', id)
       .from(CARD_TABLE);
 
     return DeckMapper.toEntity(
       result[0],
-      cards.map((card) => card.id),
+      cards.map((card) => CardMapper.toEntity(card)),
       tags.map((tag) => tag.getName()),
     );
   }

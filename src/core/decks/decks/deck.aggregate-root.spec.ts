@@ -4,6 +4,8 @@ import { Deck } from './deck.aggregate-root';
 import { UniqueEntityID } from '@core/shared/unique-entity-id';
 import { DeckCreatedDomainEvent } from './events/deck-created.domain-event';
 import { DeckTagsUpdatedDomainEvent } from './events/deck-tags-updated.domain-event';
+import { Card } from '../card/card.entity';
+import { NewCardAddedDomainEvent } from './events/new-card-added.domain-event';
 
 describe('[Domain] Deck', () => {
   const uniqueDeckChecker = createMockProxy<UniqueDeckChecker>();
@@ -65,7 +67,7 @@ describe('[Domain] Deck', () => {
 
     const deck = Deck.instanceExisting(
       {
-        cardIDs: [],
+        cards: [],
         createdAt: new Date(),
         description: '#description',
         name: '#name',
@@ -85,7 +87,7 @@ describe('[Domain] Deck', () => {
 
     const deck = Deck.instanceExisting(
       {
-        cardIDs: [],
+        cards: [],
         createdAt: new Date(),
         description: '#description',
         name: '#name',
@@ -103,7 +105,7 @@ describe('[Domain] Deck', () => {
   test('should throw an error if tags are empty on update', async () => {
     const deck = Deck.instanceExisting(
       {
-        cardIDs: [],
+        cards: [],
         createdAt: new Date(),
         description: '#description',
         name: '#name',
@@ -119,7 +121,7 @@ describe('[Domain] Deck', () => {
   test('should update deck tags and add proper domain event', async () => {
     const deck = Deck.instanceExisting(
       {
-        cardIDs: [],
+        cards: [],
         createdAt: new Date(),
         description: '#description',
         name: '#name',
@@ -133,5 +135,73 @@ describe('[Domain] Deck', () => {
 
     expect(deck.getTags()).toEqual(['#new-tag']);
     expect(deck.getDomainEvents()[0] instanceof DeckTagsUpdatedDomainEvent).toBeTruthy();
+  });
+
+  test('should throw an error if card is already added', async () => {
+    const deck = Deck.instanceExisting(
+      {
+        cards: [
+          Card.instanceExisting(
+            {
+              answer: '#answer',
+              question: '#question',
+            },
+            new UniqueEntityID(),
+          ),
+        ],
+        createdAt: new Date(),
+        description: '#description',
+        name: '#name',
+        ownerId: new UniqueEntityID(),
+        tags: ['#tag-1'],
+      },
+      new UniqueEntityID(),
+    );
+
+    expect(() =>
+      deck.addCard(
+        Card.instanceExisting(
+          {
+            answer: '#answer',
+            question: '#question',
+          },
+          new UniqueEntityID(),
+        ),
+      ),
+    ).toThrowError('You\'ve already added card with question: "#question".');
+  });
+
+  test('should add card to deck and proper domain event', async () => {
+    const deck = Deck.instanceExisting(
+      {
+        cards: [
+          Card.instanceExisting(
+            {
+              answer: '#answer',
+              question: '#question',
+            },
+            new UniqueEntityID(),
+          ),
+        ],
+        createdAt: new Date(),
+        description: '#description',
+        name: '#name',
+        ownerId: new UniqueEntityID(),
+        tags: ['#tag-1'],
+      },
+      new UniqueEntityID(),
+    );
+
+    deck.addCard(
+      Card.instanceExisting(
+        {
+          answer: '#answer',
+          question: '#another-question',
+        },
+        new UniqueEntityID(),
+      ),
+    );
+
+    expect(deck.getDomainEvents()[0] instanceof NewCardAddedDomainEvent).toBeTruthy();
   });
 });

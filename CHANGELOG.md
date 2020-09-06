@@ -1,8 +1,10 @@
-#  (2020-09-05)
+#  (2020-09-06)
 
 
 ### Features
 
+- Add card feature ([454f936](https://github.com/Miczeq22/brainflash-api/commit/454f936ffc94385f7921ac7ebd4231763a5a9898))
+- Card persistence ([cf6fba0](https://github.com/Miczeq22/brainflash-api/commit/cf6fba0751fc81c2f08ec734ff6518129541f5ff))
 - Confirm user account feature ([cdb4508](https://github.com/Miczeq22/brainflash-api/commit/cdb45085547ee0baefac05c3726a57a706ca3d84))
 - CORS middleware ([8372ca3](https://github.com/Miczeq22/brainflash-api/commit/8372ca37caebd56533d39955684fd793e5582dbf))
 - Create new deck feature ([568d4b0](https://github.com/Miczeq22/brainflash-api/commit/568d4b09410d82eedfc4b2333290ce6173c13e29))
@@ -12,7 +14,7 @@
 - Register User Command ([cf520a7](https://github.com/Miczeq22/brainflash-api/commit/cf520a7001d89b3595bc08abad3e4ecb6b392353))
 - Security Middleware ([08ea082](https://github.com/Miczeq22/brainflash-api/commit/08ea0826dfcd30484a390e23665a6e443a624dd0))
 - Server bootstrap ([9a1e2f2](https://github.com/Miczeq22/brainflash-api/commit/9a1e2f21d6db5e1b62a5df019e4a8bfb975fb921))
-- Update deck metadata feature ([26d24a0](https://github.com/Miczeq22/brainflash-api/commit/26d24a07c9f8300ea13b4b176f1efb528b0a6b9e))
+- Update deck metadata feature ([bb931e6](https://github.com/Miczeq22/brainflash-api/commit/bb931e69bee1010d6a3373815591bf8a0961b24b))
 - Update deck name ([fa90cbd](https://github.com/Miczeq22/brainflash-api/commit/fa90cbdab7dca1bb15454d5eade477a1e0c188e8))
 - Update user password feature ([3e9ff21](https://github.com/Miczeq22/brainflash-api/commit/3e9ff216832e081b43e6809d278cbabd94428357))
 - Upload deck image with local storage config ([0e4b793](https://github.com/Miczeq22/brainflash-api/commit/0e4b79359a7b5bff670584ec5fc4db769ad975e4))

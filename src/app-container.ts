@@ -27,6 +27,9 @@ import { DeckTagRepositoryImpl } from '@infrastructure/domain/decks/deck-tag/dec
 import { UpdateDeckNameCommandHandler } from '@app/decks/update-deck-name/update-deck-name.command-handler';
 import { DeckTagsUpdatedSubscriber } from '@app/decks/update-deck-metadata/deck-tags-updated.subscriber';
 import { UpdateDeckMetadataCommandHandler } from '@app/decks/update-deck-metadata/update-deck-metadata.command-handler';
+import { CardRepositoryImpl } from '@infrastructure/domain/cards/card/card.repository';
+import { NewCardAddedSubscriber } from '@app/decks/add-new-card/new-card-added.subscriber';
+import { AddNewCardCommandHandler } from '@app/decks/add-new-card/add-new-card.command-handler';
 
 const registerAsArray = <T>(resolvers: Awilix.Resolver<T>[]): Awilix.Resolver<T[]> => ({
   resolve: (container: Awilix.AwilixContainer) => resolvers.map((r) => container.build(r)),
@@ -75,6 +78,7 @@ export const createAppContainer = async (): Promise<Awilix.AwilixContainer> => {
       Awilix.asClass(CreateNewDeckCommandHandler).singleton(),
       Awilix.asClass(UpdateDeckNameCommandHandler).singleton(),
       Awilix.asClass(UpdateDeckMetadataCommandHandler).singleton(),
+      Awilix.asClass(AddNewCardCommandHandler).singleton(),
     ]),
   });
 
@@ -84,6 +88,7 @@ export const createAppContainer = async (): Promise<Awilix.AwilixContainer> => {
     deckRepository: Awilix.asClass(DeckRepositoryImpl).singleton(),
     tagRepository: Awilix.asClass(TagRepositoryImpl).singleton(),
     deckTagRepository: Awilix.asClass(DeckTagRepositoryImpl).singleton(),
+    cardRepository: Awilix.asClass(CardRepositoryImpl).singleton(),
   });
 
   container.register({
@@ -91,6 +96,7 @@ export const createAppContainer = async (): Promise<Awilix.AwilixContainer> => {
       Awilix.asClass(UserRegisteredSubscriber).singleton(),
       Awilix.asClass(DeckCreatedSubscriber).singleton(),
       Awilix.asClass(DeckTagsUpdatedSubscriber).singleton(),
+      Awilix.asClass(NewCardAddedSubscriber).singleton(),
     ]),
   });
 

@@ -19,11 +19,14 @@ export class Card extends AggregateRoot<CardProps> {
     super(props, id);
   }
 
-  public static createNew(props: NewCardProps) {
-    return new Card({
-      ...props,
-      createdAt: new Date(),
-    });
+  public static createNew(props: NewCardProps, id?: UniqueEntityID) {
+    return new Card(
+      {
+        ...props,
+        createdAt: new Date(),
+      },
+      id,
+    );
   }
 
   public static instanceExisting(props: CardProps, id: UniqueEntityID) {

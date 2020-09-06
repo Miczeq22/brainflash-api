@@ -4,8 +4,8 @@ import { UniqueEntityID } from '@core/shared/unique-entity-id';
 describe('[Domain] Card', () => {
   test('should create new card with proper props', () => {
     const card = Card.createNew({
-      backMarkdown: '#back-md',
-      frontMarkdown: '#front-md',
+      question: '#question',
+      answer: '#answer',
       deckId: new UniqueEntityID(),
     });
 
