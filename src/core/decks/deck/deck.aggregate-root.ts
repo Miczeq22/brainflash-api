@@ -23,6 +23,7 @@ interface DeckProps {
   createdAt: Date;
   cards: Card[];
   deleted: boolean;
+  published: boolean;
 }
 
 interface NewDeckProps {
@@ -57,6 +58,7 @@ export class Deck extends AggregateRoot<DeckProps> {
       cards: [],
       createdAt: new Date(),
       deleted: false,
+      published: false,
     });
 
     deck.addDomainEvent(new DeckCreatedDomainEvent(tags, deck.getId()));
@@ -141,5 +143,9 @@ export class Deck extends AggregateRoot<DeckProps> {
 
   public isDeleted() {
     return this.props.deleted;
+  }
+
+  public isPublished() {
+    return this.props.published;
   }
 }

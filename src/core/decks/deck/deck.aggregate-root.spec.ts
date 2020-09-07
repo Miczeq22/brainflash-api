@@ -75,6 +75,7 @@ describe('[Domain] Deck', () => {
         ownerId: new UniqueEntityID(),
         tags: ['#tag-1'],
         deleted: false,
+        published: false,
       },
       new UniqueEntityID(),
     );
@@ -96,6 +97,7 @@ describe('[Domain] Deck', () => {
         ownerId: new UniqueEntityID(),
         tags: ['#tag-1'],
         deleted: false,
+        published: false,
       },
       new UniqueEntityID(),
     );
@@ -115,6 +117,7 @@ describe('[Domain] Deck', () => {
         ownerId: new UniqueEntityID(),
         tags: ['#tag-1'],
         deleted: false,
+        published: false,
       },
       new UniqueEntityID(),
     );
@@ -132,6 +135,7 @@ describe('[Domain] Deck', () => {
         ownerId: new UniqueEntityID(),
         tags: ['#tag-1'],
         deleted: false,
+        published: false,
       },
       new UniqueEntityID(),
     );
@@ -160,6 +164,7 @@ describe('[Domain] Deck', () => {
         ownerId: new UniqueEntityID(),
         tags: ['#tag-1'],
         deleted: false,
+        published: false,
       },
       new UniqueEntityID(),
     );
@@ -195,6 +200,7 @@ describe('[Domain] Deck', () => {
         ownerId: new UniqueEntityID(),
         tags: ['#tag-1'],
         deleted: false,
+        published: false,
       },
       new UniqueEntityID(),
     );
@@ -222,6 +228,8 @@ describe('[Domain] Deck', () => {
         ownerId: new UniqueEntityID(),
         tags: ['#tag-1'],
         deleted: false,
+
+        published: false,
       },
       new UniqueEntityID(),
     );
@@ -249,6 +257,7 @@ describe('[Domain] Deck', () => {
         ownerId: new UniqueEntityID(),
         tags: ['#tag-1'],
         deleted: false,
+        published: false,
       },
       new UniqueEntityID(),
     );
@@ -268,6 +277,7 @@ describe('[Domain] Deck', () => {
         ownerId: new UniqueEntityID(),
         tags: ['#tag-1'],
         deleted: true,
+        published: false,
       },
       new UniqueEntityID(),
     );
@@ -285,6 +295,7 @@ describe('[Domain] Deck', () => {
         ownerId: new UniqueEntityID(),
         tags: ['#tag-1'],
         deleted: false,
+        published: false,
       },
       new UniqueEntityID(),
     );

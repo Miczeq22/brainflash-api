@@ -114,6 +114,7 @@ describe('[API] Deck controller', () => {
           ownerId: user.getId(),
           tags: ['#tag-1'],
           deleted: false,
+          published: false,
         },
         new UniqueEntityID(),
       ),
@@ -257,6 +258,7 @@ describe('[API] Deck controller', () => {
         ownerId: user.getId(),
         tags: ['#tag-1'],
         deleted: false,
+        published: false,
       },
       new UniqueEntityID(),
     );
@@ -314,6 +316,7 @@ describe('[API] Deck controller', () => {
         ownerId: user.getId(),
         tags: ['#tag-1'],
         deleted: false,
+        published: false,
       },
       new UniqueEntityID(),
     );
@@ -370,6 +373,7 @@ describe('[API] Deck controller', () => {
         ownerId: user.getId(),
         tags: ['#tag-1'],
         deleted: false,
+        published: false,
       },
       new UniqueEntityID(),
     );
@@ -414,6 +418,7 @@ describe('[API] Deck controller', () => {
         ownerId: user.getId(),
         tags: ['#tag-1'],
         deleted: false,
+        published: false,
       },
       new UniqueEntityID(),
     );
@@ -464,6 +469,7 @@ describe('[API] Deck controller', () => {
         ownerId: user.getId(),
         tags: ['#tag-1'],
         deleted: false,
+        published: false,
       },
       new UniqueEntityID(),
     );
@@ -572,6 +578,7 @@ describe('[API] Deck controller', () => {
         ownerId: user.getId(),
         tags: ['#tag-1'],
         deleted: false,
+        published: false,
       },
       new UniqueEntityID(),
     );
@@ -675,6 +682,7 @@ describe('[API] Deck controller', () => {
         ownerId: user.getId(),
         tags: ['#tag-1'],
         deleted: false,
+        published: false,
       },
       new UniqueEntityID(),
     );
@@ -790,6 +798,7 @@ describe('[API] Deck controller', () => {
         ownerId: user.getId(),
         tags: ['#tag-1'],
         deleted: false,
+        published: false,
       },
       new UniqueEntityID(),
     );
