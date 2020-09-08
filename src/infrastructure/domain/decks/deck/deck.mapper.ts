@@ -7,6 +7,7 @@ interface DeckRecord {
   name: string;
   description: string;
   deleted: boolean;
+  published: boolean;
   image_url?: string | null;
   owner_id: string;
   created_at: string;
@@ -24,6 +25,7 @@ export class DeckMapper {
       image_url: deck.getImageUrl(),
       created_at: deck.getCreatedAt().toISOString(),
       owner_id: deck.getOwnerId().getValue(),
+      published: deck.isPublished(),
     };
   }
 

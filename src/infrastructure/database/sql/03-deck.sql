@@ -3,6 +3,7 @@ CREATE TABLE public.deck (
     name text NOT NULL,
     description text NOT NULL,
     deleted boolean NOT NULL,
+    published boolean NOT NULL,
     image_url text,
     owner_id uuid NOT NULL,
     created_at timestamp WITH time zone NOT NULL

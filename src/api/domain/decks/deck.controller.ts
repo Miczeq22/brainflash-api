@@ -8,6 +8,7 @@ import { updateDeckMetadataActionValidation } from './actions/update-deck-metada
 import { addNewCardActionValidation } from './actions/add-new-card.action';
 import { removeCardActionValidation } from './actions/remove-card.action';
 import { deleteDeckActionValidation } from './actions/delete-deck.action';
+import { publishDeckActionValidation } from './actions/publish-deck.action';
 
 interface Dependencies {
   createDeckAction: RequestHandler;
@@ -17,6 +18,7 @@ interface Dependencies {
   addNewCardAction: RequestHandler;
   removeCardAction: RequestHandler;
   deleteDeckAction: RequestHandler;
+  publishDeckAction: RequestHandler;
 }
 
 export class DeckController extends Controller {
@@ -67,6 +69,12 @@ export class DeckController extends Controller {
       '/',
       [authorizationMiddleware, deleteDeckActionValidation],
       this.dependencies.deleteDeckAction,
+    );
+
+    router.put(
+      '/publish',
+      [authorizationMiddleware, publishDeckActionValidation],
+      this.dependencies.publishDeckAction,
     );
 
     return router;

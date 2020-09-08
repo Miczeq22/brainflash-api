@@ -17,5 +17,6 @@ module.exports = {
     '@infrastructure/(.*)': '<rootDir>/src/infrastructure/$1',
     '@api/(.*)': '<rootDir>/src/api/$1',
     '@core/(.*)': '<rootDir>/src/core/$1',
+    '@tests/(.*)': '<rootDir>/src/tests/$1',
   },
 };
