@@ -28,7 +28,8 @@
 ### Refactoring & Improvements
 
 - Added published prop to deck ([01745c6](https://github.com/Miczeq22/brainflash-api/commit/01745c6954f47cf6b14d6b79fd5103951315a486))
-- Added unauthenticated error ([761048d](https://github.com/Miczeq22/brainflash-api/commit/761048de2fcf22c638ec9059c2a6d3d75856e978))
+- Added single deck mock ([df4e1ed](https://github.com/Miczeq22/brainflash-api/commit/df4e1edfae63ad8a91deb6d2cc85174e1fc2414b))
+- Added unauthenticated error ([339003f](https://github.com/Miczeq22/brainflash-api/commit/339003ff135248b2c3bc0db6f8e00b0fc1a28f2e))
 - Decks -> deck ([8d3c834](https://github.com/Miczeq22/brainflash-api/commit/8d3c83471d3394f47003ba5c50f3d49e212d3dde))
 - Refactored domain events to use map instead object ([e4da6bf](https://github.com/Miczeq22/brainflash-api/commit/e4da6bf4d869aae81582bbe1a5dce3f94a7be88a))
 

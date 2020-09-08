@@ -2,8 +2,8 @@ import { createMockProxy } from '@tools/mock-proxy';
 import { DeckRepository } from '@core/decks/deck/deck.repository';
 import { DeleteDeckCommandHandler } from './delete-deck.command-handler';
 import { DeleteDeckCommand } from './delete-deck.command';
-import { Deck } from '@core/decks/deck/deck.aggregate-root';
 import { UniqueEntityID } from '@core/shared/unique-entity-id';
+import { createDeckMock } from '@tests/deck.mock';
 
 describe('[App] Delete deck command handler', () => {
   const deckRepository = createMockProxy<DeckRepository>();
@@ -30,21 +30,7 @@ describe('[App] Delete deck command handler', () => {
   });
 
   test('should throw an error if user is not deck owner', async () => {
-    deckRepository.findById.mockResolvedValue(
-      Deck.instanceExisting(
-        {
-          cards: [],
-          createdAt: new Date(),
-          deleted: false,
-          description: '#description',
-          name: '#name',
-          ownerId: new UniqueEntityID(),
-          tags: ['#tag'],
-          published: false,
-        },
-        new UniqueEntityID(),
-      ),
-    );
+    deckRepository.findById.mockResolvedValue(createDeckMock());
 
     const handler = new DeleteDeckCommandHandler({
       deckRepository,
@@ -64,19 +50,9 @@ describe('[App] Delete deck command handler', () => {
     const ownerId = new UniqueEntityID();
 
     deckRepository.findById.mockResolvedValue(
-      Deck.instanceExisting(
-        {
-          ownerId,
-          cards: [],
-          createdAt: new Date(),
-          deleted: false,
-          description: '#description',
-          name: '#name',
-          tags: ['#tag'],
-          published: false,
-        },
-        new UniqueEntityID(),
-      ),
+      createDeckMock({
+        ownerId,
+      }),
     );
 
     const handler = new DeleteDeckCommandHandler({

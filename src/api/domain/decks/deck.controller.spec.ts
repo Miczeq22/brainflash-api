@@ -8,7 +8,6 @@ import { UniqueEmailChecker } from '@core/user-access/user-registration/rules/us
 import { createMockProxy } from '@tools/mock-proxy';
 import jwt from 'jsonwebtoken';
 import { UserRegistrationRepository } from '@core/user-access/user-registration/user-registration.repository';
-import { Deck } from '@core/decks/deck/deck.aggregate-root';
 import { UniqueEntityID } from '@core/shared/unique-entity-id';
 import { CardRepository } from '@core/cards/card/card.repository';
 import { Card } from '@core/cards/card/card.aggregate-root';
@@ -106,19 +105,10 @@ describe('[API] Deck controller', () => {
     const name = faker.name.findName();
 
     await deckRepository.insert(
-      Deck.instanceExisting(
-        {
-          name,
-          cards: [],
-          createdAt: new Date(),
-          description: '#description',
-          ownerId: user.getId(),
-          tags: ['#tag-1'],
-          deleted: false,
-          published: false,
-        },
-        new UniqueEntityID(),
-      ),
+      createDeckMock({
+        ownerId: user.getId(),
+        name,
+      }),
     );
 
     const res = await request(app)
@@ -250,19 +240,10 @@ describe('[API] Deck controller', () => {
 
     const name = faker.name.findName();
 
-    const deck = Deck.instanceExisting(
-      {
-        name,
-        cards: [],
-        createdAt: new Date(),
-        description: '#description',
-        ownerId: user.getId(),
-        tags: ['#tag-1'],
-        deleted: false,
-        published: false,
-      },
-      new UniqueEntityID(),
-    );
+    const deck = createDeckMock({
+      ownerId: user.getId(),
+      name,
+    });
 
     await deckRepository.insert(deck);
 
@@ -308,19 +289,10 @@ describe('[API] Deck controller', () => {
 
     const name = faker.name.findName();
 
-    const deck = Deck.instanceExisting(
-      {
-        name,
-        cards: [],
-        createdAt: new Date(),
-        description: '#description',
-        ownerId: user.getId(),
-        tags: ['#tag-1'],
-        deleted: false,
-        published: false,
-      },
-      new UniqueEntityID(),
-    );
+    const deck = createDeckMock({
+      name,
+      ownerId: user.getId(),
+    });
 
     await deckRepository.insert(deck);
 
@@ -365,19 +337,10 @@ describe('[API] Deck controller', () => {
 
     const name = faker.name.findName();
 
-    const deck = Deck.instanceExisting(
-      {
-        name,
-        cards: [],
-        createdAt: new Date(),
-        description: '#description',
-        ownerId: user.getId(),
-        tags: ['#tag-1'],
-        deleted: false,
-        published: false,
-      },
-      new UniqueEntityID(),
-    );
+    const deck = createDeckMock({
+      name,
+      ownerId: user.getId(),
+    });
 
     await deckRepository.insert(deck);
 
@@ -410,19 +373,10 @@ describe('[API] Deck controller', () => {
 
     const name = faker.name.findName();
 
-    const deck = Deck.instanceExisting(
-      {
-        name,
-        cards: [],
-        createdAt: new Date(),
-        description: '#description',
-        ownerId: user.getId(),
-        tags: ['#tag-1'],
-        deleted: false,
-        published: false,
-      },
-      new UniqueEntityID(),
-    );
+    const deck = createDeckMock({
+      name,
+      ownerId: user.getId(),
+    });
 
     await deckRepository.insert(deck);
 
@@ -461,19 +415,10 @@ describe('[API] Deck controller', () => {
 
     const name = faker.name.findName();
 
-    const deck = Deck.instanceExisting(
-      {
-        name,
-        cards: [],
-        createdAt: new Date(),
-        description: '#description',
-        ownerId: user.getId(),
-        tags: ['#tag-1'],
-        deleted: false,
-        published: false,
-      },
-      new UniqueEntityID(),
-    );
+    const deck = createDeckMock({
+      name,
+      ownerId: user.getId(),
+    });
 
     await deckRepository.insert(deck);
 
@@ -570,19 +515,10 @@ describe('[API] Deck controller', () => {
 
     const name = faker.name.findName();
 
-    const deck = Deck.instanceExisting(
-      {
-        name,
-        cards: [],
-        createdAt: new Date(),
-        description: '#description',
-        ownerId: user.getId(),
-        tags: ['#tag-1'],
-        deleted: false,
-        published: false,
-      },
-      new UniqueEntityID(),
-    );
+    const deck = createDeckMock({
+      name,
+      ownerId: user.getId(),
+    });
 
     await deckRepository.insert(deck);
 
@@ -674,19 +610,10 @@ describe('[API] Deck controller', () => {
 
     const name = faker.name.findName();
 
-    const deck = Deck.instanceExisting(
-      {
-        name,
-        cards: [],
-        createdAt: new Date(),
-        description: '#description',
-        ownerId: user.getId(),
-        tags: ['#tag-1'],
-        deleted: false,
-        published: false,
-      },
-      new UniqueEntityID(),
-    );
+    const deck = createDeckMock({
+      name,
+      ownerId: user.getId(),
+    });
 
     await deckRepository.insert(deck);
 
@@ -790,19 +717,10 @@ describe('[API] Deck controller', () => {
 
     const name = faker.name.findName();
 
-    const deck = Deck.instanceExisting(
-      {
-        name,
-        cards: [],
-        createdAt: new Date(),
-        description: '#description',
-        ownerId: user.getId(),
-        tags: ['#tag-1'],
-        deleted: false,
-        published: false,
-      },
-      new UniqueEntityID(),
-    );
+    const deck = createDeckMock({
+      name,
+      ownerId: user.getId(),
+    });
 
     await deckRepository.insert(deck);
 

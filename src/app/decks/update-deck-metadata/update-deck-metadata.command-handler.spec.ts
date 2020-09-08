@@ -2,8 +2,8 @@ import { createMockProxy } from '@tools/mock-proxy';
 import { DeckRepository } from '@core/decks/deck/deck.repository';
 import { UpdateDeckMetadataCommandHandler } from './update-deck-metadata.command-handler';
 import { UpdateDeckMetadataCommand } from './update-deck-metadata.command';
-import { Deck } from '@core/decks/deck/deck.aggregate-root';
 import { UniqueEntityID } from '@core/shared/unique-entity-id';
+import { createDeckMock } from '@tests/deck.mock';
 
 describe('[App] Update deck metadata command handler', () => {
   const deckRepository = createMockProxy<DeckRepository>();
@@ -31,21 +31,7 @@ describe('[App] Update deck metadata command handler', () => {
   });
 
   test('should throw an error if user is not deck owner', async () => {
-    deckRepository.findById.mockResolvedValue(
-      Deck.instanceExisting(
-        {
-          cards: [],
-          createdAt: new Date(),
-          description: '#description',
-          name: '#name',
-          ownerId: new UniqueEntityID(),
-          tags: ['#tag-1'],
-          deleted: false,
-          published: false,
-        },
-        new UniqueEntityID(),
-      ),
-    );
+    deckRepository.findById.mockResolvedValue(createDeckMock());
 
     const handler = new UpdateDeckMetadataCommandHandler({
       deckRepository,
@@ -66,19 +52,9 @@ describe('[App] Update deck metadata command handler', () => {
     const ownerId = new UniqueEntityID();
 
     deckRepository.findById.mockResolvedValue(
-      Deck.instanceExisting(
-        {
-          ownerId,
-          cards: [],
-          createdAt: new Date(),
-          description: '#description',
-          name: '#name',
-          tags: ['#tag-1'],
-          deleted: false,
-          published: false,
-        },
-        new UniqueEntityID(),
-      ),
+      createDeckMock({
+        ownerId,
+      }),
     );
 
     const handler = new UpdateDeckMetadataCommandHandler({
