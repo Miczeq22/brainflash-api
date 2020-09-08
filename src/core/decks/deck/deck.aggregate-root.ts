@@ -12,9 +12,10 @@ import { CardWithSameQuestionCannotBeAddedTwiceRule } from './rules/card-with-sa
 import { NewCardAddedDomainEvent } from './events/new-card-added.domain-event';
 import { CardShouldExistInDeckRule } from './rules/card-should-exist-in-deck.rule';
 import { CardRemovedFromDeckDomainEvent } from './events/card-removed-from-deck.domain-event';
-import { DeckCannotBeDeletedRule } from './events/deck-cannot-be-deleted.rule';
+import { DeckCannotBeDeletedRule } from './rules/deck-cannot-be-deleted.rule';
+import { DeckCannotBePublishedRule } from './rules/deck-cannot-be-published.rule';
 
-interface DeckProps {
+export interface DeckProps {
   name: string;
   description: string;
   imageUrl?: string | null;
@@ -88,6 +89,13 @@ export class Deck extends AggregateRoot<DeckProps> {
     Deck.checkRule(new DeckCannotBeDeletedRule(this.props.deleted));
 
     this.props.deleted = true;
+  }
+
+  public publish() {
+    Deck.checkRule(new DeckCannotBeDeletedRule(this.props.deleted));
+    Deck.checkRule(new DeckCannotBePublishedRule(this.props.published));
+
+    this.props.published = true;
   }
 
   public async updateName(name: string, uniqueDeckChecker: UniqueDeckChecker) {

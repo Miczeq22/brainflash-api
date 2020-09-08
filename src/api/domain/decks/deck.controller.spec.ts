@@ -12,6 +12,7 @@ import { Deck } from '@core/decks/deck/deck.aggregate-root';
 import { UniqueEntityID } from '@core/shared/unique-entity-id';
 import { CardRepository } from '@core/cards/card/card.repository';
 import { Card } from '@core/cards/card/card.aggregate-root';
+import { createDeckMock } from '@tests/deck.mock';
 
 describe('[API] Deck controller', () => {
   let app: Application;
@@ -807,6 +808,98 @@ describe('[API] Deck controller', () => {
 
     const res = await request(app)
       .delete('/decks')
+      .set('Accept', 'application/json')
+      .set('Authorization', `Bearer ${token}`)
+      .send({
+        deckId: deck.getId().getValue(),
+      });
+
+    expect(res.statusCode).toEqual(204);
+  });
+
+  test('[PUT] /decks/publish - should return an error if data is invalid', async () => {
+    process.env.JWT_TOKEN = 'secret';
+
+    emailChecker.isUnique.mockResolvedValue(true);
+
+    const email = faker.internet.email();
+    const password = faker.internet.password();
+    const username = faker.name.findName();
+
+    const user = await UserRegistration.registerNew(
+      {
+        email,
+        password,
+        username,
+      },
+      emailChecker,
+    );
+
+    await userRegistrationRepository.insert(user);
+
+    const token = jwt.sign(
+      {
+        userId: user.getId().getValue(),
+      },
+      process.env.JWT_TOKEN,
+    );
+
+    const res = await request(app)
+      .put('/decks/publish')
+      .set('Accept', 'application/json')
+      .set('Authorization', `Bearer ${token}`);
+
+    expect(res.statusCode).toEqual(422);
+    expect(res.body.details.map((detail) => detail.key)).toEqual(['deckId']);
+  });
+
+  test('[PUT] /decks/decks - should return an error if user is not authorized', async () => {
+    process.env.JWT_TOKEN = 'secret';
+
+    const res = await request(app).put('/decks/publish').set('Accept', 'application/json');
+
+    expect(res.statusCode).toEqual(401);
+    expect(res.body.error).toEqual('Unauthorized.');
+  });
+
+  test('[PUT] /decks/publish - should publish card', async () => {
+    process.env.JWT_TOKEN = 'secret';
+
+    emailChecker.isUnique.mockResolvedValue(true);
+
+    const email = faker.internet.email();
+    const password = faker.internet.password();
+    const username = faker.name.findName();
+
+    const user = await UserRegistration.registerNew(
+      {
+        email,
+        password,
+        username,
+      },
+      emailChecker,
+    );
+
+    await userRegistrationRepository.insert(user);
+
+    const token = jwt.sign(
+      {
+        userId: user.getId().getValue(),
+      },
+      process.env.JWT_TOKEN,
+    );
+
+    const name = faker.name.findName();
+
+    const deck = createDeckMock({
+      name,
+      ownerId: user.getId(),
+    });
+
+    await deckRepository.insert(deck);
+
+    const res = await request(app)
+      .put('/decks/publish')
       .set('Accept', 'application/json')
       .set('Authorization', `Bearer ${token}`)
       .send({

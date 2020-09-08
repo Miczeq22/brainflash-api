@@ -304,4 +304,60 @@ describe('[Domain] Deck', () => {
 
     expect(deck.isDeleted()).toBeTruthy();
   });
+
+  test('should throw an error if deck is already published', async () => {
+    const deck = Deck.instanceExisting(
+      {
+        cards: [],
+        createdAt: new Date(),
+        description: '#description',
+        name: '#name',
+        ownerId: new UniqueEntityID(),
+        tags: ['#tag-1'],
+        deleted: false,
+        published: true,
+      },
+      new UniqueEntityID(),
+    );
+
+    expect(() => deck.publish()).toThrowError('Deck is already published.');
+  });
+
+  test('should throw an error if deck is deleted on publish', async () => {
+    const deck = Deck.instanceExisting(
+      {
+        cards: [],
+        createdAt: new Date(),
+        description: '#description',
+        name: '#name',
+        ownerId: new UniqueEntityID(),
+        tags: ['#tag-1'],
+        deleted: true,
+        published: false,
+      },
+      new UniqueEntityID(),
+    );
+
+    expect(() => deck.publish()).toThrowError('Deck is already deleted.');
+  });
+
+  test('should publish deck', async () => {
+    const deck = Deck.instanceExisting(
+      {
+        cards: [],
+        createdAt: new Date(),
+        description: '#description',
+        name: '#name',
+        ownerId: new UniqueEntityID(),
+        tags: ['#tag-1'],
+        deleted: false,
+        published: false,
+      },
+      new UniqueEntityID(),
+    );
+
+    deck.publish();
+
+    expect(deck.isPublished()).toBeTruthy();
+  });
 });

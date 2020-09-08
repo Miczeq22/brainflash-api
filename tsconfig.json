@@ -19,7 +19,8 @@
       "@infrastructure/*": ["./src/infrastructure/*"],
       "@api/*": ["./src/api/*"],
       "@core/*": ["./src/core/*"],
-      "@tools/*": ["./src/tools/*"]
+      "@tools/*": ["./src/tools/*"],
+      "@tests/*": ["./src/tests/*"]
     }
   }
 }

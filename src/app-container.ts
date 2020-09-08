@@ -33,6 +33,7 @@ import { AddNewCardCommandHandler } from '@app/decks/add-new-card/add-new-card.c
 import { RemoveCardCommandHandler } from '@app/decks/remove-card/remove-card.command-handler';
 import { CardRemovedFromDeckSubscriber } from '@app/decks/remove-card/card-removed-from-deck.subscriber';
 import { DeleteDeckCommandHandler } from '@app/decks/delete-deck/delete-deck.command-handler';
+import { PublishDeckCommandHandler } from '@app/decks/publish-deck/publish-deck.command-handler';
 
 const registerAsArray = <T>(resolvers: Awilix.Resolver<T>[]): Awilix.Resolver<T[]> => ({
   resolve: (container: Awilix.AwilixContainer) => resolvers.map((r) => container.build(r)),
@@ -84,6 +85,7 @@ export const createAppContainer = async (): Promise<Awilix.AwilixContainer> => {
       Awilix.asClass(AddNewCardCommandHandler).singleton(),
       Awilix.asClass(RemoveCardCommandHandler).singleton(),
       Awilix.asClass(DeleteDeckCommandHandler).singleton(),
+      Awilix.asClass(PublishDeckCommandHandler).singleton(),
     ]),
   });
 

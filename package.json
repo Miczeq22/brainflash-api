@@ -20,7 +20,8 @@
     "@infrastructure": "dist/infrastructure",
     "@tools": "dist/tools",
     "@errors": "dist/errors",
-    "@core": "dist/core"
+    "@core": "dist/core",
+    "@tests": "dist/tests"
   },
   "devDependencies": {
     "@types/aws-sdk": "^2.7.0",
