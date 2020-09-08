@@ -3,8 +3,8 @@ import { UpdateDeckNameCommand, UPDATE_DECK_NAME_COMMAND } from './update-deck-n
 import { DeckRepository } from '@core/decks/deck/deck.repository';
 import { NotFoundError } from '@errors/not-found.error';
 import { UniqueEntityID } from '@core/shared/unique-entity-id';
-import { UnauthorizedError } from '@errors/unauthorized.error';
 import { UniqueDeckChecker } from '@core/decks/deck/rules/user-deck-should-have-unique-name.rule';
+import { UnauthenticatedError } from '@errors/unauthenticated.error';
 
 interface Dependencies {
   deckRepository: DeckRepository;
@@ -26,7 +26,7 @@ export class UpdateDeckNameCommandHandler extends CommandHandler<UpdateDeckNameC
     }
 
     if (!deck.getOwnerId().equals(new UniqueEntityID(userId))) {
-      throw new UnauthorizedError('Only deck owner can update deck.');
+      throw new UnauthenticatedError('Only deck owner can update deck.');
     }
 
     await deck.updateName(newName, uniqueDeckChecker);

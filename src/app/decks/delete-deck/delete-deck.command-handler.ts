@@ -3,6 +3,7 @@ import { DeckRepository } from '@core/decks/deck/deck.repository';
 import { DeleteDeckCommand, DELETE_DECK_COMMAND } from './delete-deck.command';
 import { NotFoundError } from '@errors/not-found.error';
 import { UniqueEntityID } from '@core/shared/unique-entity-id';
+import { UnauthenticatedError } from '@errors/unauthenticated.error';
 
 interface Dependencies {
   deckRepository: DeckRepository;
@@ -23,7 +24,7 @@ export class DeleteDeckCommandHandler extends CommandHandler<DeleteDeckCommand> 
     }
 
     if (!deck.getOwnerId().equals(new UniqueEntityID(userId))) {
-      throw new NotFoundError('Only deck owner can delete deck.');
+      throw new UnauthenticatedError('Only deck owner can delete deck.');
     }
 
     deck.delete();

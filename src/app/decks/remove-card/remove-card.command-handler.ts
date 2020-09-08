@@ -4,7 +4,7 @@ import { DeckRepository } from '@core/decks/deck/deck.repository';
 import { NotFoundError } from '@errors/not-found.error';
 import { UniqueEntityID } from '@core/shared/unique-entity-id';
 import { DomainEvents } from '@core/shared/domain-events';
-import { UnauthorizedError } from '@errors/unauthorized.error';
+import { UnauthenticatedError } from '@errors/unauthenticated.error';
 
 interface Dependencies {
   deckRepository: DeckRepository;
@@ -25,7 +25,7 @@ export class RemoveCardCommandHandler extends CommandHandler<RemoveCardCommand> 
     }
 
     if (!deck.getOwnerId().equals(new UniqueEntityID(userId))) {
-      throw new UnauthorizedError('Only deck owner can remove card.');
+      throw new UnauthenticatedError('Only deck owner can remove card.');
     }
 
     deck.removeCard(new UniqueEntityID(cardId));

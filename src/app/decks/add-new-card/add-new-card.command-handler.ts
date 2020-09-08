@@ -3,9 +3,9 @@ import { CommandHandler } from '@app/processing/command-handler';
 import { DeckRepository } from '@core/decks/deck/deck.repository';
 import { NotFoundError } from '@errors/not-found.error';
 import { UniqueEntityID } from '@core/shared/unique-entity-id';
-import { UnauthorizedError } from '@errors/unauthorized.error';
 import { Card } from '@core/decks/card/card.entity';
 import { DomainEvents } from '@core/shared/domain-events';
+import { UnauthenticatedError } from '@errors/unauthenticated.error';
 
 interface Dependencies {
   deckRepository: DeckRepository;
@@ -26,7 +26,7 @@ export class AddNewCardCommandHandler extends CommandHandler<AddNewCardCommand> 
     }
 
     if (!deck.getOwnerId().equals(new UniqueEntityID(userId))) {
-      throw new UnauthorizedError('Only deck owner can add card.');
+      throw new UnauthenticatedError('Only deck owner can add card.');
     }
 
     const card = Card.createNew({ answer, question });
