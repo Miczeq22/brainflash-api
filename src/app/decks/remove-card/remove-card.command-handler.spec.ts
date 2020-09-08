@@ -2,9 +2,9 @@ import { createMockProxy } from '@tools/mock-proxy';
 import { DeckRepository } from '@core/decks/deck/deck.repository';
 import { RemoveCardCommandHandler } from './remove-card.command-handler';
 import { RemoveCardCommand } from './remove-card.command';
-import { Deck } from '@core/decks/deck/deck.aggregate-root';
 import { UniqueEntityID } from '@core/shared/unique-entity-id';
 import { Card } from '@core/decks/card/card.entity';
+import { createDeckMock } from '@tests/deck.mock';
 
 describe('[App] Remove card command handler', () => {
   const deckRepository = createMockProxy<DeckRepository>();
@@ -32,21 +32,7 @@ describe('[App] Remove card command handler', () => {
   });
 
   test('should throw an error if user is not deck owner', async () => {
-    deckRepository.findById.mockResolvedValue(
-      Deck.instanceExisting(
-        {
-          cards: [],
-          createdAt: new Date(),
-          description: '#description',
-          name: '#name',
-          ownerId: new UniqueEntityID(),
-          tags: ['#tag'],
-          deleted: false,
-          published: false,
-        },
-        new UniqueEntityID(),
-      ),
-    );
+    deckRepository.findById.mockResolvedValue(createDeckMock());
 
     const handler = new RemoveCardCommandHandler({
       deckRepository,
@@ -75,19 +61,10 @@ describe('[App] Remove card command handler', () => {
     );
 
     deckRepository.findById.mockResolvedValue(
-      Deck.instanceExisting(
-        {
-          ownerId,
-          cards: [card],
-          createdAt: new Date(),
-          description: '#description',
-          name: '#name',
-          tags: ['#tag'],
-          deleted: false,
-          published: false,
-        },
-        new UniqueEntityID(),
-      ),
+      createDeckMock({
+        ownerId,
+        cards: [card],
+      }),
     );
 
     const handler = new RemoveCardCommandHandler({

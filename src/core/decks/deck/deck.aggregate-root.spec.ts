@@ -7,6 +7,7 @@ import { DeckTagsUpdatedDomainEvent } from './events/deck-tags-updated.domain-ev
 import { Card } from '../card/card.entity';
 import { NewCardAddedDomainEvent } from './events/new-card-added.domain-event';
 import { CardRemovedFromDeckDomainEvent } from './events/card-removed-from-deck.domain-event';
+import { createDeckMock } from '@tests/deck.mock';
 
 describe('[Domain] Deck', () => {
   const uniqueDeckChecker = createMockProxy<UniqueDeckChecker>();
@@ -66,19 +67,7 @@ describe('[Domain] Deck', () => {
   test('should throw an error if deck is not unique', async () => {
     uniqueDeckChecker.isUnique.mockResolvedValue(false);
 
-    const deck = Deck.instanceExisting(
-      {
-        cards: [],
-        createdAt: new Date(),
-        description: '#description',
-        name: '#name',
-        ownerId: new UniqueEntityID(),
-        tags: ['#tag-1'],
-        deleted: false,
-        published: false,
-      },
-      new UniqueEntityID(),
-    );
+    const deck = createDeckMock();
 
     await expect(() => deck.updateName('#new-name', uniqueDeckChecker)).rejects.toThrowError(
       'You\'ve already created deck with name: "#new-name".',
@@ -88,19 +77,7 @@ describe('[Domain] Deck', () => {
   test('should update deck name', async () => {
     uniqueDeckChecker.isUnique.mockResolvedValue(true);
 
-    const deck = Deck.instanceExisting(
-      {
-        cards: [],
-        createdAt: new Date(),
-        description: '#description',
-        name: '#name',
-        ownerId: new UniqueEntityID(),
-        tags: ['#tag-1'],
-        deleted: false,
-        published: false,
-      },
-      new UniqueEntityID(),
-    );
+    const deck = createDeckMock();
 
     await deck.updateName('#new-name', uniqueDeckChecker);
 
@@ -108,37 +85,13 @@ describe('[Domain] Deck', () => {
   });
 
   test('should throw an error if tags are empty on update', async () => {
-    const deck = Deck.instanceExisting(
-      {
-        cards: [],
-        createdAt: new Date(),
-        description: '#description',
-        name: '#name',
-        ownerId: new UniqueEntityID(),
-        tags: ['#tag-1'],
-        deleted: false,
-        published: false,
-      },
-      new UniqueEntityID(),
-    );
+    const deck = createDeckMock();
 
     expect(() => deck.updateTags([])).toThrowError('Tags for deck cannot be empty.');
   });
 
   test('should update deck tags and add proper domain event', async () => {
-    const deck = Deck.instanceExisting(
-      {
-        cards: [],
-        createdAt: new Date(),
-        description: '#description',
-        name: '#name',
-        ownerId: new UniqueEntityID(),
-        tags: ['#tag-1'],
-        deleted: false,
-        published: false,
-      },
-      new UniqueEntityID(),
-    );
+    const deck = createDeckMock();
 
     deck.updateTags(['#new-tag']);
 
@@ -147,27 +100,17 @@ describe('[Domain] Deck', () => {
   });
 
   test('should throw an error if card is already added', async () => {
-    const deck = Deck.instanceExisting(
-      {
-        cards: [
-          Card.instanceExisting(
-            {
-              answer: '#answer',
-              question: '#question',
-            },
-            new UniqueEntityID(),
-          ),
-        ],
-        createdAt: new Date(),
-        description: '#description',
-        name: '#name',
-        ownerId: new UniqueEntityID(),
-        tags: ['#tag-1'],
-        deleted: false,
-        published: false,
-      },
-      new UniqueEntityID(),
-    );
+    const deck = createDeckMock({
+      cards: [
+        Card.instanceExisting(
+          {
+            answer: '#answer',
+            question: '#question',
+          },
+          new UniqueEntityID(),
+        ),
+      ],
+    });
 
     expect(() =>
       deck.addCard(
@@ -183,27 +126,17 @@ describe('[Domain] Deck', () => {
   });
 
   test('should add card to deck and proper domain event', async () => {
-    const deck = Deck.instanceExisting(
-      {
-        cards: [
-          Card.instanceExisting(
-            {
-              answer: '#answer',
-              question: '#question',
-            },
-            new UniqueEntityID(),
-          ),
-        ],
-        createdAt: new Date(),
-        description: '#description',
-        name: '#name',
-        ownerId: new UniqueEntityID(),
-        tags: ['#tag-1'],
-        deleted: false,
-        published: false,
-      },
-      new UniqueEntityID(),
-    );
+    const deck = createDeckMock({
+      cards: [
+        Card.instanceExisting(
+          {
+            answer: '#answer',
+            question: '#question',
+          },
+          new UniqueEntityID(),
+        ),
+      ],
+    });
 
     deck.addCard(
       Card.instanceExisting(
@@ -219,20 +152,7 @@ describe('[Domain] Deck', () => {
   });
 
   test('should throw an error if card does not exist in deck', async () => {
-    const deck = Deck.instanceExisting(
-      {
-        cards: [],
-        createdAt: new Date(),
-        description: '#description',
-        name: '#name',
-        ownerId: new UniqueEntityID(),
-        tags: ['#tag-1'],
-        deleted: false,
-
-        published: false,
-      },
-      new UniqueEntityID(),
-    );
+    const deck = createDeckMock();
 
     expect(() => deck.removeCard(new UniqueEntityID())).toThrowError(
       'Card does not exist in deck.',
@@ -248,19 +168,9 @@ describe('[Domain] Deck', () => {
       new UniqueEntityID(),
     );
 
-    const deck = Deck.instanceExisting(
-      {
-        cards: [card],
-        createdAt: new Date(),
-        description: '#description',
-        name: '#name',
-        ownerId: new UniqueEntityID(),
-        tags: ['#tag-1'],
-        deleted: false,
-        published: false,
-      },
-      new UniqueEntityID(),
-    );
+    const deck = createDeckMock({
+      cards: [card],
+    });
 
     deck.removeCard(card.getId());
 
@@ -268,37 +178,15 @@ describe('[Domain] Deck', () => {
   });
 
   test('should throw an error if deck is already deleted', async () => {
-    const deck = Deck.instanceExisting(
-      {
-        cards: [],
-        createdAt: new Date(),
-        description: '#description',
-        name: '#name',
-        ownerId: new UniqueEntityID(),
-        tags: ['#tag-1'],
-        deleted: true,
-        published: false,
-      },
-      new UniqueEntityID(),
-    );
+    const deck = createDeckMock({
+      deleted: true,
+    });
 
     expect(() => deck.delete()).toThrowError('Deck is already deleted.');
   });
 
   test('should delete deck', async () => {
-    const deck = Deck.instanceExisting(
-      {
-        cards: [],
-        createdAt: new Date(),
-        description: '#description',
-        name: '#name',
-        ownerId: new UniqueEntityID(),
-        tags: ['#tag-1'],
-        deleted: false,
-        published: false,
-      },
-      new UniqueEntityID(),
-    );
+    const deck = createDeckMock();
 
     deck.delete();
 
@@ -306,56 +194,23 @@ describe('[Domain] Deck', () => {
   });
 
   test('should throw an error if deck is already published', async () => {
-    const deck = Deck.instanceExisting(
-      {
-        cards: [],
-        createdAt: new Date(),
-        description: '#description',
-        name: '#name',
-        ownerId: new UniqueEntityID(),
-        tags: ['#tag-1'],
-        deleted: false,
-        published: true,
-      },
-      new UniqueEntityID(),
-    );
+    const deck = createDeckMock({
+      published: true,
+    });
 
     expect(() => deck.publish()).toThrowError('Deck is already published.');
   });
 
   test('should throw an error if deck is deleted on publish', async () => {
-    const deck = Deck.instanceExisting(
-      {
-        cards: [],
-        createdAt: new Date(),
-        description: '#description',
-        name: '#name',
-        ownerId: new UniqueEntityID(),
-        tags: ['#tag-1'],
-        deleted: true,
-        published: false,
-      },
-      new UniqueEntityID(),
-    );
+    const deck = createDeckMock({
+      deleted: true,
+    });
 
     expect(() => deck.publish()).toThrowError('Deck is already deleted.');
   });
 
   test('should publish deck', async () => {
-    const deck = Deck.instanceExisting(
-      {
-        cards: [],
-        createdAt: new Date(),
-        description: '#description',
-        name: '#name',
-        ownerId: new UniqueEntityID(),
-        tags: ['#tag-1'],
-        deleted: false,
-        published: false,
-      },
-      new UniqueEntityID(),
-    );
-
+    const deck = createDeckMock();
     deck.publish();
 
     expect(deck.isPublished()).toBeTruthy();
