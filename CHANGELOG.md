@@ -11,7 +11,7 @@
 - Domain tools ([1ed8e4c](https://github.com/Miczeq22/brainflash-api/commit/1ed8e4cb026d418a42e511f144e77165af732d08))
 - Error handler middleware ([d62e86f](https://github.com/Miczeq22/brainflash-api/commit/d62e86f46c1b8422a5b32d85680b8e12d2383a98))
 - Login feature ([0861cb1](https://github.com/Miczeq22/brainflash-api/commit/0861cb15d61f71a415772c962383713928251bf2))
-- Publish deck feature ([8d2702a](https://github.com/Miczeq22/brainflash-api/commit/8d2702aa2f63f439954edf1301390e5ea6531e05))
+- Publish deck feature ([42a87c3](https://github.com/Miczeq22/brainflash-api/commit/42a87c362619b1513bbe40f49d922fb6bae30398))
 - Register User Command ([cf520a7](https://github.com/Miczeq22/brainflash-api/commit/cf520a7001d89b3595bc08abad3e4ecb6b392353))
 - Remove card feature ([96e5bb1](https://github.com/Miczeq22/brainflash-api/commit/96e5bb1b19e259297a1782f03f81a127a07b7b47))
 - Remove deck feature ([af8b633](https://github.com/Miczeq22/brainflash-api/commit/af8b633338c4de28702bc9f660aa672a999eb6c0))
@@ -28,6 +28,7 @@
 ### Refactoring & Improvements
 
 - Added published prop to deck ([01745c6](https://github.com/Miczeq22/brainflash-api/commit/01745c6954f47cf6b14d6b79fd5103951315a486))
+- Added unauthenticated error ([761048d](https://github.com/Miczeq22/brainflash-api/commit/761048de2fcf22c638ec9059c2a6d3d75856e978))
 - Decks -> deck ([8d3c834](https://github.com/Miczeq22/brainflash-api/commit/8d3c83471d3394f47003ba5c50f3d49e212d3dde))
 - Refactored domain events to use map instead object ([e4da6bf](https://github.com/Miczeq22/brainflash-api/commit/e4da6bf4d869aae81582bbe1a5dce3f94a7be88a))
 

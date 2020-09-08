@@ -6,8 +6,8 @@ import {
 import { DeckRepository } from '@core/decks/deck/deck.repository';
 import { NotFoundError } from '@errors/not-found.error';
 import { UniqueEntityID } from '@core/shared/unique-entity-id';
-import { UnauthorizedError } from '@errors/unauthorized.error';
 import { DomainEvents } from '@core/shared/domain-events';
+import { UnauthenticatedError } from '@errors/unauthenticated.error';
 
 interface Dependencies {
   deckRepository: DeckRepository;
@@ -30,7 +30,7 @@ export class UpdateDeckMetadataCommandHandler extends CommandHandler<UpdateDeckM
     }
 
     if (!deck.getOwnerId().equals(new UniqueEntityID(userId))) {
-      throw new UnauthorizedError('Only deck owner can update deck metadata.');
+      throw new UnauthenticatedError('Only deck owner can update deck metadata.');
     }
 
     if (description && description.trim()) {
