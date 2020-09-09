@@ -6,16 +6,20 @@ import { DeckCreatedSubscriber } from './deck-created.subscriber';
 import { DeckCreatedDomainEvent } from '@core/decks/deck/events/deck-created.domain-event';
 import { UniqueEntityID } from '@core/shared/unique-entity-id';
 import { Tag } from '@core/decks/tags/tag.entity';
+import { DeckReadModelRepository } from '@infrastructure/mongo/domain/decks/deck.read-model';
+import { createDeckMock } from '@tests/deck.mock';
 
 describe('[App] Deck created subscriber', () => {
   const tagRepository = createMockProxy<TagRepository>();
   const deckTagRepository = createMockProxy<DeckTagRepository>();
   const logger = createMockProxy<Logger>();
+  const deckReadModelRepository = createMockProxy<DeckReadModelRepository>();
 
   beforeEach(() => {
     tagRepository.mockClear();
     deckTagRepository.mockClear();
     logger.mockClear();
+    deckReadModelRepository.mockClear();
   });
 
   test('should insert new tag if does not exist and associate it with deck', async () => {
@@ -25,9 +29,10 @@ describe('[App] Deck created subscriber', () => {
       deckTagRepository,
       logger,
       tagRepository,
+      deckReadModelRepository,
     });
 
-    await subscriber.insertDeckTags(new DeckCreatedDomainEvent(['#tag-1'], new UniqueEntityID()));
+    await subscriber.insertDeckTags(new DeckCreatedDomainEvent(createDeckMock()));
 
     expect(tagRepository.insert).toHaveBeenCalledTimes(1);
     expect(deckTagRepository.insert).toHaveBeenCalledTimes(1);
@@ -49,9 +54,10 @@ describe('[App] Deck created subscriber', () => {
       deckTagRepository,
       logger,
       tagRepository,
+      deckReadModelRepository,
     });
 
-    await subscriber.insertDeckTags(new DeckCreatedDomainEvent(['#tag-1'], new UniqueEntityID()));
+    await subscriber.insertDeckTags(new DeckCreatedDomainEvent(createDeckMock()));
 
     expect(tagRepository.insert).toHaveBeenCalledTimes(0);
     expect(deckTagRepository.insert).toHaveBeenCalledTimes(1);

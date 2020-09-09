@@ -62,7 +62,7 @@ export class Deck extends AggregateRoot<DeckProps> {
       published: false,
     });
 
-    deck.addDomainEvent(new DeckCreatedDomainEvent(tags, deck.getId()));
+    deck.addDomainEvent(new DeckCreatedDomainEvent(deck));
 
     return deck;
   }

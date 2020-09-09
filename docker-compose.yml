@@ -12,8 +12,8 @@ services:
       - POSTGRES_USER=$POSTGRES_USER
       - POSTGRES_PASSWORD=$POSTGRES_PASSWORD
       - POSTGRES_DB=$POSTGRES_DB
-    networks:
-      - data
+    depends_on:
+      - mongo
 
   adminer:
     container_name: adminer
@@ -44,6 +44,24 @@ services:
       - MINIO_SECRET_KEY=$S3_SECRET_KEY
     entrypoint: sh
     command: -c 'mkdir -p /export/bucket && /usr/bin/minio server --address :9000 /export'
+
+  mongo:
+    container_name: mongo-db
+    image: mongo
+    ports:
+      - $MONGO_PORT:27017
+    networks:
+      - data
+
+  mongo-express:
+    container_name: mongo-express
+    image: mongo-express
+    ports:
+      - 8081:8081
+    environment:
+      - ME_CONFIG_MONGODB_SERVER=mongo
+    networks:
+      - data
 
 networks:
   data:

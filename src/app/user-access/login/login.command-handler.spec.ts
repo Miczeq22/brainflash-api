@@ -37,6 +37,7 @@ describe('[App] Login command handler', () => {
         {
           password: '#password',
           status: AccountStatus.Confirmed.getValue(),
+          username: '#username',
         },
         new UniqueEntityID(),
       ),
@@ -62,6 +63,7 @@ describe('[App] Login command handler', () => {
         {
           password: await bcrypt.hash('#password', 10),
           status: AccountStatus.WaitingForConfirmation.getValue(),
+          username: '#username',
         },
         new UniqueEntityID(),
       ),
@@ -89,6 +91,7 @@ describe('[App] Login command handler', () => {
         {
           password: await bcrypt.hash('#password', 10),
           status: AccountStatus.Confirmed.getValue(),
+          username: '#username',
         },
         new UniqueEntityID(),
       ),

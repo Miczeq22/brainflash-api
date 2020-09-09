@@ -30,5 +30,11 @@ declare namespace NodeJS {
     S3_SECRET_KEY: string;
     S3_ENDPOINT: string;
     S3_BUCKET: string;
+
+    // Mongo_db
+
+    MONGO_PORT: number;
+    MONGO_HOST: string;
+    MONGO_DB: string;
   }
 }

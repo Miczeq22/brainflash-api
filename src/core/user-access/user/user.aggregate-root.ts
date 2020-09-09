@@ -6,6 +6,7 @@ import { OldPasswordMustBeValidRule } from './rules/old-password-must-be-valid.r
 interface UserProps {
   password: string;
   status: string;
+  username: string;
 }
 
 export class User extends AggregateRoot<UserProps> {
@@ -29,5 +30,9 @@ export class User extends AggregateRoot<UserProps> {
 
   public getStatus() {
     return this.props.status;
+  }
+
+  public getUsername() {
+    return this.props.username;
   }
 }
