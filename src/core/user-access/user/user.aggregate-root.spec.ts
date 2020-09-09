@@ -9,6 +9,7 @@ describe('[Domain] User', () => {
       {
         password: '#password',
         status: AccountStatus.Confirmed.getValue(),
+        username: '#username',
       },
       new UniqueEntityID(),
     );
@@ -25,6 +26,7 @@ describe('[Domain] User', () => {
       {
         password,
         status: AccountStatus.Confirmed.getValue(),
+        username: '#username',
       },
       new UniqueEntityID(),
     );

@@ -34,6 +34,8 @@ import { RemoveCardCommandHandler } from '@app/decks/remove-card/remove-card.com
 import { CardRemovedFromDeckSubscriber } from '@app/decks/remove-card/card-removed-from-deck.subscriber';
 import { DeleteDeckCommandHandler } from '@app/decks/delete-deck/delete-deck.command-handler';
 import { PublishDeckCommandHandler } from '@app/decks/publish-deck/publish-deck.command-handler';
+import { createMongoClient } from '@infrastructure/mongo/mongo-client';
+import { DeckReadModelRepositoryImpl } from '@infrastructure/mongo/domain/decks/deck.read-model-repository';
 
 const registerAsArray = <T>(resolvers: Awilix.Resolver<T>[]): Awilix.Resolver<T[]> => ({
   resolve: (container: Awilix.AwilixContainer) => resolvers.map((r) => container.build(r)),
@@ -55,6 +57,8 @@ export const createAppContainer = async (): Promise<Awilix.AwilixContainer> => {
     },
   );
 
+  const mongoClient = await createMongoClient();
+
   container.register({
     logger: Awilix.asValue(logger),
     server: Awilix.asClass(Server).singleton(),
@@ -62,6 +66,7 @@ export const createAppContainer = async (): Promise<Awilix.AwilixContainer> => {
     uniqueEmailChecker: Awilix.asClass(UniqueEmailCheckerService).singleton(),
     mailer: Awilix.asClass(MailerService).singleton(),
     uniqueDeckChecker: Awilix.asClass(UniqueDeckCheckerService).singleton(),
+    mongoClient: Awilix.asValue(mongoClient),
   });
 
   container.register({
@@ -96,6 +101,7 @@ export const createAppContainer = async (): Promise<Awilix.AwilixContainer> => {
     tagRepository: Awilix.asClass(TagRepositoryImpl).singleton(),
     deckTagRepository: Awilix.asClass(DeckTagRepositoryImpl).singleton(),
     cardRepository: Awilix.asClass(CardRepositoryImpl).singleton(),
+    deckReadModelRepository: Awilix.asClass(DeckReadModelRepositoryImpl).singleton(),
   });
 
   container.register({

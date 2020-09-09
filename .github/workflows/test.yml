@@ -39,3 +39,6 @@ jobs:
           MINIO_ACCESS_KEY: accesskey
           MINIO_SECRET_KEY: secretkey
           S3_BUCKET: bucket
+          MONGO_PORT: 27017
+          MONGO_HOST: mongodb://localhost
+          MONGO_DB: data

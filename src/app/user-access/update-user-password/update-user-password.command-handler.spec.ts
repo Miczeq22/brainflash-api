@@ -38,6 +38,7 @@ describe('[App] Update user password command handler', () => {
         {
           password: await bcrypt.hash('#password', 10),
           status: AccountStatus.Confirmed.getValue(),
+          username: '#username',
         },
         new UniqueEntityID(),
       ),

@@ -10,10 +10,12 @@ import { Tag } from '@core/decks/tags/tag.entity';
 import { DeckTagRepository } from '@core/decks/deck-tag/deck-tag.repository';
 import { DeckTag } from '@core/decks/deck-tag/deck-tag.entity';
 import { UniqueEntityID } from '@core/shared/unique-entity-id';
+import { DeckReadModelRepository } from '@infrastructure/mongo/domain/decks/deck.read-model';
 
 interface Dependencies {
   tagRepository: TagRepository;
   deckTagRepository: DeckTagRepository;
+  deckReadModelRepository: DeckReadModelRepository;
   logger: Logger;
 }
 
@@ -24,16 +26,25 @@ export class DeckCreatedSubscriber extends DomainSubscriber<DeckCreatedDomainEve
 
   public setupSubscriptions() {
     DomainEvents.register(this.insertDeckTags.bind(this), DECK_CREATED_DOMAIN_EVENT);
+    DomainEvents.register(this.saveReadModel.bind(this), DECK_CREATED_DOMAIN_EVENT);
   }
 
-  public async insertDeckTags({ deckTags, deckId }: DeckCreatedDomainEvent) {
+  public async insertDeckTags({ deck }: DeckCreatedDomainEvent) {
     const { logger } = this.dependencies;
 
-    const insertPromises = deckTags.map((tag) => this.insertTagIfNotExist(tag, deckId));
+    const insertPromises = deck.getTags().map((tag) => this.insertTagIfNotExist(tag, deck.getId()));
 
     await Promise.all(insertPromises);
 
     logger.info('Added deck tags to database.');
+  }
+
+  public async saveReadModel({ deck }: DeckCreatedDomainEvent) {
+    const { deckReadModelRepository, logger } = this.dependencies;
+
+    await deckReadModelRepository.insert(deck);
+
+    logger.info('Deck read model saved.');
   }
 
   private async insertTagIfNotExist(tag: string, deckId: UniqueEntityID) {

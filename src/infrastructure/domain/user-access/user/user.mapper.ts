@@ -4,6 +4,7 @@ import { UniqueEntityID } from '@core/shared/unique-entity-id';
 interface UserRecord {
   id: string;
   password: string;
+  username: string;
   account_status: string;
 }
 
@@ -15,6 +16,7 @@ export class UserMapper {
       id: user.getId().getValue(),
       password: user.getPassword(),
       account_status: user.getStatus(),
+      username: user.getUsername(),
     };
   }
 
@@ -23,6 +25,7 @@ export class UserMapper {
       {
         password: record.password,
         status: record.account_status,
+        username: record.username,
       },
       new UniqueEntityID(record.id),
     );
