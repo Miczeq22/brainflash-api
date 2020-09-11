@@ -36,6 +36,10 @@ import { DeleteDeckCommandHandler } from '@app/decks/delete-deck/delete-deck.com
 import { PublishDeckCommandHandler } from '@app/decks/publish-deck/publish-deck.command-handler';
 import { createMongoClient } from '@infrastructure/mongo/mongo-client';
 import { DeckReadModelRepositoryImpl } from '@infrastructure/mongo/domain/decks/deck.read-model-repository';
+import { Server as ApolloServer } from '@api/apollo/apollo.server';
+import { QueryHandler } from '@app/processing/query-handler';
+import { QueryBus } from '@app/processing/query-bus';
+import { GetDeckByIdQueryHandler } from '@app/decks/get-deck-by-id/get-deck-by-id.query-handler';
 
 const registerAsArray = <T>(resolvers: Awilix.Resolver<T>[]): Awilix.Resolver<T[]> => ({
   resolve: (container: Awilix.AwilixContainer) => resolvers.map((r) => container.build(r)),
@@ -61,6 +65,7 @@ export const createAppContainer = async (): Promise<Awilix.AwilixContainer> => {
 
   container.register({
     logger: Awilix.asValue(logger),
+    apolloServer: Awilix.asClass(ApolloServer).singleton(),
     server: Awilix.asClass(Server).singleton(),
     queryBuilder: Awilix.asValue(postgresQueryBuilder),
     uniqueEmailChecker: Awilix.asClass(UniqueEmailCheckerService).singleton(),
@@ -112,6 +117,16 @@ export const createAppContainer = async (): Promise<Awilix.AwilixContainer> => {
       Awilix.asClass(NewCardAddedSubscriber).singleton(),
       Awilix.asClass(CardRemovedFromDeckSubscriber).singleton(),
     ]),
+  });
+
+  container.register({
+    queryHandlers: registerAsArray<QueryHandler<any, any>>([
+      Awilix.asClass(GetDeckByIdQueryHandler).singleton(),
+    ]),
+  });
+
+  container.register({
+    queryBus: Awilix.asClass(QueryBus).singleton(),
   });
 
   const app = container.resolve<Server>('server').getApp();

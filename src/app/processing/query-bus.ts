@@ -3,7 +3,7 @@ import { QueryHandler } from './query-handler';
 import { Query } from './query';
 
 interface Dependencies {
-  queryHandlers: QueryHandler<any>[];
+  queryHandlers: QueryHandler<any, any>[];
 }
 
 export class QueryBus {
