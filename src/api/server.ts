@@ -1,5 +1,5 @@
 import express, { Application } from 'express';
-import corsMiddleware from './middlewares/cors/cors.middleware';
+import corsMiddleware, { corsOptions } from './middlewares/cors/cors.middleware';
 import compression from 'compression';
 import { applySecurityMiddleware } from './middlewares/security/security.middleware';
 import { NotFoundError } from '@errors/not-found.error';
@@ -8,10 +8,12 @@ import { Logger } from '@infrastructure/logger/logger';
 import { Controller } from './controller';
 import * as swaggerUi from 'swagger-ui-express';
 import { swaggerDocs } from '@infrastructure/swagger';
+import { Server as ApolloServer } from './apollo/apollo.server';
 
 interface Dependencies {
   logger: Logger;
   controllers: Controller[];
+  apolloServer: ApolloServer;
 }
 
 export class Server {
@@ -28,6 +30,12 @@ export class Server {
     applySecurityMiddleware(this.app);
     this.app.use(compression());
     this.app.use(corsMiddleware);
+
+    this.dependencies.apolloServer.getApolloInstance().applyMiddleware({
+      app: this.app,
+      path: '/query',
+      cors: corsOptions,
+    });
 
     this.app.get('/', (req, res) => {
       res.redirect(308, `${req.baseUrl}/api-docs`);

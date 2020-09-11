@@ -20,4 +20,12 @@ export class DeckReadModelRepositoryImpl implements DeckReadModelRepository {
 
     await this.dependencies.mongoClient.db().collection(this.collection).insertOne(record);
   }
+
+  public async findById(id: string) {
+    const deck = await this.dependencies.mongoClient.db().collection(this.collection).findOne({
+      id,
+    });
+
+    return deck ?? null;
+  }
 }

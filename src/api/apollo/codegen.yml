@@ -1,0 +1,11 @@
+overwrite: true;
+schema: ./src/api/apollo/schema.ts
+require:
+  - ts-node/register
+  - tsconfig-paths/register
+generates:
+  ./src/api/apollo/resolvers/resolver.types.ts:
+    plugins:
+      - typescript
+      - typescript-resolvers
+      - typescript-operations

@@ -15,6 +15,8 @@ export interface DeckReadModel {
 
 export interface DeckReadModelRepository {
   insert(deck: Deck): Promise<void>;
+
+  findById(id: string): Promise<DeckReadModel | null>;
 }
 
 export const DECK_READ_MODEL_COLLECTION = 'decks';
