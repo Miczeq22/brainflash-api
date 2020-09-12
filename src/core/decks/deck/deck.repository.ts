@@ -11,4 +11,8 @@ export interface DeckRepository {
   removeTags(deckId: UniqueEntityID, tags: string[]): Promise<void>;
 
   addTags(deckId: UniqueEntityID, tags: string[]): Promise<void>;
+
+  enrollUser(userId: string, deckId: string): Promise<void>;
+
+  isUserEnrolled(userId: string, deckId: string): Promise<boolean>;
 }
