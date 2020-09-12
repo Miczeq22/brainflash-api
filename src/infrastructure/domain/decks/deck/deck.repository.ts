@@ -2,7 +2,7 @@
 import { DeckRepository } from '@core/decks/deck/deck.repository';
 import { Deck } from '@core/decks/deck/deck.aggregate-root';
 import { QueryBuilder } from '@infrastructure/database/query-builder';
-import { DeckMapper, DECK_TABLE } from './deck.mapper';
+import { DeckMapper, DECK_TABLE, USER_DECK_TABLE } from './deck.mapper';
 import { DeckTagRepository } from '@core/decks/deck-tag/deck-tag.repository';
 import { TagRepository } from '@core/decks/tags/tag.repository';
 import { TAG_TABLE, TagMapper } from '../tag/tag.mapper';
@@ -97,5 +97,25 @@ export class DeckRepositoryImpl implements DeckRepository {
         .insert(DeckTagMapper.toPersistence(DeckTag.createNew(deckId, tagToInsert.getId())))
         .into(DECK_TAG_TABLE);
     }
+  }
+
+  public async enrollUser(userId: string, deckId: string) {
+    await this.dependencies.queryBuilder
+      .insert({
+        id: new UniqueEntityID().getValue(),
+        user_id: userId,
+        deck_id: deckId,
+        enrolled_at: new Date().toISOString(),
+      })
+      .into(USER_DECK_TABLE);
+  }
+
+  public async isUserEnrolled(userId: string, deckId: string) {
+    const result = await this.dependencies.queryBuilder
+      .where('user_id', userId)
+      .andWhere('deck_id', deckId)
+      .from(USER_DECK_TABLE);
+
+    return result.length > 0;
   }
 }

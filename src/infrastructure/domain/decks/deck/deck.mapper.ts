@@ -15,6 +15,8 @@ interface DeckRecord {
 
 export const DECK_TABLE = 'public.deck';
 
+export const USER_DECK_TABLE = 'public.user_deck';
+
 export class DeckMapper {
   public static toPersistence(deck: Deck): DeckRecord {
     return {

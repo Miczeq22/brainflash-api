@@ -7,6 +7,7 @@ import { isCelebrate, CelebrateInternalError } from 'celebrate';
 import { BusinessRuleValidationError } from '@errors/business-rule-validation.error';
 import { UnauthorizedError } from '@errors/unauthorized.error';
 import { UnauthenticatedError } from '@errors/unauthenticated.error';
+import { InvariantError } from '@errors/invariant.error';
 
 export const errorHandlerMiddleware = (logger: Logger): ErrorRequestHandler => (
   error,
@@ -34,6 +35,7 @@ export const errorHandlerMiddleware = (logger: Logger): ErrorRequestHandler => (
       });
 
     case BusinessRuleValidationError.name:
+    case InvariantError.name:
       return res.status(400).json({
         error: (error as BusinessRuleValidationError).message,
       });
