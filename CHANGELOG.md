@@ -10,7 +10,7 @@
 - CORS middleware ([8372ca3](https://github.com/Miczeq22/brainflash-api/commit/8372ca37caebd56533d39955684fd793e5582dbf))
 - Create new deck feature ([568d4b0](https://github.com/Miczeq22/brainflash-api/commit/568d4b09410d82eedfc4b2333290ce6173c13e29))
 - Domain tools ([1ed8e4c](https://github.com/Miczeq22/brainflash-api/commit/1ed8e4cb026d418a42e511f144e77165af732d08))
-- Enroll deck feature ([1b8fd51](https://github.com/Miczeq22/brainflash-api/commit/1b8fd517e0eb120fe54de0173ceff4f868117acd))
+- Enroll deck feature ([a0203b4](https://github.com/Miczeq22/brainflash-api/commit/a0203b470c00c70cd3dcbf3f237d22274c3f9fd9))
 - Error handler middleware ([d62e86f](https://github.com/Miczeq22/brainflash-api/commit/d62e86f46c1b8422a5b32d85680b8e12d2383a98))
 - Get deck by id feature ([4264354](https://github.com/Miczeq22/brainflash-api/commit/42643549d6c27241c83a5f0ff828f3c10c5f1819))
 - Login feature ([0861cb1](https://github.com/Miczeq22/brainflash-api/commit/0861cb15d61f71a415772c962383713928251bf2))
@@ -34,6 +34,7 @@
 - Added single deck mock ([2eb09cb](https://github.com/Miczeq22/brainflash-api/commit/2eb09cb0ee295a5137c21471e37711c43802014e))
 - Added unauthenticated error ([339003f](https://github.com/Miczeq22/brainflash-api/commit/339003ff135248b2c3bc0db6f8e00b0fc1a28f2e))
 - Decks -> deck ([8d3c834](https://github.com/Miczeq22/brainflash-api/commit/8d3c83471d3394f47003ba5c50f3d49e212d3dde))
+- Get enrolled deck if is not public ([1c9256c](https://github.com/Miczeq22/brainflash-api/commit/1c9256ce0a54c82a73840fa455a2ba0b68d74f48))
 - Refactored domain events to use map instead object ([e4da6bf](https://github.com/Miczeq22/brainflash-api/commit/e4da6bf4d869aae81582bbe1a5dce3f94a7be88a))
 
 
