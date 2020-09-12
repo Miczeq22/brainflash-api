@@ -86,6 +86,35 @@ describe('[App] Get deck by id query handler', () => {
     ).rejects.toThrowError('Deck read model does not exist.');
   });
 
+  test('should return deck read model if deck is not published but user is already enrolled', async () => {
+    const deck = createDeckMock({
+      published: false,
+    });
+
+    deckRepository.findById.mockResolvedValue(deck);
+
+    deckReadModelRepository.findById.mockResolvedValue(
+      DeckReadModelMapper.toPersistence(deck, '#owner', 0),
+    );
+
+    deckRepository.isUserEnrolled.mockResolvedValue(true);
+
+    const handler = new GetDeckByIdQueryHandler({
+      deckReadModelRepository,
+      deckRepository,
+    });
+
+    const result = await handler.handle(
+      new GetDeckByIdQuery({
+        deckId: '#deck-id',
+        userId: '#user-id',
+      }),
+    );
+
+    expect(result.cardCount).toEqual(0);
+    expect(result.owner).toEqual('#owner');
+  });
+
   test('should return deck read model', async () => {
     const ownerId = new UniqueEntityID();
 

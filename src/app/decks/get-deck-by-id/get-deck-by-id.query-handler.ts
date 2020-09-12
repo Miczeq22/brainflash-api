@@ -28,7 +28,13 @@ export class GetDeckByIdQueryHandler extends QueryHandler<GetDeckByIdQuery, Deck
       throw new NotFoundError('Deck does not exist.');
     }
 
-    if (!deck.isPublished() && !deck.getOwnerId().equals(new UniqueEntityID(userId))) {
+    const isUserEnrolled = await deckRepository.isUserEnrolled(userId, deckId);
+
+    if (
+      !deck.getOwnerId().equals(new UniqueEntityID(userId)) &&
+      !isUserEnrolled &&
+      !deck.isPublished()
+    ) {
       throw new UnauthenticatedError('Only deck owner can see unpublised deck.');
     }
 
