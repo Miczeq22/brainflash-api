@@ -41,6 +41,7 @@ import { QueryHandler } from '@app/processing/query-handler';
 import { QueryBus } from '@app/processing/query-bus';
 import { GetDeckByIdQueryHandler } from '@app/decks/get-deck-by-id/get-deck-by-id.query-handler';
 import { EnrollDeckCommandHandler } from '@app/decks/enroll-deck/enroll-deck.command-handler';
+import { UnpublishDeckCommandHandler } from '@app/decks/unpublish-deck/unpublish-deck.command-handler';
 
 const registerAsArray = <T>(resolvers: Awilix.Resolver<T>[]): Awilix.Resolver<T[]> => ({
   resolve: (container: Awilix.AwilixContainer) => resolvers.map((r) => container.build(r)),
@@ -98,6 +99,7 @@ export const createAppContainer = async (): Promise<Awilix.AwilixContainer> => {
       Awilix.asClass(DeleteDeckCommandHandler).singleton(),
       Awilix.asClass(PublishDeckCommandHandler).singleton(),
       Awilix.asClass(EnrollDeckCommandHandler).singleton(),
+      Awilix.asClass(UnpublishDeckCommandHandler).singleton(),
     ]),
   });
 
