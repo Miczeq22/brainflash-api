@@ -10,6 +10,7 @@ import { removeCardActionValidation } from './actions/remove-card.action';
 import { deleteDeckActionValidation } from './actions/delete-deck.action';
 import { publishDeckActionValidation } from './actions/publish-deck.action';
 import { enrollDeckActionValidation } from './actions/enroll-deck.action';
+import { unpublishDeckActionValidation } from './actions/unpublish-deck.action';
 
 interface Dependencies {
   createDeckAction: RequestHandler;
@@ -21,6 +22,7 @@ interface Dependencies {
   deleteDeckAction: RequestHandler;
   publishDeckAction: RequestHandler;
   enrollDeckAction: RequestHandler;
+  unpublishDeckAction: RequestHandler;
 }
 
 export class DeckController extends Controller {
@@ -83,6 +85,12 @@ export class DeckController extends Controller {
       '/enroll',
       [authorizationMiddleware, enrollDeckActionValidation],
       this.dependencies.enrollDeckAction,
+    );
+
+    router.put(
+      '/unpublish',
+      [authorizationMiddleware, unpublishDeckActionValidation],
+      this.dependencies.unpublishDeckAction,
     );
 
     return router;

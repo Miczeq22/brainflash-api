@@ -215,4 +215,31 @@ describe('[Domain] Deck', () => {
 
     expect(deck.isPublished()).toBeTruthy();
   });
+
+  test('should throw an error if deck is not published', async () => {
+    const deck = createDeckMock({
+      published: false,
+    });
+
+    expect(() => deck.unpublish()).toThrowError('Cannot unpublish deck. Deck is not published.');
+  });
+
+  test('should throw an error if deck is deleted on publish', async () => {
+    const deck = createDeckMock({
+      deleted: true,
+      published: true,
+    });
+
+    expect(() => deck.unpublish()).toThrowError('Deck is already deleted.');
+  });
+
+  test('should unpublish deck', async () => {
+    const deck = createDeckMock({
+      published: true,
+    });
+
+    deck.unpublish();
+
+    expect(deck.isPublished()).toBeFalsy();
+  });
 });

@@ -14,6 +14,7 @@ import { CardShouldExistInDeckRule } from './rules/card-should-exist-in-deck.rul
 import { CardRemovedFromDeckDomainEvent } from './events/card-removed-from-deck.domain-event';
 import { DeckCannotBeDeletedRule } from './rules/deck-cannot-be-deleted.rule';
 import { DeckCannotBePublishedRule } from './rules/deck-cannot-be-published.rule';
+import { DeckShouldBePublishedRule } from './rules/deck-should-be-published.rule';
 
 export interface DeckProps {
   name: string;
@@ -96,6 +97,13 @@ export class Deck extends AggregateRoot<DeckProps> {
     Deck.checkRule(new DeckCannotBePublishedRule(this.props.published));
 
     this.props.published = true;
+  }
+
+  public unpublish() {
+    Deck.checkRule(new DeckCannotBeDeletedRule(this.props.deleted));
+    Deck.checkRule(new DeckShouldBePublishedRule(this.props.published));
+
+    this.props.published = false;
   }
 
   public async updateName(name: string, uniqueDeckChecker: UniqueDeckChecker) {
