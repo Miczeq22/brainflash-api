@@ -5,13 +5,16 @@ import { NewCardAddedSubscriber } from './new-card-added.subscriber';
 import { NewCardAddedDomainEvent } from '@core/decks/deck/events/new-card-added.domain-event';
 import { UniqueEntityID } from '@core/shared/unique-entity-id';
 import { Card } from '@core/decks/card/card.entity';
+import { CardReadModelRepository } from '@infrastructure/mongo/domain/cards/card.read-model';
 
 describe('[App] New card added subscriber', () => {
   const cardRepository = createMockProxy<CardRepository>();
   const logger = createMockProxy<Logger>();
+  const cardReadModelRepository = createMockProxy<CardReadModelRepository>();
 
   beforeEach(() => {
     cardRepository.mockClear();
+    cardReadModelRepository.mockClear();
     logger.mockClear();
   });
 
@@ -19,6 +22,7 @@ describe('[App] New card added subscriber', () => {
     const subscriber = new NewCardAddedSubscriber({
       cardRepository,
       logger,
+      cardReadModelRepository,
     });
 
     await subscriber.saveCardToDatabase(
@@ -35,6 +39,7 @@ describe('[App] New card added subscriber', () => {
     );
 
     expect(cardRepository.insert).toHaveBeenCalledTimes(1);
+    expect(cardReadModelRepository.insert).toHaveBeenCalledTimes(1);
     expect(logger.info).toHaveBeenCalledTimes(1);
   });
 });
