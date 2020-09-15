@@ -1,5 +1,11 @@
 import { Deck } from '@core/decks/deck/deck.aggregate-root';
 
+export interface FindAllFilter {
+  page: number;
+  limit: number;
+  userId: string;
+}
+
 export interface DeckReadModel {
   id: string;
   name: string;
@@ -8,7 +14,8 @@ export interface DeckReadModel {
   deleted: boolean;
   published: boolean;
   imageUrl?: string;
-  owner: string;
+  ownerName: string;
+  ownerId: string;
   createdAt: string;
   cardCount: number;
 }
@@ -17,15 +24,17 @@ export interface DeckReadModelRepository {
   insert(deck: Deck): Promise<void>;
 
   findById(id: string): Promise<DeckReadModel | null>;
+
+  findAll(filter: FindAllFilter): Promise<DeckReadModel[]>;
 }
 
 export const DECK_READ_MODEL_COLLECTION = 'decks';
 
 export class DeckReadModelMapper {
-  public static toPersistence(deck: Deck, owner: string, cardCount: number): DeckReadModel {
+  public static toPersistence(deck: Deck, ownerName: string, cardCount: number): DeckReadModel {
     return {
       cardCount,
-      owner,
+      ownerName,
       id: deck.getId().getValue(),
       description: deck.getDescription(),
       name: deck.getName(),
@@ -34,6 +43,7 @@ export class DeckReadModelMapper {
       deleted: deck.isDeleted(),
       published: deck.isPublished(),
       imageUrl: deck.getImageUrl(),
+      ownerId: deck.getOwnerId().getValue(),
     };
   }
 }

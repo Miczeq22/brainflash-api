@@ -1,5 +1,6 @@
 import { CommandHandler } from '@app/processing/command-handler';
 import { DeckRepository } from '@core/decks/deck/deck.repository';
+import { UniqueEntityID } from '@core/shared/unique-entity-id';
 import { InvariantError } from '@errors/invariant.error';
 import { NotFoundError } from '@errors/not-found.error';
 import { EnrollDeckCommand, ENROLL_DECK_COMMAND } from './enroll-deck.command';
@@ -20,6 +21,10 @@ export class EnrollDeckCommandHandler extends CommandHandler<EnrollDeckCommand> 
 
     if (!deck) {
       throw new NotFoundError('Deck does not exist.');
+    }
+
+    if (!deck.isPublished() && !deck.getOwnerId().equals(new UniqueEntityID(userId))) {
+      throw new InvariantError('Deck is not public.');
     }
 
     const isUserAlreadyEnrolled = await deckRepository.isUserEnrolled(userId, deckId);
