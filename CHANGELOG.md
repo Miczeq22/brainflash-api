@@ -1,4 +1,4 @@
-#  (2020-09-13)
+#  (2020-09-15)
 
 
 ### Features
@@ -12,6 +12,7 @@
 - Domain tools ([1ed8e4c](https://github.com/Miczeq22/brainflash-api/commit/1ed8e4cb026d418a42e511f144e77165af732d08))
 - Enroll deck feature ([a0203b4](https://github.com/Miczeq22/brainflash-api/commit/a0203b470c00c70cd3dcbf3f237d22274c3f9fd9))
 - Error handler middleware ([d62e86f](https://github.com/Miczeq22/brainflash-api/commit/d62e86f46c1b8422a5b32d85680b8e12d2383a98))
+- Get all decks with simple pagination feature ([f1eac01](https://github.com/Miczeq22/brainflash-api/commit/f1eac015ec6678c90fb006f7931c75e65f710332))
 - Get deck by id feature ([4264354](https://github.com/Miczeq22/brainflash-api/commit/42643549d6c27241c83a5f0ff828f3c10c5f1819))
 - Login feature ([0861cb1](https://github.com/Miczeq22/brainflash-api/commit/0861cb15d61f71a415772c962383713928251bf2))
 - Publish deck feature ([42a87c3](https://github.com/Miczeq22/brainflash-api/commit/42a87c362619b1513bbe40f49d922fb6bae30398))
@@ -20,7 +21,7 @@
 - Remove deck feature ([af8b633](https://github.com/Miczeq22/brainflash-api/commit/af8b633338c4de28702bc9f660aa672a999eb6c0))
 - Security Middleware ([08ea082](https://github.com/Miczeq22/brainflash-api/commit/08ea0826dfcd30484a390e23665a6e443a624dd0))
 - Server bootstrap ([9a1e2f2](https://github.com/Miczeq22/brainflash-api/commit/9a1e2f21d6db5e1b62a5df019e4a8bfb975fb921))
-- Unpublish deck feature ([a9873c5](https://github.com/Miczeq22/brainflash-api/commit/a9873c5603399f9b6906d37c6f9221a2e021d341))
+- Unpublish deck feature ([34a80fd](https://github.com/Miczeq22/brainflash-api/commit/34a80fd96ea21b7fa93cfc5034b558901f50ae06))
 - Update deck metadata feature ([bb931e6](https://github.com/Miczeq22/brainflash-api/commit/bb931e69bee1010d6a3373815591bf8a0961b24b))
 - Update deck name ([fa90cbd](https://github.com/Miczeq22/brainflash-api/commit/fa90cbdab7dca1bb15454d5eade477a1e0c188e8))
 - Update user password feature ([3e9ff21](https://github.com/Miczeq22/brainflash-api/commit/3e9ff216832e081b43e6809d278cbabd94428357))

@@ -16,11 +16,18 @@ export type Query = {
   __typename?: 'Query';
   _?: Maybe<Scalars['Boolean']>;
   getDeck: Deck;
+  getAllDecks: Array<Deck>;
 };
 
 
 export type QueryGetDeckArgs = {
   deckID: Scalars['ID'];
+};
+
+
+export type QueryGetAllDecksArgs = {
+  page?: Maybe<Scalars['Int']>;
+  limit?: Maybe<Scalars['Int']>;
 };
 
 export type Mutation = {
@@ -47,7 +54,8 @@ export type Deck = {
   deleted: Scalars['Boolean'];
   published: Scalars['Boolean'];
   imageUrl?: Maybe<Scalars['String']>;
-  owner: Scalars['String'];
+  ownerName: Scalars['String'];
+  ownerId: Scalars['ID'];
   createdAt: Scalars['String'];
   cardCount: Scalars['Int'];
 };
@@ -133,12 +141,12 @@ export type ResolversTypes = {
   Query: ResolverTypeWrapper<{}>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
   ID: ResolverTypeWrapper<Scalars['ID']>;
+  Int: ResolverTypeWrapper<Scalars['Int']>;
   Mutation: ResolverTypeWrapper<{}>;
   Subscription: ResolverTypeWrapper<{}>;
   EmptyResponse: ResolverTypeWrapper<EmptyResponse>;
   Deck: ResolverTypeWrapper<Deck>;
   String: ResolverTypeWrapper<Scalars['String']>;
-  Int: ResolverTypeWrapper<Scalars['Int']>;
 };
 
 /** Mapping between all available schema types and the resolvers parents */
@@ -146,12 +154,12 @@ export type ResolversParentTypes = {
   Query: {};
   Boolean: Scalars['Boolean'];
   ID: Scalars['ID'];
+  Int: Scalars['Int'];
   Mutation: {};
   Subscription: {};
   EmptyResponse: EmptyResponse;
   Deck: Deck;
   String: Scalars['String'];
-  Int: Scalars['Int'];
 };
 
 export type AuthDirectiveArgs = {  };
@@ -161,6 +169,7 @@ export type AuthDirectiveResolver<Result, Parent, ContextType = any, Args = Auth
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
   _?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
   getDeck?: Resolver<ResolversTypes['Deck'], ParentType, ContextType, RequireFields<QueryGetDeckArgs, 'deckID'>>;
+  getAllDecks?: Resolver<Array<ResolversTypes['Deck']>, ParentType, ContextType, RequireFields<QueryGetAllDecksArgs, never>>;
 };
 
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
@@ -184,7 +193,8 @@ export type DeckResolvers<ContextType = any, ParentType extends ResolversParentT
   deleted?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   published?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   imageUrl?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  owner?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  ownerName?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  ownerId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   createdAt?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   cardCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType>;

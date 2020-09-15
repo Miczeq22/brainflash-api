@@ -29,7 +29,11 @@ describe('[App] Enroll deck command handler', () => {
   });
 
   test('should throw an error if user already enrolled deck', async () => {
-    deckRepository.findById.mockResolvedValue(createDeckMock());
+    deckRepository.findById.mockResolvedValue(
+      createDeckMock({
+        published: true,
+      }),
+    );
     deckRepository.isUserEnrolled.mockResolvedValue(true);
 
     const handler = new EnrollDeckCommandHandler({
@@ -47,7 +51,12 @@ describe('[App] Enroll deck command handler', () => {
   });
 
   test('should enroll deck and save it to database', async () => {
-    deckRepository.findById.mockResolvedValue(createDeckMock());
+    deckRepository.findById.mockResolvedValue(
+      createDeckMock({
+        published: true,
+      }),
+    );
+
     deckRepository.isUserEnrolled.mockResolvedValue(false);
 
     const handler = new EnrollDeckCommandHandler({

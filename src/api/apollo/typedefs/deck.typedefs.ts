@@ -7,12 +7,14 @@ export default /* GraphQL */ `
     deleted: Boolean!
     published: Boolean!
     imageUrl: String
-    owner: String!
+    ownerName: String!
+    ownerId: ID!
     createdAt: String!
     cardCount: Int!
   }
 
   extend type Query {
     getDeck(deckID: ID!): Deck! @auth
+    getAllDecks(page: Int, limit: Int): [Deck!]! @auth
   }
 `;

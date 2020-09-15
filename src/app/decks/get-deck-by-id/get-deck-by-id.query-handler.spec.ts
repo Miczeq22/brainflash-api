@@ -112,7 +112,7 @@ describe('[App] Get deck by id query handler', () => {
     );
 
     expect(result.cardCount).toEqual(0);
-    expect(result.owner).toEqual('#owner');
+    expect(result.ownerName).toEqual('#owner');
   });
 
   test('should return deck read model', async () => {
@@ -142,6 +142,6 @@ describe('[App] Get deck by id query handler', () => {
     );
 
     expect(result.cardCount).toEqual(0);
-    expect(result.owner).toEqual('#owner');
+    expect(result.ownerName).toEqual('#owner');
   });
 });
