@@ -1,7 +1,7 @@
 import { AggregateRoot } from '@core/shared/aggregate-root';
 import { UniqueEntityID } from '@core/shared/unique-entity-id';
 
-interface CardProps {
+export interface CardProps {
   deckId: UniqueEntityID;
   question: string;
   answer: string;

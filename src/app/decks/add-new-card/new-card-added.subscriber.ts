@@ -7,8 +7,10 @@ import { CardRepository } from '@core/cards/card/card.repository';
 import { DomainEvents } from '@core/shared/domain-events';
 import { Card } from '@core/cards/card/card.aggregate-root';
 import { Logger } from '@infrastructure/logger/logger';
+import { CardReadModelRepository } from '@infrastructure/mongo/domain/cards/card.read-model';
 
 interface Dependencies {
+  cardReadModelRepository: CardReadModelRepository;
   cardRepository: CardRepository;
   logger: Logger;
 }
@@ -23,7 +25,7 @@ export class NewCardAddedSubscriber extends DomainSubscriber<NewCardAddedDomainE
   }
 
   public async saveCardToDatabase(event: NewCardAddedDomainEvent) {
-    const { cardRepository, logger } = this.dependencies;
+    const { cardRepository, cardReadModelRepository, logger } = this.dependencies;
 
     const card = Card.createNew(
       {
@@ -35,6 +37,8 @@ export class NewCardAddedSubscriber extends DomainSubscriber<NewCardAddedDomainE
     );
 
     await cardRepository.insert(card);
+
+    await cardReadModelRepository.insert(card);
 
     logger.info('Card saved to database.');
   }

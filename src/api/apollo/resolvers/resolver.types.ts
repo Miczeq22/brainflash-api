@@ -58,6 +58,16 @@ export type Deck = {
   ownerId: Scalars['ID'];
   createdAt: Scalars['String'];
   cardCount: Scalars['Int'];
+  cards: Array<Card>;
+};
+
+export type Card = {
+  __typename?: 'Card';
+  id: Scalars['ID'];
+  deckId: Scalars['ID'];
+  question: Scalars['String'];
+  answer: Scalars['String'];
+  createdAt: Scalars['String'];
 };
 
 
@@ -147,6 +157,7 @@ export type ResolversTypes = {
   EmptyResponse: ResolverTypeWrapper<EmptyResponse>;
   Deck: ResolverTypeWrapper<Deck>;
   String: ResolverTypeWrapper<Scalars['String']>;
+  Card: ResolverTypeWrapper<Card>;
 };
 
 /** Mapping between all available schema types and the resolvers parents */
@@ -160,6 +171,7 @@ export type ResolversParentTypes = {
   EmptyResponse: EmptyResponse;
   Deck: Deck;
   String: Scalars['String'];
+  Card: Card;
 };
 
 export type AuthDirectiveArgs = {  };
@@ -197,6 +209,16 @@ export type DeckResolvers<ContextType = any, ParentType extends ResolversParentT
   ownerId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   createdAt?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   cardCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  cards?: Resolver<Array<ResolversTypes['Card']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
+};
+
+export type CardResolvers<ContextType = any, ParentType extends ResolversParentTypes['Card'] = ResolversParentTypes['Card']> = {
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  deckId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  question?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  answer?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  createdAt?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
 
@@ -206,6 +228,7 @@ export type Resolvers<ContextType = any> = {
   Subscription?: SubscriptionResolvers<ContextType>;
   EmptyResponse?: EmptyResponseResolvers<ContextType>;
   Deck?: DeckResolvers<ContextType>;
+  Card?: CardResolvers<ContextType>;
 };
 
 

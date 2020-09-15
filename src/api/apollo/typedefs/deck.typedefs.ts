@@ -11,6 +11,15 @@ export default /* GraphQL */ `
     ownerId: ID!
     createdAt: String!
     cardCount: Int!
+    cards: [Card!]!
+  }
+
+  type Card {
+    id: ID!
+    deckId: ID!
+    question: String!
+    answer: String!
+    createdAt: String!
   }
 
   extend type Query {

@@ -35,7 +35,7 @@ import { CardRemovedFromDeckSubscriber } from '@app/decks/remove-card/card-remov
 import { DeleteDeckCommandHandler } from '@app/decks/delete-deck/delete-deck.command-handler';
 import { PublishDeckCommandHandler } from '@app/decks/publish-deck/publish-deck.command-handler';
 import { createMongoClient } from '@infrastructure/mongo/mongo-client';
-import { DeckReadModelRepositoryImpl } from '@infrastructure/mongo/domain/decks/deck.read-model-repository';
+import { DeckReadModelRepositoryImpl } from '@infrastructure/mongo/domain/decks/deck.read-model.repository';
 import { Server as ApolloServer } from '@api/apollo/apollo.server';
 import { QueryHandler } from '@app/processing/query-handler';
 import { QueryBus } from '@app/processing/query-bus';
@@ -43,6 +43,8 @@ import { GetDeckByIdQueryHandler } from '@app/decks/get-deck-by-id/get-deck-by-i
 import { EnrollDeckCommandHandler } from '@app/decks/enroll-deck/enroll-deck.command-handler';
 import { UnpublishDeckCommandHandler } from '@app/decks/unpublish-deck/unpublish-deck.command-handler';
 import { GetAllDecksQueryHandler } from '@app/decks/get-all-decks/get-all-decks.query-handler';
+import { CardReadModelRepositoryImpl } from '@infrastructure/mongo/domain/cards/card.read-model.repository';
+import { GetCardsForDeckQueryHandler } from '@app/cards/get-cards-for-deck/get-cards-for-deck.query-handler';
 
 const registerAsArray = <T>(resolvers: Awilix.Resolver<T>[]): Awilix.Resolver<T[]> => ({
   resolve: (container: Awilix.AwilixContainer) => resolvers.map((r) => container.build(r)),
@@ -112,6 +114,7 @@ export const createAppContainer = async (): Promise<Awilix.AwilixContainer> => {
     deckTagRepository: Awilix.asClass(DeckTagRepositoryImpl).singleton(),
     cardRepository: Awilix.asClass(CardRepositoryImpl).singleton(),
     deckReadModelRepository: Awilix.asClass(DeckReadModelRepositoryImpl).singleton(),
+    cardReadModelRepository: Awilix.asClass(CardReadModelRepositoryImpl).singleton(),
   });
 
   container.register({
@@ -128,6 +131,7 @@ export const createAppContainer = async (): Promise<Awilix.AwilixContainer> => {
     queryHandlers: registerAsArray<QueryHandler<any, any>>([
       Awilix.asClass(GetDeckByIdQueryHandler).singleton(),
       Awilix.asClass(GetAllDecksQueryHandler).singleton(),
+      Awilix.asClass(GetCardsForDeckQueryHandler).singleton(),
     ]),
   });
 

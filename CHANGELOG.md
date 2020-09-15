@@ -12,7 +12,7 @@
 - Domain tools ([1ed8e4c](https://github.com/Miczeq22/brainflash-api/commit/1ed8e4cb026d418a42e511f144e77165af732d08))
 - Enroll deck feature ([a0203b4](https://github.com/Miczeq22/brainflash-api/commit/a0203b470c00c70cd3dcbf3f237d22274c3f9fd9))
 - Error handler middleware ([d62e86f](https://github.com/Miczeq22/brainflash-api/commit/d62e86f46c1b8422a5b32d85680b8e12d2383a98))
-- Get all decks with simple pagination feature ([f1eac01](https://github.com/Miczeq22/brainflash-api/commit/f1eac015ec6678c90fb006f7931c75e65f710332))
+- Get all decks with simple pagination feature ([7944a0e](https://github.com/Miczeq22/brainflash-api/commit/7944a0eace71a6f0a8c398528a4a463fc7cde82a))
 - Get deck by id feature ([4264354](https://github.com/Miczeq22/brainflash-api/commit/42643549d6c27241c83a5f0ff828f3c10c5f1819))
 - Login feature ([0861cb1](https://github.com/Miczeq22/brainflash-api/commit/0861cb15d61f71a415772c962383713928251bf2))
 - Publish deck feature ([42a87c3](https://github.com/Miczeq22/brainflash-api/commit/42a87c362619b1513bbe40f49d922fb6bae30398))
@@ -37,6 +37,7 @@
 - Added unauthenticated error ([339003f](https://github.com/Miczeq22/brainflash-api/commit/339003ff135248b2c3bc0db6f8e00b0fc1a28f2e))
 - Decks -> deck ([8d3c834](https://github.com/Miczeq22/brainflash-api/commit/8d3c83471d3394f47003ba5c50f3d49e212d3dde))
 - Get enrolled deck if is not public ([ebcb4a9](https://github.com/Miczeq22/brainflash-api/commit/ebcb4a9b86970cdac57d4ed562e74a4abd7caba5))
+- Query deck cards ([50006e2](https://github.com/Miczeq22/brainflash-api/commit/50006e279d73a3eb68f60edc86255b944d0b9e6b))
 - Refactored domain events to use map instead object ([e4da6bf](https://github.com/Miczeq22/brainflash-api/commit/e4da6bf4d869aae81582bbe1a5dce3f94a7be88a))
 
 
