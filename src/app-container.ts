@@ -45,6 +45,10 @@ import { UnpublishDeckCommandHandler } from '@app/decks/unpublish-deck/unpublish
 import { GetAllDecksQueryHandler } from '@app/decks/get-all-decks/get-all-decks.query-handler';
 import { CardReadModelRepositoryImpl } from '@infrastructure/mongo/domain/cards/card.read-model.repository';
 import { GetCardsForDeckQueryHandler } from '@app/cards/get-cards-for-deck/get-cards-for-deck.query-handler';
+import { ScheduledDeckRepositoryImpl } from '@infrastructure/domain/user-access/scheduled-deck/scheduled-deck.repository';
+import { ScheduleDeckCommandHandler } from '@app/user-access/schedule-deck/schedule-deck.command-handler';
+import { DeckSchedulerController } from '@api/domain/user-access/deck-scheduler/deck-scheduler.controller';
+import { NewDeckScheduledSubscriber } from '@app/user-access/schedule-deck/new-deck-scheduled.subscriber';
 
 const registerAsArray = <T>(resolvers: Awilix.Resolver<T>[]): Awilix.Resolver<T[]> => ({
   resolve: (container: Awilix.AwilixContainer) => resolvers.map((r) => container.build(r)),
@@ -84,6 +88,7 @@ export const createAppContainer = async (): Promise<Awilix.AwilixContainer> => {
       Awilix.asClass(UserRegistrationController).singleton(),
       Awilix.asClass(UserAccessController).singleton(),
       Awilix.asClass(DeckController).singleton(),
+      Awilix.asClass(DeckSchedulerController).singleton(),
     ]),
   });
 
@@ -103,6 +108,7 @@ export const createAppContainer = async (): Promise<Awilix.AwilixContainer> => {
       Awilix.asClass(PublishDeckCommandHandler).singleton(),
       Awilix.asClass(EnrollDeckCommandHandler).singleton(),
       Awilix.asClass(UnpublishDeckCommandHandler).singleton(),
+      Awilix.asClass(ScheduleDeckCommandHandler).singleton(),
     ]),
   });
 
@@ -115,6 +121,7 @@ export const createAppContainer = async (): Promise<Awilix.AwilixContainer> => {
     cardRepository: Awilix.asClass(CardRepositoryImpl).singleton(),
     deckReadModelRepository: Awilix.asClass(DeckReadModelRepositoryImpl).singleton(),
     cardReadModelRepository: Awilix.asClass(CardReadModelRepositoryImpl).singleton(),
+    scheduledDeckRepository: Awilix.asClass(ScheduledDeckRepositoryImpl).singleton(),
   });
 
   container.register({
@@ -124,6 +131,7 @@ export const createAppContainer = async (): Promise<Awilix.AwilixContainer> => {
       Awilix.asClass(DeckTagsUpdatedSubscriber).singleton(),
       Awilix.asClass(NewCardAddedSubscriber).singleton(),
       Awilix.asClass(CardRemovedFromDeckSubscriber).singleton(),
+      Awilix.asClass(NewDeckScheduledSubscriber).singleton(),
     ]),
   });
 

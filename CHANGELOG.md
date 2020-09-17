@@ -1,4 +1,4 @@
-#  (2020-09-15)
+#  (2020-09-17)
 
 
 ### Features
@@ -19,6 +19,7 @@
 - Register User Command ([cf520a7](https://github.com/Miczeq22/brainflash-api/commit/cf520a7001d89b3595bc08abad3e4ecb6b392353))
 - Remove card feature ([96e5bb1](https://github.com/Miczeq22/brainflash-api/commit/96e5bb1b19e259297a1782f03f81a127a07b7b47))
 - Remove deck feature ([af8b633](https://github.com/Miczeq22/brainflash-api/commit/af8b633338c4de28702bc9f660aa672a999eb6c0))
+- Schedule deck ([9511146](https://github.com/Miczeq22/brainflash-api/commit/95111468b6436aab5e147ecfa50e455c716f1bde))
 - Security Middleware ([08ea082](https://github.com/Miczeq22/brainflash-api/commit/08ea0826dfcd30484a390e23665a6e443a624dd0))
 - Server bootstrap ([9a1e2f2](https://github.com/Miczeq22/brainflash-api/commit/9a1e2f21d6db5e1b62a5df019e4a8bfb975fb921))
 - Unpublish deck feature ([34a80fd](https://github.com/Miczeq22/brainflash-api/commit/34a80fd96ea21b7fa93cfc5034b558901f50ae06))
@@ -37,7 +38,7 @@
 - Added unauthenticated error ([339003f](https://github.com/Miczeq22/brainflash-api/commit/339003ff135248b2c3bc0db6f8e00b0fc1a28f2e))
 - Decks -> deck ([8d3c834](https://github.com/Miczeq22/brainflash-api/commit/8d3c83471d3394f47003ba5c50f3d49e212d3dde))
 - Get enrolled deck if is not public ([ebcb4a9](https://github.com/Miczeq22/brainflash-api/commit/ebcb4a9b86970cdac57d4ed562e74a4abd7caba5))
-- Query deck cards ([50006e2](https://github.com/Miczeq22/brainflash-api/commit/50006e279d73a3eb68f60edc86255b944d0b9e6b))
+- Query deck cards ([1b29d48](https://github.com/Miczeq22/brainflash-api/commit/1b29d4850e1ab5f516505440423d0ce6871d0df6))
 - Refactored domain events to use map instead object ([e4da6bf](https://github.com/Miczeq22/brainflash-api/commit/e4da6bf4d869aae81582bbe1a5dce3f94a7be88a))
 
 
