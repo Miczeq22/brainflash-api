@@ -45,6 +45,6 @@ export class ScheduleDeckCommandHandler extends CommandHandler<ScheduleDeckComma
 
     deckScheduler.scheduleNewDeck(deckToSchedule);
 
-    DomainEvents.dispatchDomainEventsForAggregate(deckScheduler.getId());
+    await DomainEvents.dispatchDomainEventsForAggregate(deckScheduler.getId());
   }
 }
