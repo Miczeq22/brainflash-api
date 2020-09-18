@@ -1,5 +1,5 @@
 import { CommandBus } from '@app/processing/command-bus';
-import { ScheduleDeckCommand } from '@app/user-access/schedule-deck/schedule-deck.command';
+import { UnscheduleDeckCommand } from '@app/user-access/unschedule-deck/unschedule-deck.command';
 import { celebrate, Joi, Segments } from 'celebrate';
 import { RequestHandler } from 'express';
 
@@ -7,28 +7,22 @@ interface Dependencies {
   commandBus: CommandBus;
 }
 
-export const scheduleNewDeckActionValidation = celebrate(
-  {
-    [Segments.BODY]: Joi.object().keys({
-      deckId: Joi.string().uuid().required(),
-      scheduledDate: Joi.date().timestamp().required(),
-    }),
-  },
-  {
-    abortEarly: false,
-  },
-);
+export const unschedulDeckActionValidation = celebrate({
+  [Segments.BODY]: Joi.object().keys({
+    deckId: Joi.string().uuid().required(),
+  }),
+});
 
 /**
  * @swagger
  *
- * /deck-scheduler:
- *   post:
+ * /deck-scheduler/unschedule:
+ *   delete:
  *     tags:
  *       - Deck Scheduler
  *     security:
  *      - bearerAuth: []
- *     summary: Schedules new deck
+ *     summary: Unschedules deck
  *     requestBody:
  *       content:
  *         application/json:
@@ -37,24 +31,22 @@ export const scheduleNewDeckActionValidation = celebrate(
  *            properties:
  *              deckId:
  *                type: string
- *              scheduledDate:
- *                type: string
  *     responses:
  *       204:
- *        description: Deck scheduled successfully
+ *        description: Deck unscheduled successfully
  *       422:
  *        description: Validation Error
  *       400:
- *        description: Deck is already scheduled
+ *        description: Deck is not scheduled
  *       401:
  *        description: Unauthorized
  *       500:
  *         description: Internal Server Error
  */
-const scheduleNewDeckAction = ({ commandBus }: Dependencies): RequestHandler => (req, res, next) =>
+const unscheduleDeckAction = ({ commandBus }: Dependencies): RequestHandler => (req, res, next) =>
   commandBus
     .handle(
-      new ScheduleDeckCommand({
+      new UnscheduleDeckCommand({
         ...req.body,
         userId: res.locals.userId,
       }),
@@ -62,4 +54,4 @@ const scheduleNewDeckAction = ({ commandBus }: Dependencies): RequestHandler => 
     .then(() => res.status(204).json({}))
     .catch(next);
 
-export default scheduleNewDeckAction;
+export default unscheduleDeckAction;

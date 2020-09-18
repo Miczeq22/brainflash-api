@@ -49,6 +49,8 @@ import { ScheduledDeckRepositoryImpl } from '@infrastructure/domain/user-access/
 import { ScheduleDeckCommandHandler } from '@app/user-access/schedule-deck/schedule-deck.command-handler';
 import { DeckSchedulerController } from '@api/domain/user-access/deck-scheduler/deck-scheduler.controller';
 import { NewDeckScheduledSubscriber } from '@app/user-access/schedule-deck/new-deck-scheduled.subscriber';
+import { UnscheduleDeckCommandHandler } from '@app/user-access/unschedule-deck/unschedule-deck.command-handler';
+import { DeckUnscheduledSubscriber } from '@app/user-access/unschedule-deck/deck-unscheduled.subscriber';
 
 const registerAsArray = <T>(resolvers: Awilix.Resolver<T>[]): Awilix.Resolver<T[]> => ({
   resolve: (container: Awilix.AwilixContainer) => resolvers.map((r) => container.build(r)),
@@ -109,6 +111,7 @@ export const createAppContainer = async (): Promise<Awilix.AwilixContainer> => {
       Awilix.asClass(EnrollDeckCommandHandler).singleton(),
       Awilix.asClass(UnpublishDeckCommandHandler).singleton(),
       Awilix.asClass(ScheduleDeckCommandHandler).singleton(),
+      Awilix.asClass(UnscheduleDeckCommandHandler).singleton(),
     ]),
   });
 
@@ -132,6 +135,7 @@ export const createAppContainer = async (): Promise<Awilix.AwilixContainer> => {
       Awilix.asClass(NewCardAddedSubscriber).singleton(),
       Awilix.asClass(CardRemovedFromDeckSubscriber).singleton(),
       Awilix.asClass(NewDeckScheduledSubscriber).singleton(),
+      Awilix.asClass(DeckUnscheduledSubscriber).singleton(),
     ]),
   });
 

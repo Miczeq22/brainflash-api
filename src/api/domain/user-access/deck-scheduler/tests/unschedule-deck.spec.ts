@@ -9,11 +9,14 @@ import faker from 'faker';
 import jwt from 'jsonwebtoken';
 import { UserRegistration } from '@core/user-access/user-registration/user-registration.aggregate-root';
 import { createDeckMock } from '@tests/deck.mock';
+import { ScheduledDeckRepository } from '@core/user-access/scheduled-deck/scheduled-deck.repository';
+import { ScheduledDeck } from '@core/user-access/scheduled-deck/scheduled-deck.entity';
 
-describe('[API] Schedule new deck', () => {
+describe('[API] Unschedule deck', () => {
   let app: Application;
   let deckRepository: DeckRepository;
   let userRegistrationRepository: UserRegistrationRepository;
+  let scheduledDeckRepository: ScheduledDeckRepository;
   const emailChecker = createMockProxy<UniqueEmailChecker>();
 
   beforeAll(async () => {
@@ -21,13 +24,14 @@ describe('[API] Schedule new deck', () => {
     app = container.resolve('app');
     deckRepository = container.resolve('deckRepository');
     userRegistrationRepository = container.resolve('userRegistrationRepository');
+    scheduledDeckRepository = container.resolve('scheduledDeckRepository');
   });
 
   beforeEach(() => {
     emailChecker.mockClear();
   });
 
-  test('[POST] /deck-scheduler - should return an error if data is invalid', async () => {
+  test('[DELETE] /deck-scheduler/unschedule - should return an error if data is invalid', async () => {
     process.env.JWT_TOKEN = 'secret';
 
     emailChecker.isUnique.mockResolvedValue(true);
@@ -55,24 +59,26 @@ describe('[API] Schedule new deck', () => {
     );
 
     const res = await request(app)
-      .post('/deck-scheduler')
+      .delete('/deck-scheduler/unschedule')
       .set('Accept', 'application/json')
       .set('Authorization', `Bearer ${token}`);
 
     expect(res.statusCode).toEqual(422);
-    expect(res.body.details.map((detail) => detail.key)).toEqual(['deckId', 'scheduledDate']);
+    expect(res.body.details.map((detail) => detail.key)).toEqual(['deckId']);
   });
 
-  test('[POST] /deck-scheduler - should return an error if user is not authorized', async () => {
+  test('[DELETE] /deck-scheduler/unschedule - should return an error if user is not authorized', async () => {
     process.env.JWT_TOKEN = 'secret';
 
-    const res = await request(app).post('/deck-scheduler').set('Accept', 'application/json');
+    const res = await request(app)
+      .delete('/deck-scheduler/unschedule')
+      .set('Accept', 'application/json');
 
     expect(res.statusCode).toEqual(401);
     expect(res.body.error).toEqual('Unauthorized.');
   });
 
-  test('[POST] /deck-scheduler - should schedule deck', async () => {
+  test('[DELETE] /deck-scheduler/unschedule - should unschedule deck', async () => {
     process.env.JWT_TOKEN = 'secret';
 
     emailChecker.isUnique.mockResolvedValue(true);
@@ -109,13 +115,24 @@ describe('[API] Schedule new deck', () => {
 
     await deckRepository.insert(deck);
 
+    scheduledDeckRepository.insert(
+      ScheduledDeck.instanceExisting(
+        {
+          ownerId: user.getId(),
+          scheduledAt: new Date(),
+          scheduledDate: new Date(),
+          userId: user.getId(),
+        },
+        deck.getId(),
+      ),
+    );
+
     const res = await request(app)
-      .post('/deck-scheduler')
+      .delete('/deck-scheduler/unschedule')
       .set('Accept', 'application/json')
       .set('Authorization', `Bearer ${token}`)
       .send({
         deckId: deck.getId().getValue(),
-        scheduledDate: Number(new Date()),
       });
 
     expect(res.statusCode).toEqual(204);

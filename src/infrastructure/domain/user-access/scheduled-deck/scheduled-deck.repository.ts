@@ -24,4 +24,21 @@ export class ScheduledDeckRepositoryImpl implements ScheduledDeckRepository {
 
     return result.map(ScheduledDeckMapper.toEntity);
   }
+
+  public async findByUserAndDeck(userId: string, deckId: string) {
+    const result = await this.dependencies.queryBuilder
+      .where('user_id', userId)
+      .andWhere('deck_id', deckId)
+      .from(SCHEDULED_DECK_TABLE);
+
+    return result.length ? ScheduledDeckMapper.toEntity(result[0]) : null;
+  }
+
+  public async remove(deckId: string, userId: string) {
+    await this.dependencies.queryBuilder
+      .where('deck_id', deckId)
+      .andWhere('user_id', userId)
+      .delete()
+      .from(SCHEDULED_DECK_TABLE);
+  }
 }
