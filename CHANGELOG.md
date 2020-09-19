@@ -36,13 +36,14 @@
 ### Refactoring & Improvements
 
 - Added published prop to deck ([01745c6](https://github.com/Miczeq22/brainflash-api/commit/01745c6954f47cf6b14d6b79fd5103951315a486))
+- Added scheduled date validation ([71fe9f9](https://github.com/Miczeq22/brainflash-api/commit/71fe9f94d68631122c2660f3789c3b906b60cf6e))
 - Added single deck mock ([2eb09cb](https://github.com/Miczeq22/brainflash-api/commit/2eb09cb0ee295a5137c21471e37711c43802014e))
 - Added unauthenticated error ([339003f](https://github.com/Miczeq22/brainflash-api/commit/339003ff135248b2c3bc0db6f8e00b0fc1a28f2e))
 - Decks -> deck ([8d3c834](https://github.com/Miczeq22/brainflash-api/commit/8d3c83471d3394f47003ba5c50f3d49e212d3dde))
 - Get enrolled deck if is not public ([ebcb4a9](https://github.com/Miczeq22/brainflash-api/commit/ebcb4a9b86970cdac57d4ed562e74a4abd7caba5))
 - Query deck cards ([1b29d48](https://github.com/Miczeq22/brainflash-api/commit/1b29d4850e1ab5f516505440423d0ce6871d0df6))
 - Refactored domain events to use map instead object ([e4da6bf](https://github.com/Miczeq22/brainflash-api/commit/e4da6bf4d869aae81582bbe1a5dce3f94a7be88a))
-- Update deck read model ([99adce0](https://github.com/Miczeq22/brainflash-api/commit/99adce0c4917bbb735c807faa7cf1079d1c27e62))
+- Update deck read model ([a9007c6](https://github.com/Miczeq22/brainflash-api/commit/a9007c672a9ead5421f14aa72f0003dcd43464e4))
 
 
 ### Tooling

@@ -3,6 +3,7 @@ import { ScheduledDeck } from '../scheduled-deck/scheduled-deck.entity';
 import { DeckScheduler } from './deck-scheduler.aggregate-root';
 import { DeckUnscheduledDomainEvent } from './events/deck-unscheduled.domain-event';
 import { NewDeckScheduledDomainEvent } from './events/new-deck-scheduled.domain-event';
+import moment from 'moment';
 
 describe('[Domain] Deck Scheduler', () => {
   test('should throw an error if deck is already scheduled', () => {
@@ -26,12 +27,33 @@ describe('[Domain] Deck Scheduler', () => {
     );
   });
 
-  test('should schedule deck and add proper domain event', () => {
+  test('should throw an error if scheduled date is before tomorrow', () => {
     const scheduledDeck = ScheduledDeck.instanceExisting(
       {
         ownerId: new UniqueEntityID(),
         scheduledAt: new Date(),
         scheduledDate: new Date(),
+        userId: new UniqueEntityID(),
+      },
+      new UniqueEntityID(),
+    );
+
+    const deckScheduler = DeckScheduler.instanceExisting({
+      scheduledDecks: [],
+      userId: new UniqueEntityID(),
+    });
+
+    expect(() => deckScheduler.scheduleNewDeck(scheduledDeck)).toThrowError(
+      'Scheduled date should be at least one day ahead.',
+    );
+  });
+
+  test('should schedule deck and add proper domain event', () => {
+    const scheduledDeck = ScheduledDeck.instanceExisting(
+      {
+        ownerId: new UniqueEntityID(),
+        scheduledAt: new Date(),
+        scheduledDate: moment().add(1, 'days').toDate(),
         userId: new UniqueEntityID(),
       },
       new UniqueEntityID(),

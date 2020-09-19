@@ -5,6 +5,7 @@ import { DeckUnscheduledDomainEvent } from './events/deck-unscheduled.domain-eve
 import { NewDeckScheduledDomainEvent } from './events/new-deck-scheduled.domain-event';
 import { DeckCannotBeScheduledMoreThanOnceRule } from './rules/deck-cannot-be-scheduled-more-than-once.rule';
 import { DeckShouldBeScheduledRule } from './rules/deck-should-be-scheduled.rule';
+import { ScheduledDateShouldBeAtLeastOneDayAheadRule } from './rules/scheduled-date-shoule-be-at-least-one-day-ahead.rule';
 
 interface DeckSchedulerProps {
   userId: UniqueEntityID;
@@ -23,6 +24,9 @@ export class DeckScheduler extends AggregateRoot<DeckSchedulerProps> {
   public scheduleNewDeck(deck: ScheduledDeck) {
     DeckScheduler.checkRule(
       new DeckCannotBeScheduledMoreThanOnceRule(this.props.scheduledDecks, deck),
+    );
+    DeckScheduler.checkRule(
+      new ScheduledDateShouldBeAtLeastOneDayAheadRule(deck.getScheduledDate()),
     );
 
     this.props.scheduledDecks = [...this.props.scheduledDecks, deck];

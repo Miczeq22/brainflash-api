@@ -91,6 +91,7 @@
     "knex": "^0.21.5",
     "lodash.merge": "^4.6.2",
     "module-alias": "^2.2.2",
+    "moment": "^2.28.0",
     "mongodb": "^3.6.1",
     "multer": "^1.4.2",
     "multer-s3": "^2.9.0",
