@@ -24,6 +24,39 @@ export class DeckReadModelRepositoryImpl implements DeckReadModelRepository {
     await this.dependencies.mongoClient.db().collection(this.collection).insertOne(record);
   }
 
+  public async update(deck: Deck) {
+    const readModelDeck = await this.dependencies.mongoClient
+      .db()
+      .collection(this.collection)
+      .findOne({
+        id: deck.getId().getValue(),
+      });
+
+    if (!readModelDeck) {
+      return;
+    }
+
+    const cardCount = await this.dependencies.mongoClient
+      .db()
+      .collection('cards')
+      .find({
+        deckId: deck.getId().getValue(),
+      })
+      .count(false);
+
+    await this.dependencies.mongoClient
+      .db()
+      .collection(this.collection)
+      .updateOne(
+        {
+          id: deck.getId().getValue(),
+        },
+        {
+          $set: DeckReadModelMapper.toPersistence(deck, readModelDeck.ownerName, cardCount),
+        },
+      );
+  }
+
   public async findById(id: string) {
     const deck = await this.dependencies.mongoClient.db().collection(this.collection).findOne({
       id,

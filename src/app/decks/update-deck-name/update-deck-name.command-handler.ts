@@ -5,10 +5,12 @@ import { NotFoundError } from '@errors/not-found.error';
 import { UniqueEntityID } from '@core/shared/unique-entity-id';
 import { UniqueDeckChecker } from '@core/decks/deck/rules/user-deck-should-have-unique-name.rule';
 import { UnauthenticatedError } from '@errors/unauthenticated.error';
+import { DeckReadModelRepository } from '@infrastructure/mongo/domain/decks/deck.read-model';
 
 interface Dependencies {
   deckRepository: DeckRepository;
   uniqueDeckChecker: UniqueDeckChecker;
+  deckReadModelRepository: DeckReadModelRepository;
 }
 
 export class UpdateDeckNameCommandHandler extends CommandHandler<UpdateDeckNameCommand> {
@@ -17,7 +19,7 @@ export class UpdateDeckNameCommandHandler extends CommandHandler<UpdateDeckNameC
   }
 
   public async handle({ payload: { deckId, newName, userId } }: UpdateDeckNameCommand) {
-    const { deckRepository, uniqueDeckChecker } = this.dependencies;
+    const { deckRepository, uniqueDeckChecker, deckReadModelRepository } = this.dependencies;
 
     const deck = await deckRepository.findById(deckId);
 
@@ -32,5 +34,7 @@ export class UpdateDeckNameCommandHandler extends CommandHandler<UpdateDeckNameC
     await deck.updateName(newName, uniqueDeckChecker);
 
     await deckRepository.update(deck);
+
+    await deckReadModelRepository.update(deck);
   }
 }

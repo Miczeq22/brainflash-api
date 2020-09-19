@@ -8,9 +8,11 @@ import { NotFoundError } from '@errors/not-found.error';
 import { UniqueEntityID } from '@core/shared/unique-entity-id';
 import { DomainEvents } from '@core/shared/domain-events';
 import { UnauthenticatedError } from '@errors/unauthenticated.error';
+import { DeckReadModelRepository } from '@infrastructure/mongo/domain/decks/deck.read-model';
 
 interface Dependencies {
   deckRepository: DeckRepository;
+  deckReadModelRepository: DeckReadModelRepository;
 }
 
 export class UpdateDeckMetadataCommandHandler extends CommandHandler<UpdateDeckMetadataCommand> {
@@ -21,7 +23,7 @@ export class UpdateDeckMetadataCommandHandler extends CommandHandler<UpdateDeckM
   public async handle({
     payload: { deckId, userId, description, tags },
   }: UpdateDeckMetadataCommand) {
-    const { deckRepository } = this.dependencies;
+    const { deckRepository, deckReadModelRepository } = this.dependencies;
 
     const deck = await deckRepository.findById(deckId);
 
@@ -42,6 +44,8 @@ export class UpdateDeckMetadataCommandHandler extends CommandHandler<UpdateDeckM
     }
 
     await deckRepository.update(deck);
+
+    await deckReadModelRepository.update(deck);
 
     await DomainEvents.dispatchDomainEventsForAggregate(deck.getId());
   }
