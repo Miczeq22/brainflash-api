@@ -26,6 +26,8 @@ export interface DeckReadModelRepository {
   findById(id: string): Promise<DeckReadModel | null>;
 
   findAll(filter: FindAllFilter): Promise<DeckReadModel[]>;
+
+  update(deck: Deck): Promise<void>;
 }
 
 export const DECK_READ_MODEL_COLLECTION = 'decks';

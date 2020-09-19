@@ -4,9 +4,11 @@ import { UpdateDeckMetadataCommandHandler } from './update-deck-metadata.command
 import { UpdateDeckMetadataCommand } from './update-deck-metadata.command';
 import { UniqueEntityID } from '@core/shared/unique-entity-id';
 import { createDeckMock } from '@tests/deck.mock';
+import { DeckReadModelRepository } from '@infrastructure/mongo/domain/decks/deck.read-model';
 
 describe('[App] Update deck metadata command handler', () => {
   const deckRepository = createMockProxy<DeckRepository>();
+  const deckReadModelRepository = createMockProxy<DeckReadModelRepository>();
 
   beforeEach(() => {
     deckRepository.mockClear();
@@ -17,6 +19,7 @@ describe('[App] Update deck metadata command handler', () => {
 
     const handler = new UpdateDeckMetadataCommandHandler({
       deckRepository,
+      deckReadModelRepository,
     });
 
     await expect(() =>
@@ -35,6 +38,7 @@ describe('[App] Update deck metadata command handler', () => {
 
     const handler = new UpdateDeckMetadataCommandHandler({
       deckRepository,
+      deckReadModelRepository,
     });
 
     await expect(() =>
@@ -59,6 +63,7 @@ describe('[App] Update deck metadata command handler', () => {
 
     const handler = new UpdateDeckMetadataCommandHandler({
       deckRepository,
+      deckReadModelRepository,
     });
 
     await handler.handle(

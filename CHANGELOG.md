@@ -4,7 +4,7 @@
 ### Features
 
 - Add card feature ([3e28960](https://github.com/Miczeq22/brainflash-api/commit/3e28960b6a1b206b5c7f98436954d6e39bad802f))
-- Added cache for queries ([a229a75](https://github.com/Miczeq22/brainflash-api/commit/a229a7548513af17ae6edd198a6a1b5b8e5fe1f2))
+- Added cache for queries ([a6dfffb](https://github.com/Miczeq22/brainflash-api/commit/a6dfffbb5c11959843ec702c98633a40ac4e152e))
 - Added deck read model ([32f426f](https://github.com/Miczeq22/brainflash-api/commit/32f426f71a3061886ad627b704aa039ac06317cb))
 - Card persistence ([dd19bd3](https://github.com/Miczeq22/brainflash-api/commit/dd19bd3680e5bd1c81948275c4b0a9ba07798e2f))
 - Confirm user account feature ([cdb4508](https://github.com/Miczeq22/brainflash-api/commit/cdb45085547ee0baefac05c3726a57a706ca3d84))
@@ -42,6 +42,7 @@
 - Get enrolled deck if is not public ([ebcb4a9](https://github.com/Miczeq22/brainflash-api/commit/ebcb4a9b86970cdac57d4ed562e74a4abd7caba5))
 - Query deck cards ([1b29d48](https://github.com/Miczeq22/brainflash-api/commit/1b29d4850e1ab5f516505440423d0ce6871d0df6))
 - Refactored domain events to use map instead object ([e4da6bf](https://github.com/Miczeq22/brainflash-api/commit/e4da6bf4d869aae81582bbe1a5dce3f94a7be88a))
+- Update deck read model ([99adce0](https://github.com/Miczeq22/brainflash-api/commit/99adce0c4917bbb735c807faa7cf1079d1c27e62))
 
 
 ### Tooling

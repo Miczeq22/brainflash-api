@@ -5,10 +5,12 @@ import { UpdateDeckNameCommandHandler } from './update-deck-name.command-handler
 import { UpdateDeckNameCommand } from './update-deck-name.command';
 import { UniqueEntityID } from '@core/shared/unique-entity-id';
 import { createDeckMock } from '@tests/deck.mock';
+import { DeckReadModelRepository } from '@infrastructure/mongo/domain/decks/deck.read-model';
 
 describe('[App] Update deck name command handler', () => {
   const deckRepository = createMockProxy<DeckRepository>();
   const uniqueDeckChecker = createMockProxy<UniqueDeckChecker>();
+  const deckReadModelRepository = createMockProxy<DeckReadModelRepository>();
 
   beforeEach(() => {
     deckRepository.mockClear();
@@ -21,6 +23,7 @@ describe('[App] Update deck name command handler', () => {
     const handler = new UpdateDeckNameCommandHandler({
       deckRepository,
       uniqueDeckChecker,
+      deckReadModelRepository,
     });
 
     await expect(() =>
@@ -40,6 +43,7 @@ describe('[App] Update deck name command handler', () => {
     const handler = new UpdateDeckNameCommandHandler({
       deckRepository,
       uniqueDeckChecker,
+      deckReadModelRepository,
     });
 
     await expect(() =>
@@ -66,6 +70,7 @@ describe('[App] Update deck name command handler', () => {
     const handler = new UpdateDeckNameCommandHandler({
       deckRepository,
       uniqueDeckChecker,
+      deckReadModelRepository,
     });
 
     await handler.handle(
