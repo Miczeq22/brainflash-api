@@ -14,6 +14,7 @@ services:
       - POSTGRES_DB=$POSTGRES_DB
     depends_on:
       - mongo
+      - redis
     networks:
       - data
 
@@ -64,6 +65,12 @@ services:
       - ME_CONFIG_MONGODB_SERVER=mongo
     networks:
       - data
+
+  redis:
+    container_name: redis
+    image: redis
+    ports:
+      - $REDIS_PORT:6379
 
 networks:
   data:

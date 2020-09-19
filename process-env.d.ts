@@ -36,5 +36,9 @@ declare namespace NodeJS {
     MONGO_PORT: number;
     MONGO_HOST: string;
     MONGO_DB: string;
+
+    // Redis
+
+    REDIS_PORT: number;
   }
 }
