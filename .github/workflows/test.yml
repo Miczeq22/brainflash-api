@@ -42,3 +42,4 @@ jobs:
           MONGO_PORT: 27017
           MONGO_HOST: mongodb://localhost
           MONGO_DB: data
+          REDIS_PORT: 6379

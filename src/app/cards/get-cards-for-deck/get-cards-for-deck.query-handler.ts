@@ -7,11 +7,13 @@ import {
   CardReadModel,
   CardReadModelRepository,
 } from '@infrastructure/mongo/domain/cards/card.read-model';
+import { CardCacheRepository } from '@infrastructure/redis/domain/cards/card.cache-repository';
 import { GetCardsForDeckQuery, GET_CARDS_FOR_DECK_QUERY } from './get-cards-for-deck.query';
 
 interface Dependencies {
   cardReadModelRepository: CardReadModelRepository;
   deckRepository: DeckRepository;
+  cardCacheRepository: CardCacheRepository;
 }
 
 export class GetCardsForDeckQueryHandler extends QueryHandler<
@@ -23,7 +25,7 @@ export class GetCardsForDeckQueryHandler extends QueryHandler<
   }
 
   public async handle({ payload: { deckId, userId } }: GetCardsForDeckQuery) {
-    const { deckRepository, cardReadModelRepository } = this.dependencies;
+    const { deckRepository, cardReadModelRepository, cardCacheRepository } = this.dependencies;
 
     const deck = await deckRepository.findById(deckId);
 
@@ -41,8 +43,18 @@ export class GetCardsForDeckQueryHandler extends QueryHandler<
       throw new UnauthenticatedError('Only deck owner can see unpublised deck.');
     }
 
-    const result = await cardReadModelRepository.findAllForDeck(deckId);
+    const cacheKey = `FOR_DECK_${deckId}`;
 
-    return result;
+    let cardsFromCache = await cardCacheRepository.getData(cacheKey);
+
+    if (!cardsFromCache || !cardsFromCache.length) {
+      const result = await cardReadModelRepository.findAllForDeck(deckId);
+
+      await cardCacheRepository.persistData(cacheKey, result, 30);
+
+      cardsFromCache = await cardCacheRepository.getData(cacheKey);
+    }
+
+    return cardsFromCache;
   }
 }

@@ -1,9 +1,10 @@
-#  (2020-09-18)
+#  (2020-09-19)
 
 
 ### Features
 
 - Add card feature ([3e28960](https://github.com/Miczeq22/brainflash-api/commit/3e28960b6a1b206b5c7f98436954d6e39bad802f))
+- Added cache for queries ([a229a75](https://github.com/Miczeq22/brainflash-api/commit/a229a7548513af17ae6edd198a6a1b5b8e5fe1f2))
 - Added deck read model ([32f426f](https://github.com/Miczeq22/brainflash-api/commit/32f426f71a3061886ad627b704aa039ac06317cb))
 - Card persistence ([dd19bd3](https://github.com/Miczeq22/brainflash-api/commit/dd19bd3680e5bd1c81948275c4b0a9ba07798e2f))
 - Confirm user account feature ([cdb4508](https://github.com/Miczeq22/brainflash-api/commit/cdb45085547ee0baefac05c3726a57a706ca3d84))
@@ -23,7 +24,7 @@
 - Security Middleware ([08ea082](https://github.com/Miczeq22/brainflash-api/commit/08ea0826dfcd30484a390e23665a6e443a624dd0))
 - Server bootstrap ([9a1e2f2](https://github.com/Miczeq22/brainflash-api/commit/9a1e2f21d6db5e1b62a5df019e4a8bfb975fb921))
 - Unpublish deck feature ([34a80fd](https://github.com/Miczeq22/brainflash-api/commit/34a80fd96ea21b7fa93cfc5034b558901f50ae06))
-- Unschedule deck feature ([da4324f](https://github.com/Miczeq22/brainflash-api/commit/da4324ff070f3885944e3dfe49e06dec319594c5))
+- Unschedule deck feature ([a07bc54](https://github.com/Miczeq22/brainflash-api/commit/a07bc54cabf61f1381cc9842eeed57f4ebd1e1f8))
 - Update deck metadata feature ([bb931e6](https://github.com/Miczeq22/brainflash-api/commit/bb931e69bee1010d6a3373815591bf8a0961b24b))
 - Update deck name ([fa90cbd](https://github.com/Miczeq22/brainflash-api/commit/fa90cbdab7dca1bb15454d5eade477a1e0c188e8))
 - Update user password feature ([3e9ff21](https://github.com/Miczeq22/brainflash-api/commit/3e9ff216832e081b43e6809d278cbabd94428357))

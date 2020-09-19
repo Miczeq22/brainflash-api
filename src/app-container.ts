@@ -51,6 +51,9 @@ import { DeckSchedulerController } from '@api/domain/user-access/deck-scheduler/
 import { NewDeckScheduledSubscriber } from '@app/user-access/schedule-deck/new-deck-scheduled.subscriber';
 import { UnscheduleDeckCommandHandler } from '@app/user-access/unschedule-deck/unschedule-deck.command-handler';
 import { DeckUnscheduledSubscriber } from '@app/user-access/unschedule-deck/deck-unscheduled.subscriber';
+import { createRedisClient } from '@infrastructure/redis/redis-client';
+import { DeckCacheRepository } from '@infrastructure/redis/domain/decks/deck.cache-repository';
+import { CardCacheRepository } from '@infrastructure/redis/domain/cards/card.cache-repository';
 
 const registerAsArray = <T>(resolvers: Awilix.Resolver<T>[]): Awilix.Resolver<T[]> => ({
   resolve: (container: Awilix.AwilixContainer) => resolvers.map((r) => container.build(r)),
@@ -149,6 +152,14 @@ export const createAppContainer = async (): Promise<Awilix.AwilixContainer> => {
 
   container.register({
     queryBus: Awilix.asClass(QueryBus).singleton(),
+  });
+
+  const redisClient = createRedisClient();
+
+  container.register({
+    redisClient: Awilix.asValue(redisClient),
+    deckCacheRepository: Awilix.asClass(DeckCacheRepository).singleton(),
+    cardCacheRepository: Awilix.asClass(CardCacheRepository).singleton(),
   });
 
   const app = container.resolve<Server>('server').getApp();

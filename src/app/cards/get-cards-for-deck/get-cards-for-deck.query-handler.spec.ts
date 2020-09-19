@@ -3,6 +3,7 @@ import {
   CardReadModelMapper,
   CardReadModelRepository,
 } from '@infrastructure/mongo/domain/cards/card.read-model';
+import { CardCacheRepository } from '@infrastructure/redis/domain/cards/card.cache-repository';
 import { createCardMock } from '@tests/card.mock';
 import { createDeckMock } from '@tests/deck.mock';
 import { createMockProxy } from '@tools/mock-proxy';
@@ -12,10 +13,12 @@ import { GetCardsForDeckQueryHandler } from './get-cards-for-deck.query-handler'
 describe('[App] Get cards for deck query handler', () => {
   const cardReadModelRepository = createMockProxy<CardReadModelRepository>();
   const deckRepository = createMockProxy<DeckRepository>();
+  const cardCacheRepository = createMockProxy<CardCacheRepository>();
 
   beforeEach(() => {
     cardReadModelRepository.mockClear();
     deckRepository.mockClear();
+    cardCacheRepository.mockClear();
   });
 
   test('should throw an error if deck does not exist', async () => {
@@ -24,6 +27,7 @@ describe('[App] Get cards for deck query handler', () => {
     const handler = new GetCardsForDeckQueryHandler({
       cardReadModelRepository,
       deckRepository,
+      cardCacheRepository,
     });
 
     await expect(() =>
@@ -46,6 +50,7 @@ describe('[App] Get cards for deck query handler', () => {
     const handler = new GetCardsForDeckQueryHandler({
       cardReadModelRepository,
       deckRepository,
+      cardCacheRepository,
     });
 
     await expect(() =>
@@ -69,9 +74,14 @@ describe('[App] Get cards for deck query handler', () => {
       CardReadModelMapper.toPersistence(createCardMock()),
     ]);
 
+    cardCacheRepository.getData.mockResolvedValue([
+      CardReadModelMapper.toPersistence(createCardMock()),
+    ]);
+
     const handler = new GetCardsForDeckQueryHandler({
       cardReadModelRepository,
       deckRepository,
+      cardCacheRepository,
     });
 
     const result = await handler.handle(
