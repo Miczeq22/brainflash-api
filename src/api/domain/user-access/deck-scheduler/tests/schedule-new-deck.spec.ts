@@ -9,6 +9,7 @@ import faker from 'faker';
 import jwt from 'jsonwebtoken';
 import { UserRegistration } from '@core/user-access/user-registration/user-registration.aggregate-root';
 import { createDeckMock } from '@tests/deck.mock';
+import moment from 'moment';
 
 describe('[API] Schedule new deck', () => {
   let app: Application;
@@ -115,7 +116,7 @@ describe('[API] Schedule new deck', () => {
       .set('Authorization', `Bearer ${token}`)
       .send({
         deckId: deck.getId().getValue(),
-        scheduledDate: Number(new Date()),
+        scheduledDate: Number(moment().add(1, 'days').toDate()),
       });
 
     expect(res.statusCode).toEqual(204);

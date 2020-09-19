@@ -4,6 +4,7 @@ import { createDeckMock } from '@tests/deck.mock';
 import { createMockProxy } from '@tools/mock-proxy';
 import { ScheduleDeckCommand } from './schedule-deck.command';
 import { ScheduleDeckCommandHandler } from './schedule-deck.command-handler';
+import moment from 'moment';
 
 describe('[App] Schedule deck command handler', () => {
   const deckRepository = createMockProxy<DeckRepository>();
@@ -27,7 +28,7 @@ describe('[App] Schedule deck command handler', () => {
         new ScheduleDeckCommand({
           deckId: '#deck-id',
           userId: '#user-id',
-          scheduledDate: new Date().toISOString(),
+          scheduledDate: moment().add(1, 'day').toDate().toISOString(),
         }),
       ),
     ).rejects.toThrowError('Deck does not exist.');
@@ -52,7 +53,7 @@ describe('[App] Schedule deck command handler', () => {
         new ScheduleDeckCommand({
           deckId: '#deck-id',
           userId: '#user-id',
-          scheduledDate: new Date().toISOString(),
+          scheduledDate: moment().add(1, 'day').toDate().toISOString(),
         }),
       ),
     ).resolves.not.toThrow();
