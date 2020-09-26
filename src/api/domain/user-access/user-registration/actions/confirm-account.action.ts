@@ -29,7 +29,7 @@ export const confirmAccountValidation = celebrate({
  *        required: true
  *        description: JWT activation token
  *     responses:
- *       204:
+ *       301:
  *        description: Account confirmed successfully
  *       422:
  *        description: Validation Error
@@ -41,7 +41,7 @@ export const confirmAccountValidation = celebrate({
 const confirmAccountAction = ({ commandBus }: Dependencies): RequestHandler => (req, res, next) =>
   commandBus
     .handle(new ConfirmAccountCommand(req.query.token as string))
-    .then(() => res.status(204).json({}))
+    .then(() => res.redirect(301, `${process.env.FRONTEND_URL}/login?verified=true`))
     .catch(next);
 
 export default confirmAccountAction;
