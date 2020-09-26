@@ -39,7 +39,7 @@ You need to have installed the following software:
 
 ```bash
   git clone git@github.com:Miczeq22/zombies-api.git
-  cd zombies-api
+  cd brainflash-api
   npm i
   cp .env.dist .env
   docker-compose up -d

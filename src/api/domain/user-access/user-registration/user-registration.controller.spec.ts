@@ -194,6 +194,6 @@ describe('[API] User registration controller', () => {
       .get(`/register/confirm?token=${token}`)
       .set('Accept', 'application/json');
 
-    expect(res.status).toEqual(204);
+    expect(res.status).toEqual(301);
   });
 });

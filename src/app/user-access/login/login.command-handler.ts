@@ -38,6 +38,7 @@ export class LoginCommandHandler extends CommandHandler<LoginCommand> {
     const accessToken = jwt.sign(
       {
         userId: user.getId().getValue(),
+        username: user.getUsername(),
       },
       process.env.JWT_TOKEN,
       {
@@ -48,6 +49,7 @@ export class LoginCommandHandler extends CommandHandler<LoginCommand> {
     const refreshToken = jwt.sign(
       {
         userId: user.getId().getValue(),
+        username: user.getUsername(),
       },
       `${process.env.JWT_TOKEN}${user.getPassword()}`,
       {
