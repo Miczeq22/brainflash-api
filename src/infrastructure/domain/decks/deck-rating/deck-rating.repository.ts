@@ -39,4 +39,11 @@ export class DeckRatingRepositoryImpl implements DeckRatingRepository {
 
     return result.length ? DeckRatingMapper.toEntity(result[0]) : null;
   }
+
+  public async remove(id: UniqueEntityID) {
+    await this.dependencies.queryBuilder
+      .where('id', id.getValue())
+      .delete()
+      .from(DECK_RATING_TABLE);
+  }
 }

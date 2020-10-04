@@ -57,6 +57,9 @@ import { CardCacheRepository } from '@infrastructure/redis/domain/cards/card.cac
 import { DeckRatingRepositoryImpl } from '@infrastructure/domain/decks/deck-rating/deck-rating.repository';
 import { AddedNewRatingSubscriber } from '@app/decks/add-rating/added-new-rating.subscriber';
 import { AddRatingCommandHandler } from '@app/decks/add-rating/add-rating.command-handler';
+import { DeckRateCheckerService } from '@infrastructure/domain/decks/deck-rate-checker.service';
+import { RatingRemovedFromDeckSubscriber } from '@app/decks/remove-rating/rating-removed-from-deck.subscriber';
+import { RemoveRatingCommandHandler } from '@app/decks/remove-rating/remove-rating.command-handler';
 
 const registerAsArray = <T>(resolvers: Awilix.Resolver<T>[]): Awilix.Resolver<T[]> => ({
   resolve: (container: Awilix.AwilixContainer) => resolvers.map((r) => container.build(r)),
@@ -89,6 +92,7 @@ export const createAppContainer = async (): Promise<Awilix.AwilixContainer> => {
     mailer: Awilix.asClass(MailerService).singleton(),
     uniqueDeckChecker: Awilix.asClass(UniqueDeckCheckerService).singleton(),
     mongoClient: Awilix.asValue(mongoClient),
+    deckRateChecker: Awilix.asClass(DeckRateCheckerService).singleton(),
   });
 
   container.register({
@@ -119,6 +123,7 @@ export const createAppContainer = async (): Promise<Awilix.AwilixContainer> => {
       Awilix.asClass(ScheduleDeckCommandHandler).singleton(),
       Awilix.asClass(UnscheduleDeckCommandHandler).singleton(),
       Awilix.asClass(AddRatingCommandHandler).singleton(),
+      Awilix.asClass(RemoveRatingCommandHandler).singleton(),
     ]),
   });
 
@@ -145,6 +150,7 @@ export const createAppContainer = async (): Promise<Awilix.AwilixContainer> => {
       Awilix.asClass(NewDeckScheduledSubscriber).singleton(),
       Awilix.asClass(DeckUnscheduledSubscriber).singleton(),
       Awilix.asClass(AddedNewRatingSubscriber).singleton(),
+      Awilix.asClass(RatingRemovedFromDeckSubscriber).singleton(),
     ]),
   });
 

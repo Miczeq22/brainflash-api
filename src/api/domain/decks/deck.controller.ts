@@ -12,6 +12,7 @@ import { publishDeckActionValidation } from './actions/publish-deck.action';
 import { enrollDeckActionValidation } from './actions/enroll-deck.action';
 import { unpublishDeckActionValidation } from './actions/unpublish-deck.action';
 import { addRatingActionValidation } from './actions/add-rating.action';
+import { removeRatingActionValidation } from './actions/remove-rating.action';
 
 interface Dependencies {
   createDeckAction: RequestHandler;
@@ -25,6 +26,7 @@ interface Dependencies {
   enrollDeckAction: RequestHandler;
   unpublishDeckAction: RequestHandler;
   addRatingAction: RequestHandler;
+  removeRatingAction: RequestHandler;
 }
 
 export class DeckController extends Controller {
@@ -95,10 +97,16 @@ export class DeckController extends Controller {
       this.dependencies.unpublishDeckAction,
     );
 
-    router.patch(
+    router.put(
       '/add-rating',
       [authorizationMiddleware, addRatingActionValidation],
       this.dependencies.addRatingAction,
+    );
+
+    router.delete(
+      '/remove-rating',
+      [authorizationMiddleware, removeRatingActionValidation],
+      this.dependencies.removeRatingAction,
     );
 
     return router;

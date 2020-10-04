@@ -17,6 +17,11 @@ import { DeckCannotBePublishedRule } from './rules/deck-cannot-be-published.rule
 import { DeckShouldBePublishedRule } from './rules/deck-should-be-published.rule';
 import { AddedNewRatingToDeckEvent } from './events/added-new-rating-to-deck.domain-event';
 import { DeckRating } from '../deck-rating/deck-rating.entity';
+import { RatingRemovedFromDeckDomainEvent } from './events/rating-removed-from-deck.domain-event';
+import {
+  UserShouldAssessedDeckRule,
+  DeckRateChecker,
+} from './rules/user-should-assessed-deck.rule';
 
 export interface DeckProps {
   name: string;
@@ -120,6 +125,13 @@ export class Deck extends AggregateRoot<DeckProps> {
         }),
       ),
     );
+  }
+
+  public async removeRating(userId: UniqueEntityID, deckRateChecker: DeckRateChecker) {
+    Deck.checkRule(new DeckCannotBeDeletedRule(this.props.deleted));
+    await Deck.checkRule(new UserShouldAssessedDeckRule(deckRateChecker, userId, this.id));
+
+    this.addDomainEvent(new RatingRemovedFromDeckDomainEvent(this.id, userId));
   }
 
   public async updateName(name: string, uniqueDeckChecker: UniqueDeckChecker) {
