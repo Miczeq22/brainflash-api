@@ -4,11 +4,13 @@ import { MongoClient } from 'mongodb';
 import { UserRepository } from '@core/user-access/user/user.repository';
 import { QueryBuilder } from '@infrastructure/database/query-builder';
 import { USER_DECK_TABLE } from '@infrastructure/domain/decks/deck/deck.mapper';
+import { DeckRatingRepository } from '@core/decks/deck-rating/deck-rating.repository';
 
 interface Dependencies {
   mongoClient: MongoClient;
   userRepository: UserRepository;
   queryBuilder: QueryBuilder;
+  deckRatingRepository: DeckRatingRepository;
 }
 
 export class DeckReadModelRepositoryImpl implements DeckReadModelRepository {
@@ -19,7 +21,7 @@ export class DeckReadModelRepositoryImpl implements DeckReadModelRepository {
   public async insert(deck: Deck) {
     const user = await this.dependencies.userRepository.findById(deck.getOwnerId().getValue());
 
-    const record = DeckReadModelMapper.toPersistence(deck, user.getUsername(), 0);
+    const record = DeckReadModelMapper.toPersistence(deck, user.getUsername(), 0, 0, 0);
 
     await this.dependencies.mongoClient.db().collection(this.collection).insertOne(record);
   }
@@ -44,6 +46,12 @@ export class DeckReadModelRepositoryImpl implements DeckReadModelRepository {
       })
       .count(false);
 
+    const deckRatings = await this.dependencies.deckRatingRepository.findByDeck(deck.getId());
+
+    const rating =
+      deckRatings.reduce((summary, currentRating) => summary + currentRating.getRating(), 0) /
+      deckRatings.length;
+
     await this.dependencies.mongoClient
       .db()
       .collection(this.collection)
@@ -52,7 +60,13 @@ export class DeckReadModelRepositoryImpl implements DeckReadModelRepository {
           id: deck.getId().getValue(),
         },
         {
-          $set: DeckReadModelMapper.toPersistence(deck, readModelDeck.ownerName, cardCount),
+          $set: DeckReadModelMapper.toPersistence(
+            deck,
+            readModelDeck.ownerName,
+            cardCount,
+            rating,
+            deckRatings.length,
+          ),
         },
       );
   }

@@ -12,6 +12,8 @@ export default /* GraphQL */ `
     createdAt: String!
     cardCount: Int!
     cards: [Card!]!
+    rating: Float!
+    numberOfRatings: Int!
   }
 
   type Card {
