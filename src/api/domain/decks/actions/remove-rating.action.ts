@@ -1,4 +1,4 @@
-import { AddRatingCommand } from '@app/decks/add-rating/add-rating.command';
+import { RemoveRatingCommand } from '@app/decks/remove-rating/remove-rating.command';
 import { CommandBus } from '@app/processing/command-bus';
 import { celebrate, Joi, Segments } from 'celebrate';
 import { RequestHandler } from 'express';
@@ -7,28 +7,22 @@ interface Dependencies {
   commandBus: CommandBus;
 }
 
-export const addRatingActionValidation = celebrate(
-  {
-    [Segments.BODY]: Joi.object({
-      deckId: Joi.string().uuid().required(),
-      rating: Joi.number().integer().required(),
-    }),
-  },
-  {
-    abortEarly: false,
-  },
-);
+export const removeRatingActionValidation = celebrate({
+  [Segments.BODY]: Joi.object().keys({
+    deckId: Joi.string().uuid().required(),
+  }),
+});
 
 /**
  * @swagger
  *
- * /decks/add-rating:
- *   put:
+ * /decks/remove-rating:
+ *   delete:
  *     tags:
  *       - Decks
  *     security:
  *      - bearerAuth: []
- *     summary: Add deck rating
+ *     summary: Remove deck rating
  *     requestBody:
  *       content:
  *         application/json:
@@ -39,18 +33,20 @@ export const addRatingActionValidation = celebrate(
  *                type: string
  *     responses:
  *       204:
- *        description: Deck rating added successfully
+ *        description: Deck rating removed successfully
  *       422:
  *        description: Validation Error
+ *       400:
+ *        description: Deck is not assessed
  *       401:
  *        description: Unauthorized
  *       500:
  *         description: Internal Server Error
  */
-const addRatingAction = ({ commandBus }: Dependencies): RequestHandler => (req, res, next) =>
+const removeRatingAction = ({ commandBus }: Dependencies): RequestHandler => (req, res, next) =>
   commandBus
     .handle(
-      new AddRatingCommand({
+      new RemoveRatingCommand({
         ...req.body,
         userId: res.locals.userId,
       }),
@@ -58,4 +54,4 @@ const addRatingAction = ({ commandBus }: Dependencies): RequestHandler => (req, 
     .then(() => res.status(204).json({}))
     .catch(next);
 
-export default addRatingAction;
+export default removeRatingAction;

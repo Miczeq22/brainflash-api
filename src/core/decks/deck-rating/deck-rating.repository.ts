@@ -9,4 +9,6 @@ export interface DeckRatingRepository {
   findByDeck(deckId: UniqueEntityID): Promise<DeckRating[]>;
 
   findByUserAndDeck(userId: UniqueEntityID, deckId: UniqueEntityID): Promise<DeckRating | null>;
+
+  remove(id: UniqueEntityID): Promise<void>;
 }
