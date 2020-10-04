@@ -18,6 +18,8 @@ export interface DeckReadModel {
   ownerId: string;
   createdAt: string;
   cardCount: number;
+  rating: number;
+  numberOfRatings: number;
 }
 
 export interface DeckReadModelRepository {
@@ -33,7 +35,13 @@ export interface DeckReadModelRepository {
 export const DECK_READ_MODEL_COLLECTION = 'decks';
 
 export class DeckReadModelMapper {
-  public static toPersistence(deck: Deck, ownerName: string, cardCount: number): DeckReadModel {
+  public static toPersistence(
+    deck: Deck,
+    ownerName: string,
+    cardCount: number,
+    rating: number,
+    numberOfRatings: number,
+  ): DeckReadModel {
     return {
       cardCount,
       ownerName,
@@ -46,6 +54,8 @@ export class DeckReadModelMapper {
       published: deck.isPublished(),
       imageUrl: deck.getImageUrl(),
       ownerId: deck.getOwnerId().getValue(),
+      rating,
+      numberOfRatings,
     };
   }
 }

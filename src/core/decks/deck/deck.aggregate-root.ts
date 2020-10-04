@@ -15,6 +15,8 @@ import { CardRemovedFromDeckDomainEvent } from './events/card-removed-from-deck.
 import { DeckCannotBeDeletedRule } from './rules/deck-cannot-be-deleted.rule';
 import { DeckCannotBePublishedRule } from './rules/deck-cannot-be-published.rule';
 import { DeckShouldBePublishedRule } from './rules/deck-should-be-published.rule';
+import { AddedNewRatingToDeckEvent } from './events/added-new-rating-to-deck.domain-event';
+import { DeckRating } from '../deck-rating/deck-rating.entity';
 
 export interface DeckProps {
   name: string;
@@ -104,6 +106,20 @@ export class Deck extends AggregateRoot<DeckProps> {
     Deck.checkRule(new DeckShouldBePublishedRule(this.props.published));
 
     this.props.published = false;
+  }
+
+  public addRating(userId: UniqueEntityID, rating: number) {
+    Deck.checkRule(new DeckCannotBeDeletedRule(this.props.deleted));
+
+    this.addDomainEvent(
+      new AddedNewRatingToDeckEvent(
+        DeckRating.createNew({
+          userId,
+          rating,
+          deckId: this.id,
+        }),
+      ),
+    );
   }
 
   public async updateName(name: string, uniqueDeckChecker: UniqueDeckChecker) {

@@ -54,6 +54,9 @@ import { DeckUnscheduledSubscriber } from '@app/user-access/unschedule-deck/deck
 import { createRedisClient } from '@infrastructure/redis/redis-client';
 import { DeckCacheRepository } from '@infrastructure/redis/domain/decks/deck.cache-repository';
 import { CardCacheRepository } from '@infrastructure/redis/domain/cards/card.cache-repository';
+import { DeckRatingRepositoryImpl } from '@infrastructure/domain/decks/deck-rating/deck-rating.repository';
+import { AddedNewRatingSubscriber } from '@app/decks/add-rating/added-new-rating.subscriber';
+import { AddRatingCommandHandler } from '@app/decks/add-rating/add-rating.command-handler';
 
 const registerAsArray = <T>(resolvers: Awilix.Resolver<T>[]): Awilix.Resolver<T[]> => ({
   resolve: (container: Awilix.AwilixContainer) => resolvers.map((r) => container.build(r)),
@@ -115,6 +118,7 @@ export const createAppContainer = async (): Promise<Awilix.AwilixContainer> => {
       Awilix.asClass(UnpublishDeckCommandHandler).singleton(),
       Awilix.asClass(ScheduleDeckCommandHandler).singleton(),
       Awilix.asClass(UnscheduleDeckCommandHandler).singleton(),
+      Awilix.asClass(AddRatingCommandHandler).singleton(),
     ]),
   });
 
@@ -128,6 +132,7 @@ export const createAppContainer = async (): Promise<Awilix.AwilixContainer> => {
     deckReadModelRepository: Awilix.asClass(DeckReadModelRepositoryImpl).singleton(),
     cardReadModelRepository: Awilix.asClass(CardReadModelRepositoryImpl).singleton(),
     scheduledDeckRepository: Awilix.asClass(ScheduledDeckRepositoryImpl).singleton(),
+    deckRatingRepository: Awilix.asClass(DeckRatingRepositoryImpl).singleton(),
   });
 
   container.register({
@@ -139,6 +144,7 @@ export const createAppContainer = async (): Promise<Awilix.AwilixContainer> => {
       Awilix.asClass(CardRemovedFromDeckSubscriber).singleton(),
       Awilix.asClass(NewDeckScheduledSubscriber).singleton(),
       Awilix.asClass(DeckUnscheduledSubscriber).singleton(),
+      Awilix.asClass(AddedNewRatingSubscriber).singleton(),
     ]),
   });
 

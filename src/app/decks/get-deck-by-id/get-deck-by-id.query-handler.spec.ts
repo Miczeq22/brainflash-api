@@ -94,7 +94,7 @@ describe('[App] Get deck by id query handler', () => {
     deckRepository.findById.mockResolvedValue(deck);
 
     deckReadModelRepository.findById.mockResolvedValue(
-      DeckReadModelMapper.toPersistence(deck, '#owner', 0),
+      DeckReadModelMapper.toPersistence(deck, '#owner', 0, 0, 0),
     );
 
     deckRepository.isUserEnrolled.mockResolvedValue(true);
@@ -126,7 +126,7 @@ describe('[App] Get deck by id query handler', () => {
     deckRepository.findById.mockResolvedValue(deck);
 
     deckReadModelRepository.findById.mockResolvedValue(
-      DeckReadModelMapper.toPersistence(deck, '#owner', 0),
+      DeckReadModelMapper.toPersistence(deck, '#owner', 0, 0, 0),
     );
 
     const handler = new GetDeckByIdQueryHandler({
