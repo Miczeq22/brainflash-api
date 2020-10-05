@@ -38,7 +38,7 @@ You need to have installed the following software:
 ### Bootstrap
 
 ```bash
-  git clone git@github.com:Miczeq22/zombies-api.git
+  git clone git@github.com:Miczeq22/brainflash-api.git
   cd brainflash-api
   npm i
   cp .env.dist .env
