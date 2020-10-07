@@ -1,4 +1,4 @@
-#  (2020-10-05)
+#  (2020-10-07)
 
 
 ### Features
@@ -18,7 +18,7 @@
 - Get deck by id feature ([4264354](https://github.com/Miczeq22/brainflash-api/commit/42643549d6c27241c83a5f0ff828f3c10c5f1819))
 - Login feature ([0861cb1](https://github.com/Miczeq22/brainflash-api/commit/0861cb15d61f71a415772c962383713928251bf2))
 - Publish deck feature ([42a87c3](https://github.com/Miczeq22/brainflash-api/commit/42a87c362619b1513bbe40f49d922fb6bae30398))
-- Refresh token feature ([fcee4db](https://github.com/Miczeq22/brainflash-api/commit/fcee4db54d6742ff181931ffb615c2f289764e10))
+- Refresh token feature ([df9130c](https://github.com/Miczeq22/brainflash-api/commit/df9130ce48e8b3f01038cf2f76a6308511562f2c))
 - Register User Command ([cf520a7](https://github.com/Miczeq22/brainflash-api/commit/cf520a7001d89b3595bc08abad3e4ecb6b392353))
 - Remove card feature ([96e5bb1](https://github.com/Miczeq22/brainflash-api/commit/96e5bb1b19e259297a1782f03f81a127a07b7b47))
 - Remove deck feature ([af8b633](https://github.com/Miczeq22/brainflash-api/commit/af8b633338c4de28702bc9f660aa672a999eb6c0))
@@ -38,6 +38,7 @@
 
 ### Refactoring & Improvements
 
+- Added isOwner to deck query field. Fixed bugs related to updating deck model after publish/unpublish ([e8fa2a4](https://github.com/Miczeq22/brainflash-api/commit/e8fa2a46080c26f478b08bf39d27446b16789972))
 - Added published prop to deck ([01745c6](https://github.com/Miczeq22/brainflash-api/commit/01745c6954f47cf6b14d6b79fd5103951315a486))
 - Added scheduled date validation ([d135a98](https://github.com/Miczeq22/brainflash-api/commit/d135a98796775719938a15874d3c7472fa8ac8dc))
 - Added single deck mock ([2eb09cb](https://github.com/Miczeq22/brainflash-api/commit/2eb09cb0ee295a5137c21471e37711c43802014e))
@@ -60,6 +61,7 @@
 ### Documentation
 
 - README Update ([7c5478c](https://github.com/Miczeq22/brainflash-api/commit/7c5478c708ffbb8e63392b74cfe078f246c4a391))
+- Updated README ([0fb17c8](https://github.com/Miczeq22/brainflash-api/commit/0fb17c8be0ee62a55b1a92b794efb0a9d6960cfa))
 
 
 ### Miscellaneous

@@ -14,6 +14,7 @@ export default /* GraphQL */ `
     cards: [Card!]!
     rating: Float!
     numberOfRatings: Int!
+    isDeckOwner: Boolean!
   }
 
   type Card {

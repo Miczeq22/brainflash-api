@@ -35,6 +35,6 @@ export class GetAllDecksQueryHandler extends QueryHandler<GetAllDecksQuery, Deck
       decksFromCache = await deckCacheRepository.getData(cacheKey);
     }
 
-    return decksFromCache;
+    return decksFromCache.map((deck) => ({ ...deck, isDeckOwner: userId === deck.ownerId }));
   }
 }
