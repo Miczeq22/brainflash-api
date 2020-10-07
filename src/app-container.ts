@@ -61,6 +61,8 @@ import { DeckRateCheckerService } from '@infrastructure/domain/decks/deck-rate-c
 import { RatingRemovedFromDeckSubscriber } from '@app/decks/remove-rating/rating-removed-from-deck.subscriber';
 import { RemoveRatingCommandHandler } from '@app/decks/remove-rating/remove-rating.command-handler';
 import { RefreshTokenCommandHandler } from '@app/user-access/refresh-token/refresh-token.command-handler';
+import { DeckPublishedSubscriber } from '@app/decks/publish-deck/deck-published.subscriber';
+import { DeckUnpublishedSubscriber } from '@app/decks/unpublish-deck/deck-unpublished.subscriber';
 
 const registerAsArray = <T>(resolvers: Awilix.Resolver<T>[]): Awilix.Resolver<T[]> => ({
   resolve: (container: Awilix.AwilixContainer) => resolvers.map((r) => container.build(r)),
@@ -153,6 +155,8 @@ export const createAppContainer = async (): Promise<Awilix.AwilixContainer> => {
       Awilix.asClass(DeckUnscheduledSubscriber).singleton(),
       Awilix.asClass(AddedNewRatingSubscriber).singleton(),
       Awilix.asClass(RatingRemovedFromDeckSubscriber).singleton(),
+      Awilix.asClass(DeckPublishedSubscriber).singleton(),
+      Awilix.asClass(DeckUnpublishedSubscriber).singleton(),
     ]),
   });
 

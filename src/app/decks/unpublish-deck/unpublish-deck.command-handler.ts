@@ -1,5 +1,6 @@
 import { CommandHandler } from '@app/processing/command-handler';
 import { DeckRepository } from '@core/decks/deck/deck.repository';
+import { DomainEvents } from '@core/shared/domain-events';
 import { UniqueEntityID } from '@core/shared/unique-entity-id';
 import { NotFoundError } from '@errors/not-found.error';
 import { UnauthenticatedError } from '@errors/unauthenticated.error';
@@ -30,5 +31,7 @@ export class UnpublishDeckCommandHandler extends CommandHandler<UnpublishDeckCom
     deck.unpublish();
 
     await deckRepository.update(deck);
+
+    await DomainEvents.dispatchDomainEventsForAggregate(deck.getId());
   }
 }

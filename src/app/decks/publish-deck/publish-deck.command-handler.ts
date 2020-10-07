@@ -4,6 +4,7 @@ import { DeckRepository } from '@core/decks/deck/deck.repository';
 import { NotFoundError } from '@errors/not-found.error';
 import { UniqueEntityID } from '@core/shared/unique-entity-id';
 import { UnauthenticatedError } from '@errors/unauthenticated.error';
+import { DomainEvents } from '@core/shared/domain-events';
 
 interface Dependencies {
   deckRepository: DeckRepository;
@@ -30,5 +31,7 @@ export class PublishDeckCommandHandler extends CommandHandler<PublishDeckCommand
     deck.publish();
 
     await deckRepository.update(deck);
+
+    await DomainEvents.dispatchDomainEventsForAggregate(deck.getId());
   }
 }

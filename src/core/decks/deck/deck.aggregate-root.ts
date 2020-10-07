@@ -22,6 +22,8 @@ import {
   UserShouldAssessedDeckRule,
   DeckRateChecker,
 } from './rules/user-should-assessed-deck.rule';
+import { DeckPublishedDomainEvent } from './events/deck-published.domain-event';
+import { DeckUnpublishedDomainEvent } from './events/deck-unpublished.domain-event';
 
 export interface DeckProps {
   name: string;
@@ -104,6 +106,8 @@ export class Deck extends AggregateRoot<DeckProps> {
     Deck.checkRule(new DeckCannotBePublishedRule(this.props.published));
 
     this.props.published = true;
+
+    this.addDomainEvent(new DeckPublishedDomainEvent(this));
   }
 
   public unpublish() {
@@ -111,6 +115,8 @@ export class Deck extends AggregateRoot<DeckProps> {
     Deck.checkRule(new DeckShouldBePublishedRule(this.props.published));
 
     this.props.published = false;
+
+    this.addDomainEvent(new DeckUnpublishedDomainEvent(this));
   }
 
   public addRating(userId: UniqueEntityID, rating: number) {
