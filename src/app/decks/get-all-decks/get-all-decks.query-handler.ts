@@ -1,4 +1,5 @@
 import { QueryHandler } from '@app/processing/query-handler';
+import { UniqueEntityID } from '@core/shared/unique-entity-id';
 import {
   DeckReadModel,
   DeckReadModelRepository,
@@ -35,6 +36,9 @@ export class GetAllDecksQueryHandler extends QueryHandler<GetAllDecksQuery, Deck
       decksFromCache = await deckCacheRepository.getData(cacheKey);
     }
 
-    return decksFromCache.map((deck) => ({ ...deck, isDeckOwner: userId === deck.ownerId }));
+    return decksFromCache.map((deck) => ({
+      ...deck,
+      isDeckOwner: new UniqueEntityID(deck.ownerId).equals(new UniqueEntityID(userId)),
+    }));
   }
 }

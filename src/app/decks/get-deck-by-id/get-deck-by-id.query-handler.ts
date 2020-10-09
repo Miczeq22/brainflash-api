@@ -44,6 +44,9 @@ export class GetDeckByIdQueryHandler extends QueryHandler<GetDeckByIdQuery, Deck
       throw new NotFoundError('Deck read model does not exist.');
     }
 
-    return deckReadModel;
+    return {
+      ...deckReadModel,
+      isDeckOwner: deck.getOwnerId().equals(new UniqueEntityID(userId)),
+    };
   }
 }

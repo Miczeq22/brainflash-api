@@ -37,6 +37,8 @@ export const addRatingActionValidation = celebrate(
  *            properties:
  *              deckId:
  *                type: string
+ *              rating:
+ *                type: number
  *     responses:
  *       204:
  *        description: Deck rating added successfully
