@@ -23,7 +23,7 @@ export const updateUserPasswordValidation = celebrate(
  * @swagger
  *
  * /user-access/update-password:
- *   put:
+ *   patch:
  *     tags:
  *       - User Access
  *     security:

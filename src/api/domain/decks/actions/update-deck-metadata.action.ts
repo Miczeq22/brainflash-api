@@ -24,7 +24,7 @@ export const updateDeckMetadataActionValidation = celebrate(
  * @swagger
  *
  * /decks/update-metadata:
- *   put:
+ *   patch:
  *     tags:
  *       - Decks
  *     security:

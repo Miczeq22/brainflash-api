@@ -27,7 +27,7 @@ describe('[API] Delete deck action', () => {
     emailChecker.mockClear();
   });
 
-  test('[PUT] /decks/unpublish - should return an error if data is invalid', async () => {
+  test('[PATCH] /decks/unpublish - should return an error if data is invalid', async () => {
     process.env.JWT_TOKEN = 'secret';
 
     emailChecker.isUnique.mockResolvedValue(true);
@@ -55,7 +55,7 @@ describe('[API] Delete deck action', () => {
     );
 
     const res = await request(app)
-      .put('/decks/unpublish')
+      .patch('/decks/unpublish')
       .set('Accept', 'application/json')
       .set('Authorization', `Bearer ${token}`);
 
@@ -63,16 +63,16 @@ describe('[API] Delete deck action', () => {
     expect(res.body.details.map((detail) => detail.key)).toEqual(['deckId']);
   });
 
-  test('[PUT] /decks/unpublish - should return an error if user is not authorized', async () => {
+  test('[PATCH] /decks/unpublish - should return an error if user is not authorized', async () => {
     process.env.JWT_TOKEN = 'secret';
 
-    const res = await request(app).put('/decks/unpublish').set('Accept', 'application/json');
+    const res = await request(app).patch('/decks/unpublish').set('Accept', 'application/json');
 
     expect(res.statusCode).toEqual(401);
     expect(res.body.error).toEqual('Unauthorized.');
   });
 
-  test('[PUT] /decks/unpublish - should unpublish deck', async () => {
+  test('[PATCH] /decks/unpublish - should unpublish deck', async () => {
     process.env.JWT_TOKEN = 'secret';
 
     emailChecker.isUnique.mockResolvedValue(true);
@@ -110,7 +110,7 @@ describe('[API] Delete deck action', () => {
     await deckRepository.insert(deck);
 
     const res = await request(app)
-      .put('/decks/unpublish')
+      .patch('/decks/unpublish')
       .set('Accept', 'application/json')
       .set('Authorization', `Bearer ${token}`)
       .send({

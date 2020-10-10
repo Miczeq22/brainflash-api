@@ -20,7 +20,8 @@ export class UserAccessController extends Controller {
     const router = Router();
 
     router.post('/login', [loginActionValidation], this.dependencies.loginAction);
-    router.put(
+
+    router.patch(
       '/update-password',
       [authorizationMiddleware, updateUserPasswordValidation],
       this.dependencies.updateUserPasswordAction,

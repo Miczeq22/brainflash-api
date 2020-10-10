@@ -27,7 +27,7 @@ describe('[API] Update deck metadata action', () => {
     emailChecker.mockClear();
   });
 
-  test('[PUT] /decks/update-metadata - should throw an error if data is invalid', async () => {
+  test('[PATCH] /decks/update-metadata - should throw an error if data is invalid', async () => {
     process.env.JWT_TOKEN = 'secret';
 
     emailChecker.isUnique.mockResolvedValue(true);
@@ -64,7 +64,7 @@ describe('[API] Update deck metadata action', () => {
     await deckRepository.insert(deck);
 
     const res = await request(app)
-      .put('/decks/update-metadata')
+      .patch('/decks/update-metadata')
       .set('Accept', 'application/json')
       .set('Authorization', `Bearer ${token}`);
 
@@ -72,7 +72,7 @@ describe('[API] Update deck metadata action', () => {
     expect(res.body.details.map((detail) => detail.key)).toEqual(['deckId']);
   });
 
-  test('[PUT] /decks/update-metadata - should throw an error if user is not authorized', async () => {
+  test('[PATCH] /decks/update-metadata - should throw an error if user is not authorized', async () => {
     process.env.JWT_TOKEN = 'secret';
 
     emailChecker.isUnique.mockResolvedValue(true);
@@ -99,13 +99,15 @@ describe('[API] Update deck metadata action', () => {
 
     await deckRepository.insert(deck);
 
-    const res = await request(app).put('/decks/update-metadata').set('Accept', 'application/json');
+    const res = await request(app)
+      .patch('/decks/update-metadata')
+      .set('Accept', 'application/json');
 
     expect(res.statusCode).toEqual(401);
     expect(res.body.error).toEqual('Unauthorized.');
   });
 
-  test('[PUT] /decks/update-metadata - should update deck metadata', async () => {
+  test('[PATCH] /decks/update-metadata - should update deck metadata', async () => {
     process.env.JWT_TOKEN = 'secret';
 
     emailChecker.isUnique.mockResolvedValue(true);
@@ -145,7 +147,7 @@ describe('[API] Update deck metadata action', () => {
     const newDescription = '#new-description';
 
     const res = await request(app)
-      .put('/decks/update-metadata')
+      .patch('/decks/update-metadata')
       .set('Accept', 'application/json')
       .set('Authorization', `Bearer ${token}`)
       .send({

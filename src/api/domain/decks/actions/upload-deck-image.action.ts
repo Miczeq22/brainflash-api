@@ -16,7 +16,7 @@ const s3 = new AWS.S3({
 
 export const multerUpload = multer({
   limits: {
-    fileSize: 1000000,
+    fileSize: 10000000,
   },
   fileFilter: (_, file, cb) => {
     if (!['image/jpeg', 'image/png'].includes(file.mimetype)) {
@@ -42,7 +42,7 @@ export const multerUpload = multer({
  * @swagger
  *
  * /decks/upload-image:
- *   post:
+ *   patch:
  *     tags:
  *       - Decks
  *     security:

@@ -17,7 +17,7 @@ export const unpublishDeckActionValidation = celebrate({
  * @swagger
  *
  * /decks/unpublish:
- *   put:
+ *   patch:
  *     tags:
  *       - Decks
  *     security:

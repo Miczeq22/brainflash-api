@@ -17,7 +17,7 @@ export const publishDeckActionValidation = celebrate({
  * @swagger
  *
  * /decks/publish:
- *   put:
+ *   patch:
  *     tags:
  *       - Decks
  *     security:

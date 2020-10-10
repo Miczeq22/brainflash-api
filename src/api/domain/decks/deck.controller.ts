@@ -43,19 +43,19 @@ export class DeckController extends Controller {
       this.dependencies.createDeckAction,
     );
 
-    router.post(
+    router.patch(
       '/upload-image',
       [authorizationMiddleware, multerUpload.single('file')],
       this.dependencies.uploadDeckImageAction,
     );
 
-    router.put(
+    router.patch(
       '/update-name',
       [authorizationMiddleware, updateDeckNameActionValidation],
       this.dependencies.updateDeckNameAction,
     );
 
-    router.put(
+    router.patch(
       '/update-metadata',
       [authorizationMiddleware, updateDeckMetadataActionValidation],
       this.dependencies.updateDeckMetadataAction,
@@ -79,7 +79,7 @@ export class DeckController extends Controller {
       this.dependencies.deleteDeckAction,
     );
 
-    router.put(
+    router.patch(
       '/publish',
       [authorizationMiddleware, publishDeckActionValidation],
       this.dependencies.publishDeckAction,
@@ -91,13 +91,13 @@ export class DeckController extends Controller {
       this.dependencies.enrollDeckAction,
     );
 
-    router.put(
+    router.patch(
       '/unpublish',
       [authorizationMiddleware, unpublishDeckActionValidation],
       this.dependencies.unpublishDeckAction,
     );
 
-    router.put(
+    router.patch(
       '/add-rating',
       [authorizationMiddleware, addRatingActionValidation],
       this.dependencies.addRatingAction,

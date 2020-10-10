@@ -27,7 +27,7 @@ describe('[API] Publish deck action', () => {
     emailChecker.mockClear();
   });
 
-  test('[PUT] /decks/publish - should return an error if data is invalid', async () => {
+  test('[PATCH] /decks/publish - should return an error if data is invalid', async () => {
     process.env.JWT_TOKEN = 'secret';
 
     emailChecker.isUnique.mockResolvedValue(true);
@@ -55,7 +55,7 @@ describe('[API] Publish deck action', () => {
     );
 
     const res = await request(app)
-      .put('/decks/publish')
+      .patch('/decks/publish')
       .set('Accept', 'application/json')
       .set('Authorization', `Bearer ${token}`);
 
@@ -63,16 +63,16 @@ describe('[API] Publish deck action', () => {
     expect(res.body.details.map((detail) => detail.key)).toEqual(['deckId']);
   });
 
-  test('[PUT] /decks/publish - should return an error if user is not authorized', async () => {
+  test('[PATCH] /decks/publish - should return an error if user is not authorized', async () => {
     process.env.JWT_TOKEN = 'secret';
 
-    const res = await request(app).put('/decks/publish').set('Accept', 'application/json');
+    const res = await request(app).patch('/decks/publish').set('Accept', 'application/json');
 
     expect(res.statusCode).toEqual(401);
     expect(res.body.error).toEqual('Unauthorized.');
   });
 
-  test('[PUT] /decks/publish - should publish card', async () => {
+  test('[PATCH] /decks/publish - should publish card', async () => {
     process.env.JWT_TOKEN = 'secret';
 
     emailChecker.isUnique.mockResolvedValue(true);
@@ -109,7 +109,7 @@ describe('[API] Publish deck action', () => {
     await deckRepository.insert(deck);
 
     const res = await request(app)
-      .put('/decks/publish')
+      .patch('/decks/publish')
       .set('Accept', 'application/json')
       .set('Authorization', `Bearer ${token}`)
       .send({
