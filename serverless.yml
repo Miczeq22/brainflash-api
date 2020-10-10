@@ -1,0 +1,26 @@
+service: brainflash-functions
+
+plugins:
+  - serverless-plugin-typescript
+  - serverless-dotenv-plugin
+  - serverless-offline
+  - ./src/functions/plugins/s3-minio.js
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+
+functions:
+  thumbnailGenerator:
+    handler: ./src/functions/handlers/thumbnail-generator.thumbnailGenerator
+    events:
+      - s3: ${env:S3_BUCKET}
+        event: s3:ObjectCreated:*
+        existing: true
+
+custom:
+  dotenv:
+    path: .env
+    basePath: .
+  serverless-offline:
+    port: 15001

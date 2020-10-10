@@ -47,6 +47,12 @@ You need to have installed the following software:
 
 **Please remember that `.env` must be implemented for proper work.**
 
+To run **lambdas** locally, use:
+
+```bash
+  npx sls offline start
+```
+
 ## 📜 Scripts
 
 ### Build
