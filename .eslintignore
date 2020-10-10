@@ -4,3 +4,4 @@ Dockerfile
 *.json
 src/api/apollo/resolvers/resolver.types.ts
 codegen.yml
+*.js
