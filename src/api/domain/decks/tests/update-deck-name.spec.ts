@@ -27,7 +27,7 @@ describe('[API] Update deck name action', () => {
     emailChecker.mockClear();
   });
 
-  test('[PUT] /decks/update-name - should return error if data is invalid', async () => {
+  test('[PATCH] /decks/update-name - should return error if data is invalid', async () => {
     process.env.JWT_TOKEN = 'secret';
 
     emailChecker.isUnique.mockResolvedValue(true);
@@ -55,7 +55,7 @@ describe('[API] Update deck name action', () => {
     );
 
     const res = await request(app)
-      .put('/decks/update-name')
+      .patch('/decks/update-name')
       .set('Accept', 'application/json')
       .set('Authorization', `Bearer ${token}`);
 
@@ -63,14 +63,14 @@ describe('[API] Update deck name action', () => {
     expect(res.body.details.map((detail) => detail.key)).toEqual(['newName', 'deckId']);
   });
 
-  test('[PUT] /decks/update-name - should return error if user is not authorized', async () => {
-    const res = await request(app).put('/decks/update-name').set('Accept', 'application/json');
+  test('[PATCH] /decks/update-name - should return error if user is not authorized', async () => {
+    const res = await request(app).patch('/decks/update-name').set('Accept', 'application/json');
 
     expect(res.statusCode).toEqual(401);
     expect(res.body.error).toEqual('Unauthorized.');
   });
 
-  test('[PUT] /decks/update-name - should return error if deck name is not unique', async () => {
+  test('[PATCH] /decks/update-name - should return error if deck name is not unique', async () => {
     process.env.JWT_TOKEN = 'secret';
 
     emailChecker.isUnique.mockResolvedValue(true);
@@ -107,7 +107,7 @@ describe('[API] Update deck name action', () => {
     await deckRepository.insert(deck);
 
     const res = await request(app)
-      .put('/decks/update-name')
+      .patch('/decks/update-name')
       .set('Accept', 'application/json')
       .set('Authorization', `Bearer ${token}`)
       .send({
@@ -119,7 +119,7 @@ describe('[API] Update deck name action', () => {
     expect(res.body.error).toEqual(`You've already created deck with name: "${name}".`);
   });
 
-  test('[PUT] /decks/update-name - should update deck name', async () => {
+  test('[PATCH] /decks/update-name - should update deck name', async () => {
     process.env.JWT_TOKEN = 'secret';
 
     emailChecker.isUnique.mockResolvedValue(true);
@@ -156,7 +156,7 @@ describe('[API] Update deck name action', () => {
     await deckRepository.insert(deck);
 
     const res = await request(app)
-      .put('/decks/update-name')
+      .patch('/decks/update-name')
       .set('Accept', 'application/json')
       .set('Authorization', `Bearer ${token}`)
       .send({

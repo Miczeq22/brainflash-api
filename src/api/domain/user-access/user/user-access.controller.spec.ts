@@ -99,7 +99,7 @@ describe('[API] User access controller', () => {
     expect(payload.userId).toEqual(user.getId().getValue());
   });
 
-  test('[PUT] /user-access/update-password - should return an error if data is invalid', async () => {
+  test('[PATCH] /user-access/update-password - should return an error if data is invalid', async () => {
     process.env.JWT_TOKEN = 'secret';
 
     emailChecker.isUnique.mockResolvedValue(true);
@@ -127,7 +127,7 @@ describe('[API] User access controller', () => {
     );
 
     const res = await request(app)
-      .put('/user-access/update-password')
+      .patch('/user-access/update-password')
       .set('Accept', 'application/json')
       .set('Authorization', `Bearer ${token}`);
 
@@ -135,7 +135,7 @@ describe('[API] User access controller', () => {
     expect(res.body.details.map((detail) => detail.key)).toEqual(['oldPassword', 'newPassword']);
   });
 
-  test('[PUT] /user-access/update-password - should return an error if user is unauthorized', async () => {
+  test('[PATCH] /user-access/update-password - should return an error if user is unauthorized', async () => {
     process.env.JWT_TOKEN = 'secret';
 
     const token = jwt.sign(
@@ -146,7 +146,7 @@ describe('[API] User access controller', () => {
     );
 
     const res = await request(app)
-      .put('/user-access/update-password')
+      .patch('/user-access/update-password')
       .set('Accept', 'application/json')
       .set('Authorization', `Bearer ${token}`)
       .send({
@@ -158,7 +158,7 @@ describe('[API] User access controller', () => {
     expect(res.body.error).toEqual('Unauthorized.');
   });
 
-  test('[PUT] /user-access/update-password - should update user possword', async () => {
+  test('[PATCH] /user-access/update-password - should update user possword', async () => {
     process.env.JWT_TOKEN = 'secret';
 
     emailChecker.isUnique.mockResolvedValue(true);
@@ -186,7 +186,7 @@ describe('[API] User access controller', () => {
     );
 
     const res = await request(app)
-      .put('/user-access/update-password')
+      .patch('/user-access/update-password')
       .set('Accept', 'application/json')
       .set('Authorization', `Bearer ${token}`)
       .send({

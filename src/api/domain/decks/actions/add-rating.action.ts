@@ -23,7 +23,7 @@ export const addRatingActionValidation = celebrate(
  * @swagger
  *
  * /decks/add-rating:
- *   put:
+ *   patch:
  *     tags:
  *       - Decks
  *     security:

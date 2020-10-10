@@ -17,6 +17,7 @@ export class UserRegistrationController extends Controller {
     const router = Router();
 
     router.post('/', [RegisterUserValidation], this.dependencies.registerUserAction);
+
     router.get('/confirm', [confirmAccountValidation], this.dependencies.confirmAccountAction);
 
     return router;

@@ -23,7 +23,7 @@ export const updateDeckNameActionValidation = celebrate(
  * @swagger
  *
  * /decks/update-name:
- *   put:
+ *   patch:
  *     tags:
  *       - Decks
  *     security:
