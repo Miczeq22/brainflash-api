@@ -43,7 +43,7 @@ export class DeckController extends Controller {
       this.dependencies.createDeckAction,
     );
 
-    router.patch(
+    router.post(
       '/upload-image',
       [authorizationMiddleware, multerUpload.single('file')],
       this.dependencies.uploadDeckImageAction,

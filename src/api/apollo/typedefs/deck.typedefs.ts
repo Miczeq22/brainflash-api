@@ -7,6 +7,7 @@ export default /* GraphQL */ `
     deleted: Boolean!
     published: Boolean!
     imageUrl: String
+    thumbnailUrl: String
     ownerName: String!
     ownerId: ID!
     createdAt: String!
