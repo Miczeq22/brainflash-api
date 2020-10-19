@@ -47,6 +47,14 @@ export class GetDeckByIdQueryHandler extends QueryHandler<GetDeckByIdQuery, Deck
     return {
       ...deckReadModel,
       isDeckOwner: deck.getOwnerId().equals(new UniqueEntityID(userId)),
+      thumbnailUrl: deckReadModel.imageUrl
+        ? `${process.env.S3_ENDPOINT}/${process.env.S3_BUCKET}/${
+            deckReadModel.imageUrl.split('.')[0]
+          }-thumbnail.${deckReadModel.imageUrl.split('.').pop()}`
+        : undefined,
+      imageUrl: deckReadModel.imageUrl
+        ? `${process.env.S3_ENDPOINT}/${process.env.S3_BUCKET}/${deckReadModel.imageUrl}`
+        : undefined,
     };
   }
 }

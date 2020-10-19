@@ -3,6 +3,7 @@ import AWS from 'aws-sdk';
 import multerS3 from 'multer-s3';
 import multer from 'multer';
 import { BusinessRuleValidationError } from '@errors/business-rule-validation.error';
+import { v4 } from 'uuid';
 
 require('dotenv').config();
 
@@ -30,10 +31,7 @@ export const multerUpload = multer({
     s3,
     bucket: process.env.S3_BUCKET,
     key: (req, file, cb) => {
-      cb(
-        null,
-        `${file.originalname.split('.')[0]}-${Date.now()}.${file.originalname.split('.').pop()}`,
-      );
+      cb(null, `${v4()}.${file.originalname.split('.').pop()}`);
     },
   }),
 });
@@ -42,7 +40,7 @@ export const multerUpload = multer({
  * @swagger
  *
  * /decks/upload-image:
- *   patch:
+ *   post:
  *     tags:
  *       - Decks
  *     security:
@@ -82,7 +80,7 @@ const uploadDeckImageAction = (): RequestHandler => (req, res, next) => {
   }
 
   return res.status(201).json({
-    fileName: req.file.originalname,
+    fileName: (req.file as any).key,
     fileLocation: (req.file as any).location,
   });
 };

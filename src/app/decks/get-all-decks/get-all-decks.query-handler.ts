@@ -27,6 +27,14 @@ export class GetAllDecksQueryHandler extends QueryHandler<GetAllDecksQuery, Deck
     return decks.map((deck) => ({
       ...deck,
       isDeckOwner: new UniqueEntityID(deck.ownerId).equals(new UniqueEntityID(userId)),
+      thumbnailUrl: deck.imageUrl
+        ? `${process.env.S3_ENDPOINT}/${process.env.S3_BUCKET}/${
+            deck.imageUrl.split('.')[0]
+          }-thumbnail.${deck.imageUrl.split('.').pop()}`
+        : undefined,
+      imageUrl: deck.imageUrl
+        ? `${process.env.S3_ENDPOINT}/${process.env.S3_BUCKET}/${deck.imageUrl}`
+        : undefined,
     }));
   }
 }
