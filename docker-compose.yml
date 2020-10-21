@@ -6,6 +6,7 @@ services:
     image: postgres:10.5-alpine
     volumes:
       - ./$POSTGRES_MIGRATION_PATH:/docker-entrypoint-initdb.d
+      - ./.docker/data/postgres:/var/lib/postgresql/data
     ports:
       - $POSTGRES_PORT:5432
     environment:
@@ -55,6 +56,8 @@ services:
       - $MONGO_PORT:27017
     networks:
       - data
+    volumes:
+      - ./.docker/mongodbdata:/data/db
 
   mongo-express:
     container_name: mongo-express

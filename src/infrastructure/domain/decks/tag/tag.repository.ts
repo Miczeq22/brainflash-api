@@ -28,6 +28,12 @@ export class TagRepositoryImpl implements TagRepository {
     return result.length ? TagMapper.toEntity(result[0]) : null;
   }
 
+  public async findAll() {
+    const result = await this.dependencies.queryBuilder.from(TAG_TABLE);
+
+    return result.map(TagMapper.toEntity);
+  }
+
   public async remove(id: string) {
     await this.dependencies.queryBuilder.where('id', id).delete().from(TAG_TABLE);
   }
