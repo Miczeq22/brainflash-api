@@ -17,6 +17,7 @@ export type Query = {
   _?: Maybe<Scalars['Boolean']>;
   getDeck: Deck;
   getAllDecks: Array<Deck>;
+  getAllTags: Array<Scalars['String']>;
 };
 
 
@@ -54,11 +55,15 @@ export type Deck = {
   deleted: Scalars['Boolean'];
   published: Scalars['Boolean'];
   imageUrl?: Maybe<Scalars['String']>;
+  thumbnailUrl?: Maybe<Scalars['String']>;
   ownerName: Scalars['String'];
   ownerId: Scalars['ID'];
   createdAt: Scalars['String'];
   cardCount: Scalars['Int'];
   cards: Array<Card>;
+  rating: Scalars['Float'];
+  numberOfRatings: Scalars['Int'];
+  isDeckOwner: Scalars['Boolean'];
 };
 
 export type Card = {
@@ -134,7 +139,7 @@ export type TypeResolveFn<TTypes, TParent = {}, TContext = {}> = (
   info: GraphQLResolveInfo
 ) => Maybe<TTypes> | Promise<Maybe<TTypes>>;
 
-export type IsTypeOfResolverFn<T = {}> = (obj: T, info: GraphQLResolveInfo) => boolean | Promise<boolean>;
+export type IsTypeOfResolverFn<T = {}, TContext = {}> = (obj: T, context: TContext, info: GraphQLResolveInfo) => boolean | Promise<boolean>;
 
 export type NextResolverFn<T> = () => Promise<T>;
 
@@ -152,11 +157,12 @@ export type ResolversTypes = {
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
   ID: ResolverTypeWrapper<Scalars['ID']>;
   Int: ResolverTypeWrapper<Scalars['Int']>;
+  String: ResolverTypeWrapper<Scalars['String']>;
   Mutation: ResolverTypeWrapper<{}>;
   Subscription: ResolverTypeWrapper<{}>;
   EmptyResponse: ResolverTypeWrapper<EmptyResponse>;
   Deck: ResolverTypeWrapper<Deck>;
-  String: ResolverTypeWrapper<Scalars['String']>;
+  Float: ResolverTypeWrapper<Scalars['Float']>;
   Card: ResolverTypeWrapper<Card>;
 };
 
@@ -166,11 +172,12 @@ export type ResolversParentTypes = {
   Boolean: Scalars['Boolean'];
   ID: Scalars['ID'];
   Int: Scalars['Int'];
+  String: Scalars['String'];
   Mutation: {};
   Subscription: {};
   EmptyResponse: EmptyResponse;
   Deck: Deck;
-  String: Scalars['String'];
+  Float: Scalars['Float'];
   Card: Card;
 };
 
@@ -182,6 +189,7 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
   _?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
   getDeck?: Resolver<ResolversTypes['Deck'], ParentType, ContextType, RequireFields<QueryGetDeckArgs, 'deckID'>>;
   getAllDecks?: Resolver<Array<ResolversTypes['Deck']>, ParentType, ContextType, RequireFields<QueryGetAllDecksArgs, never>>;
+  getAllTags?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>;
 };
 
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
@@ -194,7 +202,7 @@ export type SubscriptionResolvers<ContextType = any, ParentType extends Resolver
 
 export type EmptyResponseResolvers<ContextType = any, ParentType extends ResolversParentTypes['EmptyResponse'] = ResolversParentTypes['EmptyResponse']> = {
   _?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type DeckResolvers<ContextType = any, ParentType extends ResolversParentTypes['Deck'] = ResolversParentTypes['Deck']> = {
@@ -205,12 +213,16 @@ export type DeckResolvers<ContextType = any, ParentType extends ResolversParentT
   deleted?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   published?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   imageUrl?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  thumbnailUrl?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   ownerName?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   ownerId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   createdAt?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   cardCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   cards?: Resolver<Array<ResolversTypes['Card']>, ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
+  rating?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
+  numberOfRatings?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  isDeckOwner?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type CardResolvers<ContextType = any, ParentType extends ResolversParentTypes['Card'] = ResolversParentTypes['Card']> = {
@@ -219,7 +231,7 @@ export type CardResolvers<ContextType = any, ParentType extends ResolversParentT
   question?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   answer?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   createdAt?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type Resolvers<ContextType = any> = {

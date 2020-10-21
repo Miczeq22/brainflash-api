@@ -63,6 +63,8 @@ import { RemoveRatingCommandHandler } from '@app/decks/remove-rating/remove-rati
 import { RefreshTokenCommandHandler } from '@app/user-access/refresh-token/refresh-token.command-handler';
 import { DeckPublishedSubscriber } from '@app/decks/publish-deck/deck-published.subscriber';
 import { DeckUnpublishedSubscriber } from '@app/decks/unpublish-deck/deck-unpublished.subscriber';
+import { TagsCacheRepository } from '@infrastructure/redis/domain/tags/tags.cache-repository';
+import { GetAllTagsQueryHandler } from '@app/decks/tags/get-all-tags/get-all-tags.query-handler';
 
 const registerAsArray = <T>(resolvers: Awilix.Resolver<T>[]): Awilix.Resolver<T[]> => ({
   resolve: (container: Awilix.AwilixContainer) => resolvers.map((r) => container.build(r)),
@@ -165,6 +167,7 @@ export const createAppContainer = async (): Promise<Awilix.AwilixContainer> => {
       Awilix.asClass(GetDeckByIdQueryHandler).singleton(),
       Awilix.asClass(GetAllDecksQueryHandler).singleton(),
       Awilix.asClass(GetCardsForDeckQueryHandler).singleton(),
+      Awilix.asClass(GetAllTagsQueryHandler).singleton(),
     ]),
   });
 
@@ -178,6 +181,7 @@ export const createAppContainer = async (): Promise<Awilix.AwilixContainer> => {
     redisClient: Awilix.asValue(redisClient),
     deckCacheRepository: Awilix.asClass(DeckCacheRepository).singleton(),
     cardCacheRepository: Awilix.asClass(CardCacheRepository).singleton(),
+    tagsCacheRepository: Awilix.asClass(TagsCacheRepository).singleton(),
   });
 
   const app = container.resolve<Server>('server').getApp();

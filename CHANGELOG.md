@@ -1,4 +1,4 @@
-#  (2020-10-07)
+#  (2020-10-21)
 
 
 ### Features
@@ -15,6 +15,7 @@
 - Enroll deck feature ([a0203b4](https://github.com/Miczeq22/brainflash-api/commit/a0203b470c00c70cd3dcbf3f237d22274c3f9fd9))
 - Error handler middleware ([d62e86f](https://github.com/Miczeq22/brainflash-api/commit/d62e86f46c1b8422a5b32d85680b8e12d2383a98))
 - Get all decks with simple pagination feature ([7944a0e](https://github.com/Miczeq22/brainflash-api/commit/7944a0eace71a6f0a8c398528a4a463fc7cde82a))
+- Get all tags query ([9df58e9](https://github.com/Miczeq22/brainflash-api/commit/9df58e96cbefb201fa2d0fcb2568c3984edfee05))
 - Get deck by id feature ([4264354](https://github.com/Miczeq22/brainflash-api/commit/42643549d6c27241c83a5f0ff828f3c10c5f1819))
 - Login feature ([0861cb1](https://github.com/Miczeq22/brainflash-api/commit/0861cb15d61f71a415772c962383713928251bf2))
 - Publish deck feature ([42a87c3](https://github.com/Miczeq22/brainflash-api/commit/42a87c362619b1513bbe40f49d922fb6bae30398))
@@ -26,6 +27,7 @@
 - Schedule deck ([74ea854](https://github.com/Miczeq22/brainflash-api/commit/74ea854216f0e5377ccbe1debcfbdea9856b6fa1))
 - Security Middleware ([08ea082](https://github.com/Miczeq22/brainflash-api/commit/08ea0826dfcd30484a390e23665a6e443a624dd0))
 - Server bootstrap ([9a1e2f2](https://github.com/Miczeq22/brainflash-api/commit/9a1e2f21d6db5e1b62a5df019e4a8bfb975fb921))
+- Thumbnail generation lambda ([790628a](https://github.com/Miczeq22/brainflash-api/commit/790628a95786a5a01041ec3107989d558247d12d))
 - Unpublish deck feature ([34a80fd](https://github.com/Miczeq22/brainflash-api/commit/34a80fd96ea21b7fa93cfc5034b558901f50ae06))
 - Unschedule deck feature ([a07bc54](https://github.com/Miczeq22/brainflash-api/commit/a07bc54cabf61f1381cc9842eeed57f4ebd1e1f8))
 - Update deck metadata feature ([bb931e6](https://github.com/Miczeq22/brainflash-api/commit/bb931e69bee1010d6a3373815591bf8a0961b24b))
@@ -38,17 +40,21 @@
 
 ### Refactoring & Improvements
 
-- Added isOwner to deck query field. Fixed bugs related to updating deck model after publish/unpublish ([e8fa2a4](https://github.com/Miczeq22/brainflash-api/commit/e8fa2a46080c26f478b08bf39d27446b16789972))
+- Added isOwner to deck query field. Fixed bugs related to updating deck model after publish/unpublish ([e059e9c](https://github.com/Miczeq22/brainflash-api/commit/e059e9c6ffbc16d45b50d88ac1a9e5eed04b01bd))
 - Added published prop to deck ([01745c6](https://github.com/Miczeq22/brainflash-api/commit/01745c6954f47cf6b14d6b79fd5103951315a486))
 - Added scheduled date validation ([d135a98](https://github.com/Miczeq22/brainflash-api/commit/d135a98796775719938a15874d3c7472fa8ac8dc))
 - Added single deck mock ([2eb09cb](https://github.com/Miczeq22/brainflash-api/commit/2eb09cb0ee295a5137c21471e37711c43802014e))
+- Added thuimbnail property ([2c6edc8](https://github.com/Miczeq22/brainflash-api/commit/2c6edc8047c7ba75c57df0732cfa5f15528cc027))
 - Added unauthenticated error ([339003f](https://github.com/Miczeq22/brainflash-api/commit/339003ff135248b2c3bc0db6f8e00b0fc1a28f2e))
 - Decks -> deck ([8d3c834](https://github.com/Miczeq22/brainflash-api/commit/8d3c83471d3394f47003ba5c50f3d49e212d3dde))
+- Fixed minor bugs ([55b0903](https://github.com/Miczeq22/brainflash-api/commit/55b09036cc71864554b1a524f5a00b37993ec5ca))
 - Get enrolled deck if is not public ([ebcb4a9](https://github.com/Miczeq22/brainflash-api/commit/ebcb4a9b86970cdac57d4ed562e74a4abd7caba5))
 - Query deck cards ([1b29d48](https://github.com/Miczeq22/brainflash-api/commit/1b29d4850e1ab5f516505440423d0ce6871d0df6))
 - Redirect user to front end after validation ([ae391e0](https://github.com/Miczeq22/brainflash-api/commit/ae391e04924560b1ec3116d12b55818e256c14a8))
 - Refactored domain events to use map instead object ([e4da6bf](https://github.com/Miczeq22/brainflash-api/commit/e4da6bf4d869aae81582bbe1a5dce3f94a7be88a))
+- Removed cache for decks in pagination ([0b27fab](https://github.com/Miczeq22/brainflash-api/commit/0b27fabdb1993c00d2caab324b05b1beda19f542))
 - Update deck read model ([a9007c6](https://github.com/Miczeq22/brainflash-api/commit/a9007c672a9ead5421f14aa72f0003dcd43464e4))
+- Updated PUT to PATCH method if makes sense ([f195bce](https://github.com/Miczeq22/brainflash-api/commit/f195bcec094bdb4e2141880c86f21d593df67270))
 
 
 ### Tooling
