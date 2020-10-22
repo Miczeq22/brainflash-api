@@ -49,8 +49,10 @@ export class DeckReadModelRepositoryImpl implements DeckReadModelRepository {
     const deckRatings = await this.dependencies.deckRatingRepository.findByDeck(deck.getId());
 
     const rating =
-      deckRatings.reduce((summary, currentRating) => summary + currentRating.getRating(), 0) /
-      deckRatings.length;
+      deckRatings.length === 0
+        ? 0
+        : deckRatings.reduce((summary, currentRating) => summary + currentRating.getRating(), 0) /
+          deckRatings.length;
 
     await this.dependencies.mongoClient
       .db()
