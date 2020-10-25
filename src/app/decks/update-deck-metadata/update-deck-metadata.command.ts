@@ -5,6 +5,7 @@ interface Payload {
   deckId: string;
   description?: string;
   tags?: string[];
+  imageUrl?: string;
 }
 
 export const UPDATE_DECK_METADATA_COMMAND = 'decks/update-deck-metadata';

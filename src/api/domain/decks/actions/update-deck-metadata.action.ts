@@ -13,6 +13,7 @@ export const updateDeckMetadataActionValidation = celebrate(
       deckId: Joi.string().uuid().required(),
       description: Joi.string().allow(null),
       tags: Joi.array().items(Joi.string().trim().required()).allow(null),
+      imageUrl: Joi.string().allow(null),
     }),
   },
   {
@@ -45,6 +46,9 @@ export const updateDeckMetadataActionValidation = celebrate(
  *                type: array
  *                items:
  *                  type: string
+ *                nullable: true
+ *              imageUrl:
+ *                type: string
  *                nullable: true
  *     responses:
  *       204:

@@ -21,7 +21,7 @@ export class UpdateDeckMetadataCommandHandler extends CommandHandler<UpdateDeckM
   }
 
   public async handle({
-    payload: { deckId, userId, description, tags },
+    payload: { deckId, userId, description, tags, imageUrl },
   }: UpdateDeckMetadataCommand) {
     const { deckRepository, deckReadModelRepository } = this.dependencies;
 
@@ -41,6 +41,10 @@ export class UpdateDeckMetadataCommandHandler extends CommandHandler<UpdateDeckM
 
     if (tags) {
       deck.updateTags(tags);
+    }
+
+    if (imageUrl) {
+      deck.updateImageUrl(imageUrl);
     }
 
     await deckRepository.update(deck);
