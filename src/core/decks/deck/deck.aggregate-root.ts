@@ -163,6 +163,10 @@ export class Deck extends AggregateRoot<DeckProps> {
     this.addDomainEvent(new DeckTagsUpdatedDomainEvent(this.id, tags));
   }
 
+  public updateImageUrl(imageUrl: string) {
+    this.props.imageUrl = imageUrl;
+  }
+
   public static instanceExisting(props: DeckProps, id: UniqueEntityID) {
     return new Deck(props, id);
   }
