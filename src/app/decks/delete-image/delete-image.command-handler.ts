@@ -50,6 +50,13 @@ export class DeleteImageCommandHandler extends CommandHandler<DeleteImageCommand
       })
       .promise();
 
+    await s3
+      .deleteObject({
+        Bucket: process.env.S3_BUCKET,
+        Key: `${deck.getImageUrl().split('.')[0]}-thumbnail.${deck.getImageUrl().split('.').pop()}`,
+      })
+      .promise();
+
     deck.updateImageUrl(null);
 
     await deckRepository.update(deck);
