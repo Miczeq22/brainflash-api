@@ -65,6 +65,7 @@ import { DeckPublishedSubscriber } from '@app/decks/publish-deck/deck-published.
 import { DeckUnpublishedSubscriber } from '@app/decks/unpublish-deck/deck-unpublished.subscriber';
 import { TagsCacheRepository } from '@infrastructure/redis/domain/tags/tags.cache-repository';
 import { GetAllTagsQueryHandler } from '@app/decks/tags/get-all-tags/get-all-tags.query-handler';
+import { DeleteImageCommandHandler } from '@app/decks/delete-image/delete-image.command-handler';
 
 const registerAsArray = <T>(resolvers: Awilix.Resolver<T>[]): Awilix.Resolver<T[]> => ({
   resolve: (container: Awilix.AwilixContainer) => resolvers.map((r) => container.build(r)),
@@ -130,6 +131,7 @@ export const createAppContainer = async (): Promise<Awilix.AwilixContainer> => {
       Awilix.asClass(AddRatingCommandHandler).singleton(),
       Awilix.asClass(RemoveRatingCommandHandler).singleton(),
       Awilix.asClass(RefreshTokenCommandHandler).singleton(),
+      Awilix.asClass(DeleteImageCommandHandler).singleton(),
     ]),
   });
 

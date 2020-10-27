@@ -1,4 +1,4 @@
-#  (2020-10-21)
+#  (2020-10-27)
 
 
 ### Features
@@ -11,11 +11,12 @@
 - Confirm user account feature ([cdb4508](https://github.com/Miczeq22/brainflash-api/commit/cdb45085547ee0baefac05c3726a57a706ca3d84))
 - CORS middleware ([8372ca3](https://github.com/Miczeq22/brainflash-api/commit/8372ca37caebd56533d39955684fd793e5582dbf))
 - Create new deck feature ([568d4b0](https://github.com/Miczeq22/brainflash-api/commit/568d4b09410d82eedfc4b2333290ce6173c13e29))
+- Delete deck image ([25f6cc8](https://github.com/Miczeq22/brainflash-api/commit/25f6cc8bcd4b5bc5fdaf1c7e6f2b135b3ad1335a))
 - Domain tools ([1ed8e4c](https://github.com/Miczeq22/brainflash-api/commit/1ed8e4cb026d418a42e511f144e77165af732d08))
 - Enroll deck feature ([a0203b4](https://github.com/Miczeq22/brainflash-api/commit/a0203b470c00c70cd3dcbf3f237d22274c3f9fd9))
 - Error handler middleware ([d62e86f](https://github.com/Miczeq22/brainflash-api/commit/d62e86f46c1b8422a5b32d85680b8e12d2383a98))
 - Get all decks with simple pagination feature ([7944a0e](https://github.com/Miczeq22/brainflash-api/commit/7944a0eace71a6f0a8c398528a4a463fc7cde82a))
-- Get all tags query ([9df58e9](https://github.com/Miczeq22/brainflash-api/commit/9df58e96cbefb201fa2d0fcb2568c3984edfee05))
+- Get all tags query ([ca14ac3](https://github.com/Miczeq22/brainflash-api/commit/ca14ac3395d4a9035b64e9e2fb24944e57de6987))
 - Get deck by id feature ([4264354](https://github.com/Miczeq22/brainflash-api/commit/42643549d6c27241c83a5f0ff828f3c10c5f1819))
 - Login feature ([0861cb1](https://github.com/Miczeq22/brainflash-api/commit/0861cb15d61f71a415772c962383713928251bf2))
 - Publish deck feature ([42a87c3](https://github.com/Miczeq22/brainflash-api/commit/42a87c362619b1513bbe40f49d922fb6bae30398))
@@ -54,7 +55,13 @@
 - Refactored domain events to use map instead object ([e4da6bf](https://github.com/Miczeq22/brainflash-api/commit/e4da6bf4d869aae81582bbe1a5dce3f94a7be88a))
 - Removed cache for decks in pagination ([0b27fab](https://github.com/Miczeq22/brainflash-api/commit/0b27fabdb1993c00d2caab324b05b1beda19f542))
 - Update deck read model ([a9007c6](https://github.com/Miczeq22/brainflash-api/commit/a9007c672a9ead5421f14aa72f0003dcd43464e4))
+- Update image in metadata endpoint ([18a4f33](https://github.com/Miczeq22/brainflash-api/commit/18a4f33a8dfdfc5c09332f43ee1ef36d204aab48))
 - Updated PUT to PATCH method if makes sense ([f195bce](https://github.com/Miczeq22/brainflash-api/commit/f195bcec094bdb4e2141880c86f21d593df67270))
+
+
+### Bug Fixes
+
+- Fixed rating calculation ([c2283b3](https://github.com/Miczeq22/brainflash-api/commit/c2283b33f1256d6c36abccd7e59b80b5a1b47276))
 
 
 ### Tooling

@@ -13,6 +13,7 @@ import { enrollDeckActionValidation } from './actions/enroll-deck.action';
 import { unpublishDeckActionValidation } from './actions/unpublish-deck.action';
 import { addRatingActionValidation } from './actions/add-rating.action';
 import { removeRatingActionValidation } from './actions/remove-rating.action';
+import { deleteDeckImageActionValidation } from './actions/delete-deck-image.action';
 
 interface Dependencies {
   createDeckAction: RequestHandler;
@@ -27,6 +28,7 @@ interface Dependencies {
   unpublishDeckAction: RequestHandler;
   addRatingAction: RequestHandler;
   removeRatingAction: RequestHandler;
+  deleteDeckImageAction: RequestHandler;
 }
 
 export class DeckController extends Controller {
@@ -107,6 +109,12 @@ export class DeckController extends Controller {
       '/remove-rating',
       [authorizationMiddleware, removeRatingActionValidation],
       this.dependencies.removeRatingAction,
+    );
+
+    router.delete(
+      '/delete-image',
+      [authorizationMiddleware, deleteDeckImageActionValidation],
+      this.dependencies.deleteDeckImageAction,
     );
 
     return router;
