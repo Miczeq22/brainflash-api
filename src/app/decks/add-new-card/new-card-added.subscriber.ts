@@ -8,11 +8,15 @@ import { DomainEvents } from '@core/shared/domain-events';
 import { Card } from '@core/cards/card/card.aggregate-root';
 import { Logger } from '@infrastructure/logger/logger';
 import { CardReadModelRepository } from '@infrastructure/mongo/domain/cards/card.read-model';
+import { DeckReadModelRepository } from '@infrastructure/mongo/domain/decks/deck.read-model';
+import { DeckRepository } from '@core/decks/deck/deck.repository';
 
 interface Dependencies {
   cardReadModelRepository: CardReadModelRepository;
   cardRepository: CardRepository;
   logger: Logger;
+  deckReadModelRepository: DeckReadModelRepository;
+  deckRepository: DeckRepository;
 }
 
 export class NewCardAddedSubscriber extends DomainSubscriber<NewCardAddedDomainEvent> {
@@ -25,7 +29,13 @@ export class NewCardAddedSubscriber extends DomainSubscriber<NewCardAddedDomainE
   }
 
   public async saveCardToDatabase(event: NewCardAddedDomainEvent) {
-    const { cardRepository, cardReadModelRepository, logger } = this.dependencies;
+    const {
+      cardRepository,
+      cardReadModelRepository,
+      logger,
+      deckReadModelRepository,
+      deckRepository,
+    } = this.dependencies;
 
     const card = Card.createNew(
       {
@@ -39,6 +49,10 @@ export class NewCardAddedSubscriber extends DomainSubscriber<NewCardAddedDomainE
     await cardRepository.insert(card);
 
     await cardReadModelRepository.insert(card);
+
+    const deck = await deckRepository.findById(card.getDeckId().getValue());
+
+    await deckReadModelRepository.update(deck);
 
     logger.info('Card saved to database.');
   }
