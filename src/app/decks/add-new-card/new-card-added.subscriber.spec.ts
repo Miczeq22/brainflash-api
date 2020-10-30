@@ -6,11 +6,15 @@ import { NewCardAddedDomainEvent } from '@core/decks/deck/events/new-card-added.
 import { UniqueEntityID } from '@core/shared/unique-entity-id';
 import { Card } from '@core/decks/card/card.entity';
 import { CardReadModelRepository } from '@infrastructure/mongo/domain/cards/card.read-model';
+import { DeckRepository } from '@core/decks/deck/deck.repository';
+import { DeckReadModelRepository } from '@infrastructure/mongo/domain/decks/deck.read-model';
 
 describe('[App] New card added subscriber', () => {
   const cardRepository = createMockProxy<CardRepository>();
   const logger = createMockProxy<Logger>();
   const cardReadModelRepository = createMockProxy<CardReadModelRepository>();
+  const deckRepository = createMockProxy<DeckRepository>();
+  const deckReadModelRepository = createMockProxy<DeckReadModelRepository>();
 
   beforeEach(() => {
     cardRepository.mockClear();
@@ -23,6 +27,8 @@ describe('[App] New card added subscriber', () => {
       cardRepository,
       logger,
       cardReadModelRepository,
+      deckReadModelRepository,
+      deckRepository,
     });
 
     await subscriber.saveCardToDatabase(
